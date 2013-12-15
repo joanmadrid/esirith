@@ -1,0 +1,5 @@
+game_map:
+    resource: "@GameMapBundle/Controller"
+    prefix:   /map
+    type:     annotation
+

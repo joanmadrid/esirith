@@ -1,0 +1,7 @@
+parameters:
+#    game_map.example.class: Game\MapBundle\Example
+
+services:
+#    game_map.example:
+#        class: %game_map.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
