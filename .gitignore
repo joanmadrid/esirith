@@ -9,6 +9,7 @@
 /vendor/
 /bin/
 /composer.phar
+composer.lock
 
 #a quitar
 .idea/

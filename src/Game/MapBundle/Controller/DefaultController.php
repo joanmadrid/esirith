@@ -4,41 +4,21 @@ namespace Game\MapBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Game\MapBundle\Entity\Map;
-use Game\MapBundle\Entity\Poi;
-use Game\MapBundle\Entity\Path;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/test", name="map_test")
+     * @Route("/test/{id}", name="map_test")
+     * @Template()
+     * @ParamConverter("map", class="GameMapBundle:Map")
      */
-    public function testAction()
+    public function testAction(Map $map)
     {
-        $map = new Map();
-        $map->setName('Mapa del mundo');
-        $map->setFilename('map.png');
-
-        $poi = new Poi();
-        $poi->setName('Wyvernstone');
-        $poi->setX(145);
-        $poi->setY(620);
-        $map->addPoi($poi);
-
-        $poi = new Poi();
-        $poi->setName('Cruce de Shadewood');
-        $poi->setX(278);
-        $poi->setY(554);
-        $map->addPoi($poi);
-
-        $path = new Path();
-
-
-
-        return $this->render('GameMapBundle:Default:test.html.twig',
-            array(
-                'map' => $map
-            )
+        return array(
+            'map' => $map
         );
     }
 }
