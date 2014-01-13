@@ -1,5 +1,9 @@
-game_map:
-    resource: "@GameMapBundle/Controller"
-    prefix:   /map
+game_map_travel:
+    resource: "@GameMapBundle/Controller/TravelController.php"
+    prefix:   /map/travel
     type:     annotation
 
+game_map:
+    resource: "@GameMapBundle/Controller/DefaultController.php"
+    prefix:   /map
+    type:     annotation

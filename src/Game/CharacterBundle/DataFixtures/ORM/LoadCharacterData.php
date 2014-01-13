@@ -1,12 +1,13 @@
 <?php
 namespace Game\CharacterBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Game\CharacterBundle\Entity\Character;
 
-class LoadUserData implements FixtureInterface
+class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * {@inheritDoc}
@@ -15,8 +16,16 @@ class LoadUserData implements FixtureInterface
     {
         $char = new Character();
         $char->setName('Conan');
+        $char->setCurrentPoi($this->getReference('poi-start'));
         $manager->persist($char);
-
         $manager->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrder()
+    {
+        return 2;
     }
 }

@@ -1,0 +1,29 @@
+<style type="text/css">
+    .map-wrapper {
+        position: relative;
+    }
+    .map-poi {
+        position:absolute;
+        width:20px;
+        height:20px;
+        cursor:pointer;
+        border:1px solid #ccc;
+    }
+    .map-poi:hover {
+        box-shadow: 0px 0px 15px red;
+        border:1px solid red;
+    }
+
+    .current-poi {
+        background-color:white;
+    }
+</style>
+
+<p>{{ char.name }} is in {{ char.currentpoi.name }}</p>
+<div class="map-wrapper">
+    {% for poi in map.pois %}
+    <a href="{{ path('map.travel.to', {'id':poi.id}) }}" class="map-poi{% if poi == char.currentpoi %} current-poi{% endif %}" style="top:{{ poi.y-10 }}px; left:{{ poi.x-10 }}px;"></a>
+    {% endfor %}
+    <img src="{{asset('bundles/gamemap/images/'~map.filename) }}" />
+</div>
+

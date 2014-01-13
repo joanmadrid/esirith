@@ -18,7 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Game\MapBundle\GameMapBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Game\CharacterBundle\GameCharacterBundle()
+            new Game\CharacterBundle\GameCharacterBundle(),
+            new Game\CoreBundle\GameCoreBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

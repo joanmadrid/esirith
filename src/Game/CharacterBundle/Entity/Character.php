@@ -3,6 +3,7 @@
 namespace Game\CharacterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\MapBundle\Entity\Poi;
 
 /**
  * Character
@@ -27,6 +28,12 @@ class Character
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="characters")
+     * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
+     */
+    protected $currentPoi;
 
     /**
      * Get id
@@ -59,5 +66,28 @@ class Character
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set currentPoi
+     *
+     * @param \Game\MapBundle\Entity\Poi $currentPoi
+     * @return Character
+     */
+    public function setCurrentPoi(\Game\MapBundle\Entity\Poi $currentPoi = null)
+    {
+        $this->currentPoi = $currentPoi;
+    
+        return $this;
+    }
+
+    /**
+     * Get currentPoi
+     *
+     * @return \Game\MapBundle\Entity\Poi 
+     */
+    public function getCurrentPoi()
+    {
+        return $this->currentPoi;
     }
 }
