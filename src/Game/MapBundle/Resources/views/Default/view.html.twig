@@ -6,7 +6,6 @@
         position:absolute;
         width:20px;
         height:20px;
-        cursor:pointer;
         border:1px solid #ccc;
     }
     .map-poi:hover {
@@ -27,8 +26,9 @@
     {% endfor %}
 </p>
 <div class="map-wrapper">
-    {% for poi in map.pois %}
-    <a href="{{ path('map.travel.to', {'id':poi.id}) }}" title="{{ poi.name }}" class="map-poi{% if poi == char.currentpoi %} current-poi{% endif %}" style="top:{{ poi.y-10 }}px; left:{{ poi.x-10 }}px;"></a>
+    <a href="#" title="{{ char.currentpoi.name }}" class="map-poi current-poi" style="top:{{ char.currentpoi.y-10 }}px; left:{{ char.currentpoi.x-10 }}px;"></a>
+    {% for paths in char.currentpoi.startpaths %}
+    <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>
     {% endfor %}
     <img src="{{asset('bundles/gamemap/images/'~map.filename) }}" />
 </div>

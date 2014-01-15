@@ -56,6 +56,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $paths[] = array(2, 6);
         $paths[] = array(2, 7);
         $paths[] = array(3, 4);
+        $paths[] = array(3, 5);
         $paths[] = array(4, 5);
 
         foreach ($paths as $path) {
