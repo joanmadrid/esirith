@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Game\MapBundle\Entity\Poi;
 
 /**
  * MapRepository
@@ -12,4 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class MapRepository extends EntityRepository
 {
+    /**
+     * Busca un Path que vaya en dirección al Poi
+     *
+     * @param Poi $start
+     * @param Poi $end
+     * @internal param \Game\MapBundle\Entity\Poi $poi
+     * @return mixed
+     */
+    public function findPathToPoi(Poi $start, Poi $end)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('SELECT p FROM GameMapBundle:Path p WHERE p.start=:start AND p.end=:end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end);
+
+        return $query->getOneOrNullResult();
+    }
 }

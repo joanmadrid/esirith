@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\MapBundle\Entity\Poi;
 
 /**
  * Path
@@ -27,6 +28,18 @@ class Path
      * @ORM\Column(name="danger", type="decimal")
      */
     private $danger;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Poi", inversedBy="startPaths")
+     * @ORM\JoinColumn(name="start_id", referencedColumnName="id")
+     */
+    private $start;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Poi", inversedBy="endPaths")
+     * @ORM\JoinColumn(name="end_id", referencedColumnName="id")
+     */
+    private $end;
 
 
     /**
@@ -60,5 +73,51 @@ class Path
     public function getDanger()
     {
         return $this->danger;
+    }
+
+    /**
+     * Set start
+     *
+     * @param Poi $start
+     * @return Path
+     */
+    public function setStart(Poi $start = null)
+    {
+        $this->start = $start;
+    
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return Poi
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set end
+     *
+     * @param Poi $end
+     * @return Path
+     */
+    public function setEnd(Poi $end = null)
+    {
+        $this->end = $end;
+    
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return Poi
+     */
+    public function getEnd()
+    {
+        return $this->end;
     }
 }

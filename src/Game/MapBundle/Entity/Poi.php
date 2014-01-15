@@ -48,6 +48,11 @@ class Poi
      */
     protected $map;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Path", mappedBy="start")
+     */
+    protected $startPaths;
+
 
     /**
      * Get id
@@ -149,5 +154,45 @@ class Poi
     public function getMap()
     {
         return $this->map;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->startPaths = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add startPaths
+     *
+     * @param \Game\MapBundle\Entity\Path $startPaths
+     * @return Poi
+     */
+    public function addStartPath(\Game\MapBundle\Entity\Path $startPaths)
+    {
+        $this->startPaths[] = $startPaths;
+    
+        return $this;
+    }
+
+    /**
+     * Remove startPaths
+     *
+     * @param \Game\MapBundle\Entity\Path $startPaths
+     */
+    public function removeStartPath(\Game\MapBundle\Entity\Path $startPaths)
+    {
+        $this->startPaths->removeElement($startPaths);
+    }
+
+    /**
+     * Get startPaths
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStartPaths()
+    {
+        return $this->startPaths;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Game\MapBundle\Controller;
 
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -22,7 +23,16 @@ class TravelController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->find(1);
+        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
+
+        //miro si hay peligro
+        $path = $this->getDoctrine()->getRepository('GameMapBundle:Map')->findPathToPoi($char->getCurrentPoi(), $poi);
+        if (!$path) {
+            throw $this->createNotFoundException('Path not found');
+        }
+        $danger = $path->getDanger();
+        $diceRoll = mt_rand(1, 100);
+        $triggerCombat = $diceRoll < $danger;
 
         //guardo nueva posicion
         $char->setCurrentPoi($poi);
@@ -31,7 +41,10 @@ class TravelController extends Controller
 
         return array(
             'char' => $char,
-            'poi' => $poi
+            'poi' => $poi,
+            'dice' => $diceRoll,
+            'danger' => $danger,
+            'combat' => $triggerCombat
         );
     }
 }

@@ -18,7 +18,7 @@ class DefaultController extends Controller
     public function viewAction(Map $map)
     {
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->find(1);
+        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
 
         return array(
             'char' => $char,

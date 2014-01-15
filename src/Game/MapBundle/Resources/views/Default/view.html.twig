@@ -15,14 +15,20 @@
     }
 
     .current-poi {
-        background-color:white;
+        border-color:green;
     }
 </style>
 
 <p>{{ char.name }} is in {{ char.currentpoi.name }}</p>
+<p>
+    Could travel to:
+    {% for paths in char.currentpoi.startpaths %}
+    <li><a href="{{ path('map.travel.to', {'id':paths.end.id}) }}">{{ paths.end.name }}</a></li>
+    {% endfor %}
+</p>
 <div class="map-wrapper">
     {% for poi in map.pois %}
-    <a href="{{ path('map.travel.to', {'id':poi.id}) }}" class="map-poi{% if poi == char.currentpoi %} current-poi{% endif %}" style="top:{{ poi.y-10 }}px; left:{{ poi.x-10 }}px;"></a>
+    <a href="{{ path('map.travel.to', {'id':poi.id}) }}" title="{{ poi.name }}" class="map-poi{% if poi == char.currentpoi %} current-poi{% endif %}" style="top:{{ poi.y-10 }}px; left:{{ poi.x-10 }}px;"></a>
     {% endfor %}
     <img src="{{asset('bundles/gamemap/images/'~map.filename) }}" />
 </div>
