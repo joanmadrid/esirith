@@ -12,6 +12,10 @@ game_character_inventory:
     resource: "@GameCharacterBundle/Controller/InventoryController.php"
     prefix:   /character/inventory
     type:     annotation
+game_npc:
+    resource: "@NpcBundle/Controller/"
+    type:     annotation
+    prefix:   /
 
 game_map_travel:
     resource: "@GameMapBundle/Controller/TravelController.php"
