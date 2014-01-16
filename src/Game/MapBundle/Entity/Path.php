@@ -9,7 +9,7 @@ use Game\MapBundle\Entity\Poi;
  * Path
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\PathRepository")
+ * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\Repository\PathRepository")
  */
 class Path
 {

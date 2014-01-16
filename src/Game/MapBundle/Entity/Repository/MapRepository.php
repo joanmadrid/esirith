@@ -1,6 +1,6 @@
 <?php
 
-namespace Game\MapBundle\Entity;
+namespace Game\MapBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Game\MapBundle\Entity\Poi;

@@ -1,17 +1,21 @@
 <?php
 
-namespace Game\CharacterBundle\Entity;
+namespace Game\ItemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Game\MapBundle\Entity\Poi;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
- * Character
+ * Item
  *
- * @ORM\Table(name="`Character`")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\ItemBundle\Entity\Repository\ItemRepository")
+ * @ORM\Table()
+ * @ORM\InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="type", type="smallint")
+ * @DiscriminatorMap({"1" = "Game\ItemBundle\Entity\Weapon"})
  */
-class Character
+abstract class Item
 {
     /**
      * @var integer
@@ -29,11 +33,9 @@ class Character
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="characters")
-     * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
-     */
-    protected $currentPoi;
+    public function __construct()
+    {
+    }
 
     /**
      * Get id
@@ -49,7 +51,7 @@ class Character
      * Set name
      *
      * @param string $name
-     * @return Character
+     * @return Item
      */
     public function setName($name)
     {
@@ -66,28 +68,5 @@ class Character
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set currentPoi
-     *
-     * @param Poi $currentPoi
-     * @return Character
-     */
-    public function setCurrentPoi(Poi $currentPoi = null)
-    {
-        $this->currentPoi = $currentPoi;
-    
-        return $this;
-    }
-
-    /**
-     * Get currentPoi
-     *
-     * @return Poi
-     */
-    public function getCurrentPoi()
-    {
-        return $this->currentPoi;
     }
 }
