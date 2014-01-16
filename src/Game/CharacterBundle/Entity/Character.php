@@ -71,10 +71,10 @@ class Character
     /**
      * Set currentPoi
      *
-     * @param \Game\MapBundle\Entity\Poi $currentPoi
+     * @param Poi $currentPoi
      * @return Character
      */
-    public function setCurrentPoi(\Game\MapBundle\Entity\Poi $currentPoi = null)
+    public function setCurrentPoi(Poi $currentPoi = null)
     {
         $this->currentPoi = $currentPoi;
     
@@ -84,7 +84,7 @@ class Character
     /**
      * Get currentPoi
      *
-     * @return \Game\MapBundle\Entity\Poi 
+     * @return Poi
      */
     public function getCurrentPoi()
     {

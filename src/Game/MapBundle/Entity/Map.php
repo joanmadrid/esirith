@@ -2,13 +2,14 @@
 
 namespace Game\MapBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Map
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\MapRepository")
+ * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\Repository\MapRepository")
  */
 class Map
 {
@@ -101,7 +102,7 @@ class Map
      */
     public function __construct()
     {
-        $this->pois = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pois = new ArrayCollection();
     }
     
     /**
@@ -110,7 +111,7 @@ class Map
      * @param \Game\MapBundle\Entity\Poi $pois
      * @return Map
      */
-    public function addPoi(\Game\MapBundle\Entity\Poi $pois)
+    public function addPoi(Poi $pois)
     {
         $this->pois[] = $pois;
     
@@ -122,7 +123,7 @@ class Map
      *
      * @param \Game\MapBundle\Entity\Poi $pois
      */
-    public function removePoi(\Game\MapBundle\Entity\Poi $pois)
+    public function removePoi(Poi $pois)
     {
         $this->pois->removeElement($pois);
     }

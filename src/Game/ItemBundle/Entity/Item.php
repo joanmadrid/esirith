@@ -9,12 +9,13 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 /**
  * Item
  *
+ * @ORM\Entity(repositoryClass="Game\ItemBundle\Entity\Repository\ItemRepository")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\ItemBundle\Entity\ItemRepository")
- * @DiscriminatorColumn(name="type", type="integer")
- * @DiscriminatorMap({"1" = "Weapon"})
+ * @ORM\InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="type", type="smallint")
+ * @DiscriminatorMap({"1" = "Game\ItemBundle\Entity\Weapon"})
  */
-class Item
+abstract class Item
 {
     /**
      * @var integer
@@ -32,6 +33,9 @@ class Item
      */
     private $name;
 
+    public function __construct()
+    {
+    }
 
     /**
      * Get id

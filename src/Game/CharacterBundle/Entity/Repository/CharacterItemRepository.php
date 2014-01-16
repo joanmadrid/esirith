@@ -1,6 +1,6 @@
 <?php
 
-namespace Game\CharacterBundle\Entity;
+namespace Game\CharacterBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

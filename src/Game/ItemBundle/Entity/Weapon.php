@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Weapon
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\ItemBundle\Entity\WeaponRepository")
+ * @ORM\Entity(repositoryClass="Game\ItemBundle\Entity\Repository\WeaponRepository")
  */
 class Weapon extends Item
 {
@@ -28,6 +28,10 @@ class Weapon extends Item
      */
     private $damage;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get id

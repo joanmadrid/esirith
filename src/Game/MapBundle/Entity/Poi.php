@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Poi
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\PoiRepository")
+ * @ORM\Entity(repositoryClass="Game\MapBundle\Entity\Repository\PoiRepository")
  */
 class Poi
 {

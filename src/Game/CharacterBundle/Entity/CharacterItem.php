@@ -3,12 +3,13 @@
 namespace Game\CharacterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\ItemBundle\Entity\Item;
 
 /**
  * CharacterItem
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\CharacterBundle\Entity\CharacterItemRepository")
+ * @ORM\Entity(repositoryClass="Game\CharacterBundle\Entity\Repository\CharacterItemRepository")
  */
 class CharacterItem
 {
@@ -47,10 +48,10 @@ class CharacterItem
     /**
      * Set item
      *
-     * @param \Game\ItemBundle\Item $item
+     * @param Item $item
      * @return CharacterItem
      */
-    public function setItem(\Game\ItemBundle\Item $item = null)
+    public function setItem(Item $item = null)
     {
         $this->item = $item;
     
@@ -60,7 +61,7 @@ class CharacterItem
     /**
      * Get item
      *
-     * @return \Game\ItemBundle\Item 
+     * @return Item
      */
     public function getItem()
     {
@@ -70,10 +71,10 @@ class CharacterItem
     /**
      * Set character
      *
-     * @param \Game\CharacterBundle\Entity\Character $character
+     * @param Character $character
      * @return CharacterItem
      */
-    public function setCharacter(\Game\CharacterBundle\Entity\Character $character = null)
+    public function setCharacter(Character $character = null)
     {
         $this->character = $character;
     
@@ -83,7 +84,7 @@ class CharacterItem
     /**
      * Get character
      *
-     * @return \Game\CharacterBundle\Entity\Character 
+     * @return Character
      */
     public function getCharacter()
     {
