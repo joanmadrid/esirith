@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Game\CharacterBundle\Entity\Character;
+use Game\CharacterBundle\Entity\CharacterItem;
 
 class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -18,6 +19,12 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
         $char->setName('Conan');
         $char->setCurrentPoi($this->getReference('poi-start'));
         $manager->persist($char);
+
+        $gear = new CharacterItem();
+        $gear->setItem($this->getReference('weapon-long-sword'));
+        $gear->setCharacter($char);
+        $manager->persist($gear);
+
         $manager->flush();
     }
 
@@ -26,6 +33,6 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }

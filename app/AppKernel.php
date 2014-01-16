@@ -19,7 +19,8 @@ class AppKernel extends Kernel
             new Game\MapBundle\GameMapBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Game\CharacterBundle\GameCharacterBundle(),
-            new Game\CoreBundle\GameCoreBundle()
+            new Game\CoreBundle\GameCoreBundle(),
+            new Game\ItemBundle\GameItemBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
