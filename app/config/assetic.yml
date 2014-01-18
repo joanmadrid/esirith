@@ -1,0 +1,10 @@
+assetic:
+    filters:
+        cssrewrite: ~
+        lessphp:
+            apply_to: "\.less$"
+            # Formatter options: compressed, lessjs, classic
+            formatter: "compressed"
+            preserve_comments: false
+#            presets:
+#                my_variable: "#000"
