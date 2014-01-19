@@ -11,7 +11,7 @@ use Game\MapBundle\Entity\Map;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/view/{id}", name="map.view")
+     * @Route("/view/{id}", name="map.view", requirements={"id" = "\d+"}, defaults={"id" = 1})
      * @Template()
      * @ParamConverter("map", class="GameMapBundle:Map")
      */
