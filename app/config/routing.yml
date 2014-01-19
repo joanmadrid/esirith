@@ -3,6 +3,11 @@ game_ui:
     prefix:   /
     type:     annotation
 
+game_character_inventory:
+    resource: "@GameCharacterBundle/Controller/InventoryController.php"
+    prefix:   /character/inventory
+    type:     annotation
+
 game_map_travel:
     resource: "@GameMapBundle/Controller/TravelController.php"
     prefix:   /map/travel

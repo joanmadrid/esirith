@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Inventory</h1>
+
+    <ul>
+        {% for characterItem in items %}
+        <li>{{ characterItem.item.name }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace Game\CharacterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Game\ItemBundle\Entity\Item;
+use Game\CharacterBundle\Entity\Character;
 
 /**
  * CharacterItem

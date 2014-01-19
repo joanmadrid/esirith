@@ -53,6 +53,11 @@ class Poi
      */
     protected $startPaths;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\Character", mappedBy="currentPoi")
+     */
+    protected $characters;
+
 
     /**
      * Get id

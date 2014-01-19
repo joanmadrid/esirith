@@ -33,6 +33,11 @@ abstract class Item
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\CharacterItem", mappedBy="item")
+     */
+    protected $characterItems;
+
     public function __construct()
     {
     }

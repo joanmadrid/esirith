@@ -3,6 +3,8 @@
 namespace Game\CharacterBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Game\CharacterBundle\Entity\Character;
+//use Game\CharacterBundle\Entity\CharacterItem;
 
 /**
  * CharacterItemRepository
@@ -12,4 +14,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class CharacterItemRepository extends EntityRepository
 {
+    /**
+     * Devuelve los items de un personaje
+     *
+     * @param $char
+     * @return array
+     */
+    public function findItemsByCharacter($char)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT
+                    ci, it
+                FROM
+                    GameCharacterBundle:CharacterItem ci
+                JOIN
+                    ci.item it
+                WHERE
+                    ci.character = :char'
+            )
+            ->setParameter('char', $char)
+            ->getResult();
+    }
 }

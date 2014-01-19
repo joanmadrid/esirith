@@ -5,6 +5,8 @@ namespace Game\CharacterBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Game\MapBundle\Entity\Poi;
 
+use Game\CharacterBundle\Entity\CharacterItem;
+
 /**
  * Character
  *
@@ -34,6 +36,19 @@ class Character
      * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
      */
     protected $currentPoi;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CharacterItem", mappedBy="character")
+     */
+    protected $characterItems;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->characterItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -89,5 +104,38 @@ class Character
     public function getCurrentPoi()
     {
         return $this->currentPoi;
+    }
+
+    /**
+     * Add characterItems
+     *
+     * @param CharacterItem $characterItems
+     * @return Character
+     */
+    public function addCharacterItem(CharacterItem $characterItems)
+    {
+        $this->characterItems[] = $characterItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove characterItems
+     *
+     * @param CharacterItem $characterItems
+     */
+    public function removeCharacterItem(CharacterItem $characterItems)
+    {
+        $this->characterItems->removeElement($characterItems);
+    }
+
+    /**
+     * Get characterItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCharacterItems()
+    {
+        return $this->characterItems;
     }
 }
