@@ -2,15 +2,37 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Game.dev{% endblock %}</title>
+
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets '../app/Resources/public/less/game.less' %}
+
+        <link href="http://fonts.googleapis.com/css?family=Fondamento" rel="stylesheet" type="text/css">
+        {% stylesheets 'bundles/gameui/less/game.less' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="outer">
+            <div class="header">
+                <a class="logo" href=""></a>
+                <ul>
+                    <li><a class="menu-faq" href=""></a></li>
+                    <li><a class="menu-search" href=""></a></li>
+                    <li><a class="menu-members" href=""></a></li>
+                    <li><a class="menu-groups" href=""></a></li>
+                    <li><a class="menu-profile" href=""></a></li>
+                    <li><a class="menu-pm" href=""></a></li>
+                    <li><a class="menu-login" href=""></a></li>
+                </ul>
+            </div>
+            <div class="inner">
+                {% block body %}{% endblock %}
+            </div>
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

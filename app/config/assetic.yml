@@ -1,10 +1,8 @@
 assetic:
+    use_controller: false
+    bundles:        [ GameUIBundle ]
     filters:
         cssrewrite: ~
         lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
             apply_to: "\.less$"
-            # Formatter options: compressed, lessjs, classic
-            formatter: "compressed"
-            preserve_comments: false
-#            presets:
-#                my_variable: "#000"
