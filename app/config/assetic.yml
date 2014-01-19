@@ -1,0 +1,8 @@
+assetic:
+    use_controller: false
+    bundles:        [ GameUIBundle ]
+    filters:
+        cssrewrite: ~
+        lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"

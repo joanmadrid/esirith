@@ -1,22 +1,7 @@
-<style type="text/css">
-    .map-wrapper {
-        position: relative;
-    }
-    .map-poi {
-        position:absolute;
-        width:20px;
-        height:20px;
-        border:1px solid #ccc;
-    }
-    .map-poi:hover {
-        box-shadow: 0px 0px 15px red;
-        border:1px solid red;
-    }
+{% extends "::base.html.twig" %}
 
-    .current-poi {
-        border-color:green;
-    }
-</style>
+{% block body %}
+<h1>Mapa</h1>
 
 <p>{{ char.name }} is in {{ char.currentpoi.name }}</p>
 <p>
@@ -32,4 +17,4 @@
     {% endfor %}
     <img src="{{asset('bundles/gamemap/images/'~map.filename) }}" />
 </div>
-
+{% endblock %}

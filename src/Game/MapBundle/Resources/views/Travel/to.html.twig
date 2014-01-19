@@ -1,3 +1,7 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h1>Travel</h1>
 <p>{{ char.name }} is travelling to {{ poi.name }}...</p>
 <p>
     Checking if you encounter some problems...<br />
@@ -6,3 +10,4 @@
     {% if combat %}Someone stumbled upon you!{% else %}You don't find any problems{% endif %}
 </p>
 <p><a href="{{ path('map.view', {'id':poi.map.id}) }}">View map</a></p>
+{% endblock %}
