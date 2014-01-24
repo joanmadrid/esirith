@@ -36,6 +36,11 @@ class CharacterItem
      */
     private $character;
 
+    /**
+     * @ORM\Column(name="equipped", type="boolean")
+     */
+    private $equipped = false;
+
 
     /**
      * Get id
@@ -91,5 +96,28 @@ class CharacterItem
     public function getCharacter()
     {
         return $this->character;
+    }
+
+    /**
+     * Set equipped
+     *
+     * @param boolean $equipped
+     * @return CharacterItem
+     */
+    public function setEquipped($equipped)
+    {
+        $this->equipped = $equipped;
+    
+        return $this;
+    }
+
+    /**
+     * Get equipped
+     *
+     * @return boolean 
+     */
+    public function getEquipped()
+    {
+        return $this->equipped;
     }
 }

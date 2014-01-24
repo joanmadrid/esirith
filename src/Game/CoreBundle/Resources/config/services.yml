@@ -1,0 +1,6 @@
+services:
+    core.core_manager:
+        abstract:  true
+        class: Game\CoreBundle\Manager\CoreManager
+        calls:
+            - [ setEntityProperties, [ @doctrine.orm.entity_manager ] ]

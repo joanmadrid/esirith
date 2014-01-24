@@ -5,7 +5,14 @@
 
     <ul>
         {% for characterItem in items %}
-        <li>{{ characterItem.item.name }}</li>
+        <li>
+            {{ characterItem.item.name }}
+            {% if characterItem.equipped %}
+            <a href="{{ path('character.inventory.unequip', {id:characterItem.id}) }}">Unequip</a>
+            {% else %}
+            <a href="{{ path('character.inventory.equip', {id:characterItem.id}) }}">Equip</a>
+            {% endif %}
+        </li>
         {% endfor %}
     </ul>
 

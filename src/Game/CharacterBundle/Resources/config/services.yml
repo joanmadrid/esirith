@@ -1,0 +1,9 @@
+parameters:
+    character.characteritem.class: Game\CharacterBundle\Manager\CharacterItemManager
+    character.characteritem.entity: Game\CharacterBundle\Entity\CharacterItem
+
+services:
+    character.characteritem_manager:
+        class: %character.characteritem.class%
+        arguments: [%character.characteritem.entity%]
+        parent: core.core_manager
