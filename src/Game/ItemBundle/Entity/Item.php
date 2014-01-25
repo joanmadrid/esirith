@@ -74,4 +74,37 @@ abstract class Item
     {
         return $this->name;
     }
+
+    /**
+     * Add characterItems
+     *
+     * @param \Game\CharacterBundle\Entity\CharacterItem $characterItems
+     * @return Item
+     */
+    public function addCharacterItem(\Game\CharacterBundle\Entity\CharacterItem $characterItems)
+    {
+        $this->characterItems[] = $characterItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove characterItems
+     *
+     * @param \Game\CharacterBundle\Entity\CharacterItem $characterItems
+     */
+    public function removeCharacterItem(\Game\CharacterBundle\Entity\CharacterItem $characterItems)
+    {
+        $this->characterItems->removeElement($characterItems);
+    }
+
+    /**
+     * Get characterItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCharacterItems()
+    {
+        return $this->characterItems;
+    }
 }
