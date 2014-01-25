@@ -16,8 +16,13 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
         $char = new Character();
-        $char->setName('Conan');
-        $char->setCurrentPoi($this->getReference('poi-start'));
+        $char
+            ->setName('Conan')
+            ->setHp(20)
+            ->setCurrentHp(20)
+            ->setDamage(3)
+            ->setCurrentPoi($this->getReference('poi-start'));
+
         $manager->persist($char);
 
         $gear = new CharacterItem();

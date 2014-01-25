@@ -1,8 +1,10 @@
 <?php
+
 namespace Game\NpcBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Class Npc
@@ -10,11 +12,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity()
  * @UniqueEntity("internalName")
  *
- * @ORM\Table(name="npc", options={"comment" = "Tabla de npc's"})
+ * @ORM\Table(name="race", options={"comment" = "Tabla de razas"})
  *
  * @package Game\NpcBundle\Entity
  */
-class Npc
+class Race
 {
     /**
      * @var integer
@@ -24,12 +26,6 @@ class Npc
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Game\NpcBundle\Entity\Race")
-     * @ORM\JoinColumn(name="race_id", referencedColumnName="id")
-     */
-    protected $race;
 
     /**
      * @var string
@@ -46,45 +42,11 @@ class Npc
     protected $name;
 
     /**
-     * @var int
+     * @var boolean
      *
-     * @ORM\Column(name="hp", type="integer")
+     * @ORM\Column(name="selectable", type="boolean")
      */
-    protected $hp;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="current_hp", type="integer")
-     */
-    protected $currentHp;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="damage", type="integer")
-     */
-    protected $damage;
-
-    /**
-     * @param int $hp
-     *
-     * @return $this
-     */
-    public function setHp($hp)
-    {
-        $this->hp = $hp;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHp()
-    {
-        return $this->hp;
-    }
+    protected $selectable;
 
     /**
      * @param int $id
@@ -147,62 +109,22 @@ class Npc
     }
 
     /**
-     * @param int $damage
+     * @param boolean $selectable
      *
      * @return $this
      */
-    public function setDamage($damage)
+    public function setSelectable($selectable)
     {
-        $this->damage = $damage;
+        $this->selectable = $selectable;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return boolean
      */
-    public function getDamage()
+    public function isSelectable()
     {
-        return $this->damage;
-    }
-
-    /**
-     * @param mixed $race
-     *
-     * @return $this
-     */
-    public function setRace($race)
-    {
-        $this->race = $race;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRace()
-    {
-        return $this->race;
-    }
-
-    /**
-     * @param int $currentHp
-     *
-     * @return $this
-     */
-    public function setCurrentHp($currentHp)
-    {
-        $this->currentHp = $currentHp;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCurrentHp()
-    {
-        return $this->currentHp;
+        return $this->selectable;
     }
 }

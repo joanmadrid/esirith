@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Game\UIBundle\UIBundle(),
             new Game\ShopBundle\ShopBundle(),
             new Game\NpcBundle\NpcBundle(),
+            new Game\BattleBundle\BattleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

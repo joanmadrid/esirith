@@ -1,9 +1,15 @@
 parameters:
     character.characteritem.class: Game\CharacterBundle\Manager\CharacterItemManager
     character.characteritem.entity: Game\CharacterBundle\Entity\CharacterItem
+    character.character_restore_listener.class: Game\CharacterBundle\EventListener\CharacterRestoreListener
 
 services:
     character.characteritem_manager:
         class: %character.characteritem.class%
         arguments: [%character.characteritem.entity%]
         parent: core.core_manager
+
+    character.character_restore.listener:
+        class: %character.character_restore_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: character.travel, method: onCharacterTravel }

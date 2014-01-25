@@ -3,6 +3,8 @@
 namespace Game\MapBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Game\CharacterBundle\CharacterEventList;
+use Game\CharacterBundle\Event\CharacterEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -10,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Game\MapBundle\Entity\Poi;
 use Game\CharacterBundle\Entity\Character;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class TravelController extends Controller
 {
@@ -25,13 +28,19 @@ class TravelController extends Controller
         //personaje activo
         $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
 
+        // Dispatch Travel Event
+        $characterEvent = new CharacterEvent($char);
+        /** @var CharacterEvent $characterEvent */
+        $characterEvent = $this->getEventDispatcher()->dispatch(CharacterEventList::TRAVEL, $characterEvent);
+
         //miro si hay peligro
         $path = $this->getDoctrine()->getRepository('GameMapBundle:Map')->findPathToPoi($char->getCurrentPoi(), $poi);
         if (!$path) {
             throw $this->createNotFoundException('Path not found');
         }
-        $danger = $path->getDanger();
-        $diceRoll = mt_rand(1, 100);
+
+        $danger        = $path->getDanger();
+        $diceRoll      = mt_rand(1, 100);
         $triggerCombat = $diceRoll < $danger;
 
         //guardo nueva posicion
@@ -40,11 +49,20 @@ class TravelController extends Controller
         $em->flush();
 
         return array(
-            'char' => $char,
-            'poi' => $poi,
-            'dice' => $diceRoll,
+            'char'   => $char,
+            'poi'    => $poi,
+            'dice'   => $diceRoll,
             'danger' => $danger,
-            'combat' => $triggerCombat
+            'combat' => $triggerCombat,
+            'restore'=> $characterEvent->getCharacterRestore()
         );
+    }
+
+    /**
+     * @return EventDispatcher
+     */
+    protected function getEventDispatcher()
+    {
+        return $this->container->get('event_dispatcher');
     }
 }
