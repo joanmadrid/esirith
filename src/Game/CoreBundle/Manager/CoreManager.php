@@ -30,11 +30,13 @@ abstract class CoreManager
     {
         $this->em->flush();
     }
+
     /**
      * Persiste un objeto
      *
-     * @param $object
+     * @param      $object
      * @param bool $flush
+     *
      * @return void
      */
     public function persist($object, $flush = false)
@@ -49,8 +51,9 @@ abstract class CoreManager
     /**
      * Elimina un objeto
      *
-     * @param $object
+     * @param      $object
      * @param bool $flush
+     *
      * @return void
      */
     public function remove($object, $flush = false)
@@ -83,7 +86,7 @@ abstract class CoreManager
      */
     public function setEntityProperties(EntityManager $em)
     {
-        $this->em = $em;
+        $this->em         = $em;
         $this->repository = $this->em->getRepository($this->class);
     }
 }

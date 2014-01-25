@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h1>Lista de Mapa</h1>
+
+<p>
+    {% for map in mapList %}
+    <li><a href="{{ path('map.view', {'id': map.id}) }}">{{ map.name }}</a></li>
+    {% endfor %}
+</p>
+
+{% endblock %}

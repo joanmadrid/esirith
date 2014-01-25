@@ -11,6 +11,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="ui.index")
+     * @Route("/index/", name="ui.index2")
      * @Template()
      */
     public function indexAction()
