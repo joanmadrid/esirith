@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Game\CharacterBundle\Entity\CharacterItem;
 use Game\CharacterBundle\Manager\CharacterItemManager;
 use Symfony\Component\HttpFoundation\Response;
+use Game\CoreBundle\Model\Roll;
 
 class InventoryController extends Controller
 {
@@ -64,8 +65,40 @@ class InventoryController extends Controller
         return $this->redirect($this->generateUrl('character.inventory.index'));
     }
 
+    /**
+     * @return object
+     */
     private function getCharacterItemManager()
     {
         return $this->get('character.characteritem_manager');
+    }
+
+    /**
+     * @Route("/dpstest/{id}", name="character.inventory.dpstest", requirements={"id" = "\d+"})
+     * @Template()
+     * @ParamConverter("map", class="GameCharacterBundle:CharacterItem")
+     */
+    public function dpsTestAction(CharacterItem $item)
+    {
+        $weaponManager = $this->getWeaponManager();
+
+        if ($weaponManager->isWeapon($item->getItem())) {
+            /** @var Roll $damageRoll */
+            $damageRoll = $weaponManager->rollDamage($item->getItem());
+            $this->get('session')->getFlashBag()->add('success',
+                'Damage roll: '.$damageRoll->getRollResult()
+            );
+        }
+        return $this->redirect($this->generateUrl('character.inventory.index'));
+    }
+
+    /**
+     * Devuelve el servicio WeaponManager
+     *
+     * @return object
+     */
+    private function getWeaponManager()
+    {
+        return $this->get('item.weapon_manager');
     }
 }
