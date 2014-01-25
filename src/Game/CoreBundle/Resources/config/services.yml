@@ -4,3 +4,6 @@ services:
         class: Game\CoreBundle\Manager\CoreManager
         calls:
             - [ setEntityProperties, [ @doctrine.orm.entity_manager ] ]
+
+    core.roll_manager:
+        class: Game\CoreBundle\Manager\RollManager
