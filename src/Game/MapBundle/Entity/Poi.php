@@ -3,6 +3,8 @@
 namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\NpcBundle\Entity\Spawn;
+use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * Poi
@@ -63,6 +65,10 @@ class Poi
      */
     protected $shops;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\NpcBundle\Entity\Spawn", mappedBy="poi")
+     */
+    protected $spawnList;
 
     /**
      * Get id
@@ -207,6 +213,7 @@ class Poi
     }
 
     /**
+<<<<<<< HEAD
      * Add characters
      *
      * @param \Game\CharacterBundle\Entity\Character $characters
@@ -248,7 +255,16 @@ class Poi
     public function addShop(\Game\ShopBundle\Entity\Shop $shops)
     {
         $this->shops[] = $shops;
+    }
     
+    /**
+     * @param Spawn $spawn
+     * @return Spawn
+     */
+    public function addSpawn(Spawn $spawn)
+    {
+        $this->spawnList[] = $spawn;
+
         return $this;
     }
 
@@ -270,5 +286,13 @@ class Poi
     public function getShops()
     {
         return $this->shops;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSpawnList()
+    {
+        return $this->spawnList;
     }
 }

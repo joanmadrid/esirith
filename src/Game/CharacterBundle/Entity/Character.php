@@ -241,8 +241,8 @@ class Character
      */
     protected function restoreHp()
     {
-        $hpRestored = + mt_rand(1, 3);
-        $this->currentHp  = $this->currentHp + $hpRestored;
+        $hpRestored      = mt_rand(1, 3);
+        $this->currentHp = $this->currentHp + $hpRestored;
         if ($this->currentHp > $this->hp) {
             $this->currentHp = $this->hp;
         }

@@ -38,8 +38,10 @@ class LoadNpcData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->flush();
 
-        $this->addReference('npc-human-boy', $out[1]);
-        $this->addReference('npc-human-girl', $out[3]);
+        $this->addReference('npc-human-boy', $out[0]);
+        $this->addReference('npc-elf-boy', $out[1]);
+        $this->addReference('npc-dwarf-girl', $out[2]);
+        $this->addReference('npc-gnome-girl', $out[3]);
     }
 
     /**

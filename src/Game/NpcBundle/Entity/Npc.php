@@ -1,6 +1,7 @@
 <?php
 namespace Game\NpcBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -65,6 +66,11 @@ class Npc
      * @ORM\Column(name="damage", type="integer")
      */
     protected $damage;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\NpcBundle\Entity\Spawn", mappedBy="npc")
+     */
+    protected $spawnList;
 
     /**
      * @param int $hp
@@ -204,5 +210,24 @@ class Npc
     public function getCurrentHp()
     {
         return $this->currentHp;
+    }
+
+    /**
+     * @param Spawn $spawn
+     * @return Spawn
+     */
+    public function addSpawn(Spawn $spawn)
+    {
+        $this->spawnList[] = $spawn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSpawnList()
+    {
+        return $this->spawnList;
     }
 }
