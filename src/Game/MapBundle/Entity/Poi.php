@@ -58,6 +58,11 @@ class Poi
      */
     protected $characters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\ShopBundle\Entity\Shop", mappedBy="poi")
+     */
+    protected $shops;
+
 
     /**
      * Get id
@@ -199,5 +204,71 @@ class Poi
     public function getStartPaths()
     {
         return $this->startPaths;
+    }
+
+    /**
+     * Add characters
+     *
+     * @param \Game\CharacterBundle\Entity\Character $characters
+     * @return Poi
+     */
+    public function addCharacter(\Game\CharacterBundle\Entity\Character $characters)
+    {
+        $this->characters[] = $characters;
+    
+        return $this;
+    }
+
+    /**
+     * Remove characters
+     *
+     * @param \Game\CharacterBundle\Entity\Character $characters
+     */
+    public function removeCharacter(\Game\CharacterBundle\Entity\Character $characters)
+    {
+        $this->characters->removeElement($characters);
+    }
+
+    /**
+     * Get characters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
+    }
+
+    /**
+     * Add shops
+     *
+     * @param \Game\ShopBundle\Entity\Shop $shops
+     * @return Poi
+     */
+    public function addShop(\Game\ShopBundle\Entity\Shop $shops)
+    {
+        $this->shops[] = $shops;
+    
+        return $this;
+    }
+
+    /**
+     * Remove shops
+     *
+     * @param \Game\ShopBundle\Entity\Shop $shops
+     */
+    public function removeShop(\Game\ShopBundle\Entity\Shop $shops)
+    {
+        $this->shops->removeElement($shops);
+    }
+
+    /**
+     * Get shops
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getShops()
+    {
+        return $this->shops;
     }
 }

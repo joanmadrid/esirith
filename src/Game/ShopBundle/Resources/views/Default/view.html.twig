@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Shop: {{ shop.name }}</h1>
+    <ul>
+        {% for shopItem in shop.items %}
+        <li>{{ shopItem.item.name }}</li>
+        {% endfor %}
+    </ul>
+    <img src="{{ asset('bundles/gameshop/images/blacksmith.png') }}" />
+{% endblock %}
