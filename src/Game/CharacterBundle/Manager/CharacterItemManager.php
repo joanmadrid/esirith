@@ -5,17 +5,10 @@ namespace Game\CharacterBundle\Manager;
 use Game\CharacterBundle\Entity\Repository\CharacterItemRepository;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CharacterBundle\Entity\CharacterItem;
+use Game\ItemBundle\Entity\Repository\ItemRepository;
 
 class CharacterItemManager extends CoreManager
 {
-    /**
-     * @return ItemRepository
-     */
-    protected function getRepository()
-    {
-        return parent::getRepository();
-    }
-
     public function equip(CharacterItem $item)
     {
         $item->setEquipped(true);
@@ -28,5 +21,13 @@ class CharacterItemManager extends CoreManager
         $item->setEquipped(false);
         $this->persist($item, true);
         return true;
+    }
+
+    /**
+     * @return ItemRepository
+     */
+    protected function getRepository()
+    {
+        return parent::getRepository();
     }
 }

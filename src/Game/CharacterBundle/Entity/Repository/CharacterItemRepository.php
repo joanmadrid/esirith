@@ -27,7 +27,7 @@ class CharacterItemRepository extends EntityRepository
                 'SELECT
                     ci, it
                 FROM
-                    GameCharacterBundle:CharacterItem ci
+                    CharacterBundle:CharacterItem ci
                 JOIN
                     ci.item it
                 WHERE

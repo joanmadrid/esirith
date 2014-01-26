@@ -1,9 +1,9 @@
 <?php
 
-namespace Game\UIBundle;
+namespace Game\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class GameUIBundle extends Bundle
+class CoreBundle extends Bundle
 {
 }

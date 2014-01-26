@@ -13,7 +13,7 @@ class DefaultController extends Controller
     /**
      * @Route("/{id}", name="shop.view", requirements={"id" = "\d+"})
      * @Template()
-     * @ParamConverter("map", class="GameShopBundle:Shop")
+     * @ParamConverter("map", class="ShopBundle:Shop")
      */
     public function viewAction(Shop $shop)
     {

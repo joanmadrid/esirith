@@ -20,10 +20,10 @@ class InventoryController extends Controller
     public function indexAction()
     {
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
+        $char = $this->getDoctrine()->getRepository('CharacterBundle:Character')->findOneByName('Conan');
 
         //items
-        $items = $this->getDoctrine()->getRepository('GameCharacterBundle:CharacterItem')->findItemsByCharacter($char);
+        $items = $this->getDoctrine()->getRepository('CharacterBundle:CharacterItem')->findItemsByCharacter($char);
 
         return array(
             'char' => $char,
@@ -34,7 +34,7 @@ class InventoryController extends Controller
     /**
      * @Route("/equip/{id}", name="character.inventory.equip", requirements={"id" = "\d+"})
      * @Template()
-     * @ParamConverter("map", class="GameCharacterBundle:CharacterItem")
+     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
      */
     public function equipAction(CharacterItem $item)
     {
@@ -51,7 +51,7 @@ class InventoryController extends Controller
     /**
      * @Route("/unequip/{id}", name="character.inventory.unequip", requirements={"id" = "\d+"})
      * @Template()
-     * @ParamConverter("map", class="GameCharacterBundle:CharacterItem")
+     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
      */
     public function unequipAction(CharacterItem $item)
     {
@@ -76,7 +76,7 @@ class InventoryController extends Controller
     /**
      * @Route("/dpstest/{id}", name="character.inventory.dpstest", requirements={"id" = "\d+"})
      * @Template()
-     * @ParamConverter("map", class="GameCharacterBundle:CharacterItem")
+     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
      */
     public function dpsTestAction(CharacterItem $item)
     {

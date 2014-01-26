@@ -12,7 +12,7 @@ use Game\CharacterBundle\Entity\CharacterItem;
  * Character
  *
  * @ORM\Table(name="`Character`")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\CharacterBundle\Entity\Repository\CharacterRepository")
  */
 class Character
 {

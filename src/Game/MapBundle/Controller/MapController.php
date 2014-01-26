@@ -29,12 +29,12 @@ class MapController extends Controller
     /**
      * @Route("/view/{id}/", name="map.view", requirements={"id" = "\d+"}, defaults={"id" = 1})
      * @Template()
-     * @ParamConverter("map", class="GameMapBundle:Map")
+     * @ParamConverter("map", class="MapBundle:Map")
      */
     public function viewAction(Map $map)
     {
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
+        $char = $this->getDoctrine()->getRepository('CharacterBundle:Character')->findOneByName('Conan');
 
         return array(
             'char' => $char,
