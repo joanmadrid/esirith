@@ -1,6 +1,6 @@
 <?php
 
-namespace Game\NpcBundle\Tests\Controller;
+namespace Game\MonsterBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

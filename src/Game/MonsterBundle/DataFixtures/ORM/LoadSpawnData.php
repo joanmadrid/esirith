@@ -1,12 +1,12 @@
 <?php
-namespace Game\NpcBundle\DataFixtures\ORM;
+namespace Game\MonsterBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 
-use Game\NpcBundle\Entity\Spawn;
+use Game\MonsterBundle\Entity\Spawn;
 
 class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -15,15 +15,15 @@ class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $npcList  = array('npc-human-boy', 'npc-elf-boy', 'npc-dwarf-girl', 'npc-gnome-girl');
+        $monsterList  = array('monster-human-boy', 'monster-elf-boy', 'monster-dwarf-girl', 'monster-gnome-girl');
         $poiCount = 6; //Hard-code del numero de Poi's sin contar el inicial
 
         $insertKeys = array();
 
         for ($i = 0; $i < 15; $i++) {
-            $npc = $this->getReference($npcList[mt_rand(0, count($npcList)-1)]);
+            $monster = $this->getReference($monsterList[mt_rand(0, count($monsterList)-1)]);
             $poi = $this->getReference('poi#' . mt_rand(0, $poiCount));
-            $key = $npc->getId() . ' - ' . $poi->getId();
+            $key = $monster->getId() . ' - ' . $poi->getId();
 
             if (in_array($key, $insertKeys)) {
                 continue;
@@ -33,7 +33,7 @@ class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
 
             $aux = new Spawn();
             $aux
-                ->setNpc($npc)
+                ->setMonster($monster)
                 ->setPoi($poi)
                 ->setRate(mt_rand(0, 75));
 

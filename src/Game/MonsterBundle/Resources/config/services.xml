@@ -6,11 +6,11 @@
 
     <!--
     <parameters>
-        <parameter key="npc.example.class">Game\NpcBundle\Example</parameter>
+        <parameter key="monster.example.class">Game\MonsterBundle\Example</parameter>
     </parameters>
 
     <services>
-        <service id="npc.example" class="%npc.example.class%">
+        <service id="monster.example" class="%monster.example.class%">
             <argument type="service" id="service_id" />
             <argument>plain_value</argument>
             <argument>%parameter_name%</argument>
