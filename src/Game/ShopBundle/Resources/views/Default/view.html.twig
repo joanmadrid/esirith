@@ -2,10 +2,22 @@
 
 {% block body %}
     <h1>Shop: {{ shop.name }}</h1>
-    <ul>
-        {% for shopItem in shop.items %}
-        <li>{{ shopItem.item.name }}</li>
-        {% endfor %}
-    </ul>
+    <p>Items for sell:
+        <ul>
+            {% for shopItem in shop.items %}
+            <li>
+                {{ shopItem.item.name }}
+                - {{ calculateSellPrice(shop, shopItem.item) }}
+                - <a href="">Buy</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </p>
+    <p>
+        Your items:
+        <ul>
+            <li></li>
+        </ul>
+    </p>
     <img src="{{ asset('bundles/gameshop/images/blacksmith.png') }}" />
 {% endblock %}
