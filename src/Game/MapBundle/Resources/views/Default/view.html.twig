@@ -3,15 +3,34 @@
 {% block body %}
 <h1>Mapa</h1>
 
-<p>{{ char.name }} is in {{ char.currentpoi.name }}</p>
+{% set currentPoi = char.currentpoi %}
+
+<p>{{ char.name }} is in {{ currentPoi.name }}</p>
+
+{% if currentPoi.startpaths|length > 0 %}
 <p>
     Could travel to:
-    {% for paths in char.currentpoi.startpaths %}
-    <li><a href="{{ path('map.travel.to', {'id':paths.end.id}) }}">{{ paths.end.name }}</a></li>
-    {% endfor %}
+    <ul>
+        {% for paths in currentPoi.startpaths %}
+        <li><a href="{{ path('map.travel.to', {'id':paths.end.id}) }}">{{ paths.end.name }}</a></li>
+        {% endfor %}
+    </ul>
 </p>
+{% endif %}
+
+{% if currentPoi.shops|length > 0 %}
+<p>
+    Shops:
+    <ul>
+        {% for shop in currentPoi.shops %}
+            <li><a href="{{ path('shop.view', {id:shop.id}) }}">{{ shop.name }}</a></li>
+        {% endfor %}
+    </ul>
+</p>
+{% endif %}
+
 <div class="map-wrapper">
-    <a href="#" title="{{ char.currentpoi.name }}" class="map-poi current-poi" style="top:{{ char.currentpoi.y-10 }}px; left:{{ char.currentpoi.x-10 }}px;"></a>
+    <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-10 }}px; left:{{ currentPoi.x-10 }}px;"></a>
     {% for paths in char.currentpoi.startpaths %}
     <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>
     {% endfor %}

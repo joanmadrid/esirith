@@ -37,13 +37,21 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $aux->setCriticalMultiplier($weapon[5]);
             $aux->setWeaponType($weapon[6]);
             $aux->setHands($weapon[7]);
+            $aux->setValue(rand(5, 20));
             $manager->persist($aux);
             $out[] = $aux;
         }
 
         $manager->flush();
 
+        $this->addReference('weapon-dagger', $out[0]);
+        $this->addReference('weapon-short-sword', $out[1]);
         $this->addReference('weapon-long-sword', $out[2]);
+        $this->addReference('weapon-handaxe', $out[3]);
+        $this->addReference('weapon-greatsword', $out[4]);
+        $this->addReference('weapon-heavy-flail', $out[5]);
+        $this->addReference('weapon-lance', $out[6]);
+        $this->addReference('weapon-longbow', $out[7]);
     }
 
     /**

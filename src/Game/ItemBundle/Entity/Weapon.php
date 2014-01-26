@@ -87,14 +87,9 @@ class Weapon extends Item
     protected $characterItems;
 
     /**
-     *
-     *
-     * @return int
+     * @var \Doctrine\Common\Collections\Collection
      */
-    public function getDamage()
-    {
-        return 1;
-    }
+    protected $shopItems;
 
     /**
      * Constructor
@@ -306,5 +301,38 @@ class Weapon extends Item
     public function getWeaponType()
     {
         return $this->weaponType;
+    }
+
+    /**
+     * Add shopItems
+     *
+     * @param \Game\ShopBundle\Entity\ShopItem $shopItems
+     * @return Weapon
+     */
+    public function addShopItem(\Game\ShopBundle\Entity\ShopItem $shopItems)
+    {
+        $this->shopItems[] = $shopItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove shopItems
+     *
+     * @param \Game\ShopBundle\Entity\ShopItem $shopItems
+     */
+    public function removeShopItem(\Game\ShopBundle\Entity\ShopItem $shopItems)
+    {
+        $this->shopItems->removeElement($shopItems);
+    }
+
+    /**
+     * Get shopItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShopItems()
+    {
+        return $this->shopItems;
     }
 }

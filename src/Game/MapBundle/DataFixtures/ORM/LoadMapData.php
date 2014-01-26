@@ -76,6 +76,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
 
         $this->addReference('poi-start', $out[0]);
+        $this->addReference('poi-city', $out[2]);
     }
 
     /**

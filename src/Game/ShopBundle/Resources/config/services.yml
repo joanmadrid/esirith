@@ -1,0 +1,9 @@
+parameters:
+    shop.shop.class: Game\ShopBundle\Manager\ShopManager
+    shop.shop.entity: Game\ShopBundle\Entity\Shop
+
+services:
+    shop.shop_manager:
+        class: %shop.shop.class%
+        arguments: [%shop.shop.entity%]
+        parent: core.core_manager

@@ -1,3 +1,8 @@
+game_shop:
+    resource: "@GameShopBundle/Controller/DefaultController.php"
+    prefix:   /shop
+    type:     annotation
+
 game_ui:
     resource: "@GameUIBundle/Controller/DefaultController.php"
     prefix:   /

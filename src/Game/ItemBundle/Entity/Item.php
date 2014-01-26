@@ -34,9 +34,21 @@ abstract class Item
     private $name;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="value", type="integer")
+     */
+    private $value;
+
+    /**
      * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\CharacterItem", mappedBy="item")
      */
     protected $characterItems;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\ShopBundle\Entity\ShopItem", mappedBy="item")
+     */
+    protected $shopItems;
 
     public function __construct()
     {
@@ -106,5 +118,61 @@ abstract class Item
     public function getCharacterItems()
     {
         return $this->characterItems;
+    }
+
+    /**
+     * Set value
+     *
+     * @param integer $value
+     * @return Item
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return integer 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Add shopItems
+     *
+     * @param \Game\ShopBundle\Entity\ShopItem $shopItems
+     * @return Item
+     */
+    public function addShopItem(\Game\ShopBundle\Entity\ShopItem $shopItems)
+    {
+        $this->shopItems[] = $shopItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove shopItems
+     *
+     * @param \Game\ShopBundle\Entity\ShopItem $shopItems
+     */
+    public function removeShopItem(\Game\ShopBundle\Entity\ShopItem $shopItems)
+    {
+        $this->shopItems->removeElement($shopItems);
+    }
+
+    /**
+     * Get shopItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getShopItems()
+    {
+        return $this->shopItems;
     }
 }
