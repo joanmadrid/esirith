@@ -7,3 +7,10 @@ services:
         class: %shop.shop.class%
         arguments: [%shop.shop.entity%]
         parent: core.core_manager
+
+    shop.twig.shop_extension:
+        class: Game\ShopBundle\Twig\ShopExtension
+        tags:
+            - { name: twig.extension }
+        calls:
+            - [ setShopManager, [ @shop.shop_manager ] ]
