@@ -3,6 +3,11 @@
 namespace Game\MapBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Game\CharacterBundle\CharacterEventList;
+use Game\CharacterBundle\Event\CharacterEvent;
+use Game\CharacterBundle\Manager\CharacterManager;
+use Game\CoreBundle\Manager\RollManager;
+use Game\MapBundle\Manager\MapManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -10,41 +15,86 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Game\MapBundle\Entity\Poi;
 use Game\CharacterBundle\Entity\Character;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TravelController extends Controller
 {
     /**
      * @Route("/to/{id}", name="map.travel.to")
      * @Template()
-     * @ParamConverter("poi", class="GameMapBundle:Poi")
+     * @ParamConverter("poi", class="MapBundle:Poi")
      */
     public function toAction(Poi $poi)
     {
-        $em = $this->getDoctrine()->getManager();
+        // gamedo: Recuperar el personaje de session
+        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
 
-        //personaje activo
-        $char = $this->getDoctrine()->getRepository('GameCharacterBundle:Character')->findOneByName('Conan');
+        /** @var CharacterEvent $characterEvent */
+        $characterEvent = new CharacterEvent($char);
+        $characterEvent = $this->getEventDispatcher()->dispatch(CharacterEventList::TRAVEL, $characterEvent);
 
-        //miro si hay peligro
-        $path = $this->getDoctrine()->getRepository('GameMapBundle:Map')->findPathToPoi($char->getCurrentPoi(), $poi);
-        if (!$path) {
-            throw $this->createNotFoundException('Path not found');
+        try {
+            $path = $this->getMapManager()->findPathToPoi($char->getCurrentPoi(), $poi);
+            $this->getCharacterManager()->move($char, $poi);
+        } catch (NotFoundHttpException $exc) {
+            $characterMap = $char->getCurrentPoi()->getMap();
+
+            return $this->redirect($this->generateUrl('map.view', array('id' => $characterMap->getId())));
         }
-        $danger = $path->getDanger();
-        $diceRoll = mt_rand(1, 100);
-        $triggerCombat = $diceRoll < $danger;
 
-        //guardo nueva posicion
-        $char->setCurrentPoi($poi);
-        $em->persist($char);
-        $em->flush();
+        $diceRoll      = $this->getRollManager()->roll(1, 100);
+        $triggerBattle = $this->getMapManager()->triggerBattle($path, $diceRoll);
+
+        $this->getCharacterManager()->flush();
 
         return array(
-            'char' => $char,
-            'poi' => $poi,
-            'dice' => $diceRoll,
-            'danger' => $danger,
-            'combat' => $triggerCombat
+            'char'    => $char,
+            'poi'     => $poi,
+            'dice'    => $diceRoll->getRollResult(),
+            'danger'  => '?',
+            'combat'  => $triggerBattle,
+            'restore' => $characterEvent->getCharacterRestore()
         );
+    }
+
+    /**
+     * @return EventDispatcher
+     */
+    protected function getEventDispatcher()
+    {
+        return $this->get('event_dispatcher');
+    }
+
+    /**
+     * @return CharacterManager
+     */
+    protected function getCharacterManager()
+    {
+        return $this->get('character.character_manager');
+    }
+
+    /**
+     * @return MapManager
+     */
+    protected function getMapManager()
+    {
+        return $this->get('map.map_manager');
+    }
+
+    /**
+     * @return BattleManager
+     */
+    protected function getBattleManager()
+    {
+        return $this->get('battle.battle_manager');
+    }
+
+    /**
+     * @return RollManager
+     */
+    protected function getRollManager()
+    {
+        return $this->get('core.roll_manager');
     }
 }

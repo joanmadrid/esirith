@@ -16,13 +16,15 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Game\MapBundle\GameMapBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Game\CharacterBundle\GameCharacterBundle(),
-            new Game\CoreBundle\GameCoreBundle(),
-            new Game\ItemBundle\GameItemBundle(),
-            new Game\UIBundle\GameUIBundle(),
-            new Game\ShopBundle\GameShopBundle(),
+            new Game\CharacterBundle\CharacterBundle(),
+            new Game\CoreBundle\CoreBundle(),
+            new Game\ItemBundle\ItemBundle(),
+            new Game\UIBundle\UIBundle(),
+            new Game\MapBundle\MapBundle(),
+            new Game\ShopBundle\ShopBundle(),
+            new Game\NpcBundle\NpcBundle(),
+            new Game\BattleBundle\BattleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

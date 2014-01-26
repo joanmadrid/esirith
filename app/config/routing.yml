@@ -1,24 +1,24 @@
 game_shop:
-    resource: "@GameShopBundle/Controller/DefaultController.php"
+    resource: "@ShopBundle/Controller/DefaultController.php"
     prefix:   /shop
     type:     annotation
 
 game_ui:
-    resource: "@GameUIBundle/Controller/DefaultController.php"
+    resource: "@UIBundle/Controller/DefaultController.php"
     prefix:   /
     type:     annotation
 
 game_character_inventory:
-    resource: "@GameCharacterBundle/Controller/InventoryController.php"
+    resource: "@CharacterBundle/Controller/InventoryController.php"
     prefix:   /character/inventory
     type:     annotation
 
 game_map_travel:
-    resource: "@GameMapBundle/Controller/TravelController.php"
+    resource: "@MapBundle/Controller/TravelController.php"
     prefix:   /map/travel
     type:     annotation
 
 game_map:
-    resource: "@GameMapBundle/Controller/DefaultController.php"
+    resource: "@MapBundle/Controller/MapController.php"
     prefix:   /map
     type:     annotation

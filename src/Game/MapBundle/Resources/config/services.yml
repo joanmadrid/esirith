@@ -1,7 +1,9 @@
 parameters:
-#    game_map.example.class: Game\MapBundle\Example
+  game.map.class: Game\MapBundle\Manager\MapManager
+  game.map.entity_class: Game\MapBundle\Entity\Map
 
 services:
-#    game_map.example:
-#        class: %game_map.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+  map.map_manager:
+    class: %game.map.class%
+    arguments: [%game.map.entity_class%]
+    parent: core.core_manager

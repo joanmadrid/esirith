@@ -24,7 +24,7 @@ class RollManager
         }
 
         if ($critical > 0) {
-           $roll->setIsCritical($this->isCritical($total, $dice, $critical));
+            $roll->setIsCritical($this->isCritical($total, $dice, $critical));
         }
 
         $roll->setRollResult($total);

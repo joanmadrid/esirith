@@ -1,9 +1,9 @@
 <?php
 
-namespace Game\MapBundle;
+namespace Game\UIBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class GameMapBundle extends Bundle
+class UIBundle extends Bundle
 {
 }

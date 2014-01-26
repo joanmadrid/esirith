@@ -3,6 +3,7 @@
 namespace Game\CharacterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\CharacterBundle\Model\CharacterRestore;
 use Game\MapBundle\Entity\Poi;
 
 use Game\CharacterBundle\Entity\CharacterItem;
@@ -11,7 +12,7 @@ use Game\CharacterBundle\Entity\CharacterItem;
  * Character
  *
  * @ORM\Table(name="`Character`")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\CharacterBundle\Entity\Repository\CharacterRepository")
  */
 class Character
 {
@@ -43,6 +44,27 @@ class Character
     protected $characterItems;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="hp", type="integer")
+     */
+    protected $hp;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="current_hp", type="integer")
+     */
+    protected $currentHp;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="damage", type="integer")
+     */
+    protected $damage;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -53,7 +75,7 @@ class Character
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,19 +86,20 @@ class Character
      * Set name
      *
      * @param string $name
+     *
      * @return Character
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -87,12 +110,13 @@ class Character
      * Set currentPoi
      *
      * @param Poi $currentPoi
+     *
      * @return Character
      */
     public function setCurrentPoi(Poi $currentPoi = null)
     {
         $this->currentPoi = $currentPoi;
-    
+
         return $this;
     }
 
@@ -110,6 +134,7 @@ class Character
      * Add characterItems
      *
      * @param CharacterItem $characterItems
+     *
      * @return Character
      */
     public function addCharacterItem(CharacterItem $characterItems)
@@ -137,5 +162,91 @@ class Character
     public function getCharacterItems()
     {
         return $this->characterItems;
+    }
+
+    /**
+     * @param mixed $currentHp
+     *
+     * @return $this
+     */
+    public function setCurrentHp($currentHp)
+    {
+        $this->currentHp = $currentHp;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentHp()
+    {
+        return $this->currentHp;
+    }
+
+    /**
+     * @param int $damage
+     *
+     * @return $this
+     */
+    public function setDamage($damage)
+    {
+        $this->damage = $damage;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDamage()
+    {
+        return $this->damage;
+    }
+
+    /**
+     * @param int $hp
+     *
+     * @return $this
+     */
+    public function setHp($hp)
+    {
+        $this->hp = $hp;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHp()
+    {
+        return $this->hp;
+    }
+
+    /**
+     * @return CharacterRestore
+     */
+    public function restore()
+    {
+        $characterRestore = new CharacterRestore();
+        $characterRestore
+            ->setHp($this->restoreHp());
+
+        return $characterRestore;
+    }
+
+    /**
+     * @return int
+     */
+    protected function restoreHp()
+    {
+        $hpRestored      = mt_rand(1, 3);
+        $this->currentHp = $this->currentHp + $hpRestored;
+        if ($this->currentHp > $this->hp) {
+            $this->currentHp = $this->hp;
+        }
+
+        return $hpRestored;
     }
 }

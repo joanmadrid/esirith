@@ -31,7 +31,7 @@ class CharacterItem
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Character", inversedBy="characterItems")
+     * @ORM\ManyToOne(targetEntity="Game\CharacterBundle\Entity\Character", inversedBy="characterItems")
      * @ORM\JoinColumn(name="character_id", referencedColumnName="id")
      */
     private $character;

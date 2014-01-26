@@ -4,6 +4,6 @@ namespace Game\CharacterBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class GameCharacterBundle extends Bundle
+class CharacterBundle extends Bundle
 {
 }

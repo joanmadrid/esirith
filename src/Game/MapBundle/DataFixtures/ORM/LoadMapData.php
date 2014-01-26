@@ -77,6 +77,12 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         $this->addReference('poi-start', $out[0]);
         $this->addReference('poi-city', $out[2]);
+
+        // Añadimos todos los Poi's menos el inicial
+        for ($i=1; $i<count($out); $i++) {
+            $this->addReference('poi#' . ($i-1), $out[$i]);
+        }
+
     }
 
     /**

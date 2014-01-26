@@ -1,6 +1,6 @@
 assetic:
     use_controller: false
-    bundles:        [ GameUIBundle ]
+    bundles:        [ UIBundle ]
     filters:
         cssrewrite: ~
         lessphp:
