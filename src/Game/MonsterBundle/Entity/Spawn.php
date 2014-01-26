@@ -1,6 +1,6 @@
 <?php
 
-namespace Game\NpcBundle\Entity;
+namespace Game\MonsterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -8,9 +8,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Game\MapBundle\Entity\Poi;
 
 /**
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="user_unique",columns={"npc_id", "poi_id"})})
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="user_unique",columns={"monster_id", "poi_id"})})
  * @ORM\Entity()
- * @UniqueEntity(fields={"npc", "poi"})
+ * @UniqueEntity(fields={"monster", "poi"})
  */
 class Spawn
 {
@@ -24,12 +24,12 @@ class Spawn
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\NpcBundle\Entity\Npc", inversedBy="spawnList")
-     * @ORM\JoinColumn(name="npc_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Game\MonsterBundle\Entity\Monster", inversedBy="spawnList")
+     * @ORM\JoinColumn(name="monster_id", referencedColumnName="id", onDelete="CASCADE")
      *
-     * @var  Npc $npc
+     * @var  Monster $monster
      */
-    protected $npc;
+    protected $monster;
 
     /**
      * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="spawnList")
@@ -67,23 +67,23 @@ class Spawn
     }
 
     /**
-     * @param \Game\NpcBundle\Entity\Npc $npc
+     * @param \Game\MonsterBundle\Entity\Monster $monster
      *
      * @return $this
      */
-    public function setNpc($npc)
+    public function setMonster($monster)
     {
-        $this->npc = $npc;
+        $this->monster = $monster;
 
         return $this;
     }
 
     /**
-     * @return \Game\NpcBundle\Entity\Npc
+     * @return \Game\MonsterBundle\Entity\Monster
      */
-    public function getNpc()
+    public function getMonster()
     {
-        return $this->npc;
+        return $this->monster;
     }
 
     /**

@@ -14,7 +14,7 @@ use Game\CharacterBundle\Entity\CharacterItem;
  * @ORM\Table(name="`Character`")
  * @ORM\Entity(repositoryClass="Game\CharacterBundle\Entity\Repository\CharacterRepository")
  */
-class Character
+class Character extends Attributes
 {
     /**
      * @var integer
@@ -42,27 +42,6 @@ class Character
      * @ORM\OneToMany(targetEntity="CharacterItem", mappedBy="character")
      */
     protected $characterItems;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="hp", type="integer")
-     */
-    protected $hp;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="current_hp", type="integer")
-     */
-    protected $currentHp;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="damage", type="integer")
-     */
-    protected $damage;
 
     /**
      * Constructor
@@ -162,66 +141,6 @@ class Character
     public function getCharacterItems()
     {
         return $this->characterItems;
-    }
-
-    /**
-     * @param mixed $currentHp
-     *
-     * @return $this
-     */
-    public function setCurrentHp($currentHp)
-    {
-        $this->currentHp = $currentHp;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrentHp()
-    {
-        return $this->currentHp;
-    }
-
-    /**
-     * @param int $damage
-     *
-     * @return $this
-     */
-    public function setDamage($damage)
-    {
-        $this->damage = $damage;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDamage()
-    {
-        return $this->damage;
-    }
-
-    /**
-     * @param int $hp
-     *
-     * @return $this
-     */
-    public function setHp($hp)
-    {
-        $this->hp = $hp;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHp()
-    {
-        return $this->hp;
     }
 
     /**

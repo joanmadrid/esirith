@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Game\UIBundle\UIBundle(),
             new Game\MapBundle\MapBundle(),
             new Game\ShopBundle\ShopBundle(),
-            new Game\NpcBundle\NpcBundle(),
+            new Game\MonsterBundle\MonsterBundle(),
             new Game\BattleBundle\BattleBundle(),
         );
 
@@ -38,6 +38,6 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }

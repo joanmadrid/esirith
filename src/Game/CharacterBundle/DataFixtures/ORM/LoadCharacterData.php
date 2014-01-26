@@ -21,6 +21,10 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
             ->setHp(20)
             ->setCurrentHp(20)
             ->setDamage(3)
+            ->setDefense(10)
+            ->setFue(12)
+            ->setDes(9)
+            ->setLevel(1)
             ->setCurrentPoi($this->getReference('poi-start'));
 
         $manager->persist($char);

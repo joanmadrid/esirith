@@ -1,22 +1,22 @@
 <?php
+namespace Game\MonsterBundle\Entity;
 
-namespace Game\NpcBundle\Entity;
-
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Game\CharacterBundle\Entity\Attributes;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
- * Class Npc
+ * Class Monster
  *
  * @ORM\Entity()
  * @UniqueEntity("internalName")
  *
- * @ORM\Table(name="race", options={"comment" = "Tabla de razas"})
+ * @ORM\Table(name="monster", options={"comment" = "Tabla de monser"})
  *
- * @package Game\NpcBundle\Entity
+ * @package Game\MonsterBundle\Entity
  */
-class Race
+class Monster extends Attributes
 {
     /**
      * @var integer
@@ -26,6 +26,12 @@ class Race
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\MonsterBundle\Entity\Race")
+     * @ORM\JoinColumn(name="race_id", referencedColumnName="id")
+     */
+    protected $race;
 
     /**
      * @var string
@@ -42,11 +48,9 @@ class Race
     protected $name;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="selectable", type="boolean")
+     * @ORM\OneToMany(targetEntity="Game\MonsterBundle\Entity\Spawn", mappedBy="monster")
      */
-    protected $selectable;
+    protected $spawnList;
 
     /**
      * @param int $id
@@ -109,22 +113,41 @@ class Race
     }
 
     /**
-     * @param boolean $selectable
+     * @param mixed $race
      *
      * @return $this
      */
-    public function setSelectable($selectable)
+    public function setRace($race)
     {
-        $this->selectable = $selectable;
+        $this->race = $race;
 
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return mixed
      */
-    public function isSelectable()
+    public function getRace()
     {
-        return $this->selectable;
+        return $this->race;
+    }
+
+    /**
+     * @param Spawn $spawn
+     * @return Spawn
+     */
+    public function addSpawn(Spawn $spawn)
+    {
+        $this->spawnList[] = $spawn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSpawnList()
+    {
+        return $this->spawnList;
     }
 }

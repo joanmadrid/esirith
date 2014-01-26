@@ -1,10 +1,10 @@
 <?php
-namespace Game\NpcBundle\DataFixtures\ORM;
+namespace Game\MonsterBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Game\NpcBundle\Entity\Race;
+use Game\MonsterBundle\Entity\Race;
 
 
 class LoadRaceData extends AbstractFixture implements OrderedFixtureInterface

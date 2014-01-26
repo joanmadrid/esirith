@@ -3,7 +3,7 @@
 namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Game\NpcBundle\Entity\Spawn;
+use Game\MonsterBundle\Entity\Spawn;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
@@ -66,7 +66,7 @@ class Poi
     protected $shops;
 
     /**
-     * @ORM\OneToMany(targetEntity="Game\NpcBundle\Entity\Spawn", mappedBy="poi")
+     * @ORM\OneToMany(targetEntity="Game\MonsterBundle\Entity\Spawn", mappedBy="poi")
      */
     protected $spawnList;
 
