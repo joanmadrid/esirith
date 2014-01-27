@@ -23,8 +23,13 @@ class CharacterItemManager extends CoreManager
         return true;
     }
 
+    public function getCharacterItems($char)
+    {
+        return $this->getRepository()->findItemsByCharacter($char);
+    }
+
     /**
-     * @return ItemRepository
+     * @return CharacterItemRepository
      */
     protected function getRepository()
     {

@@ -7,6 +7,8 @@ services:
         class: %shop.shop.class%
         arguments: [%shop.shop.entity%]
         parent: core.core_manager
+        calls:
+            - [ setEventDispatcher, [ @event_dispatcher ] ]
 
     shop.twig.shop_extension:
         class: Game\ShopBundle\Twig\ShopExtension

@@ -4,6 +4,7 @@ parameters:
     character.character.class: Game\CharacterBundle\Manager\CharacterManager
     character.character.entity: Game\CharacterBundle\Entity\Character
     character.character_restore_listener.class: Game\CharacterBundle\EventListener\CharacterRestoreListener
+    character.character_shop_listener.class: Game\CharacterBundle\EventListener\CharacterShopListener
 
 services:
     character.characteritem_manager:
@@ -20,3 +21,9 @@ services:
         class: %character.character_restore_listener.class%
         tags:
             - { name: kernel.event_listener, event: character.travel, method: onCharacterTravel }
+
+    character.character_shop.listener:
+        class: %character.character_shop_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: character.buy, method: onCharacterBuy}
+            - { name: kernel.event_listener, event: character.sell, method: onCharacterSell}
