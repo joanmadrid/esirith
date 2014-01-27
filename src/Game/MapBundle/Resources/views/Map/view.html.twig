@@ -34,6 +34,6 @@
     {% for paths in char.currentpoi.startpaths %}
     <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>
     {% endfor %}
-    <img src="{{asset('bundles/gamemap/images/'~map.filename) }}" />
+    <img src="{{asset('bundles/map/images/'~map.filename) }}" />
 </div>
 {% endblock %}
