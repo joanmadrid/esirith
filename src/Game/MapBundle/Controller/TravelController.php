@@ -59,6 +59,35 @@ class TravelController extends Controller
     }
 
     /**
+     * Viaja a un linkedPoi
+     *
+     * @Route("/enter/{id}", name="map.travel.enter")
+     * @Template()
+     * @ParamConverter("poi", class="MapBundle:Poi")
+     */
+    public function enterAction(Poi $poi)
+    {
+        // gamedo: Recuperar el personaje de session
+        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+
+        try {
+            $link = $this->getMapManager()->findLinkToPoi($char->getCurrentPoi(), $poi);
+            $this->getCharacterManager()->move($char, $poi);
+        } catch (NotFoundHttpException $exc) {
+            $characterMap = $char->getCurrentPoi()->getMap();
+            return $this->redirect($this->generateUrl('map.view', array('id' => $characterMap->getId())));
+        }
+
+        $this->getCharacterManager()->flush();
+
+        return array(
+            'char'    => $char,
+            'poi'     => $poi,
+            'link'    => $link
+        );
+    }
+
+    /**
      * @return EventDispatcher
      */
     protected function getEventDispatcher()

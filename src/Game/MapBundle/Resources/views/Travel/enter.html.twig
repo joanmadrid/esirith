@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Travel</h1>
+    <p>{{ char.name }} is entering {{ link.name }}.</p>
+    <p>
+        You are now in {{ poi.name }}.
+    </p>
+    <p><a href="{{ path('map.view', {'id':poi.map.id}) }}">View map</a></p>
+{% endblock %}

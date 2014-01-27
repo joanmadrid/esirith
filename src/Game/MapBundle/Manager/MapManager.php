@@ -9,6 +9,7 @@ use Game\CoreBundle\Model\Roll;
 use Game\MapBundle\Entity\Path;
 use Game\MapBundle\Entity\Repository\MapRepository;
 use Game\MapBundle\Entity\Repository\PathRepository;
+use Game\MapBundle\Entity\Repository\LinkedPoiRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MapManager extends CoreManager
@@ -55,6 +56,23 @@ class MapManager extends CoreManager
     }
 
     /**
+     * @param $start
+     * @param $end
+     * @return mixed
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function findLinkToPoi($start, $end)
+    {
+        $link = $this->getLinkedPoiRepository()->findLinkToPoi($start, $end);
+
+        if (!$link) {
+            throw new NotFoundHttpException('Link not found');
+        }
+
+        return $link;
+    }
+
+    /**
      * @return MapRepository
      */
     protected function getRepository()
@@ -68,5 +86,13 @@ class MapManager extends CoreManager
     protected function getPathRepository()
     {
         return $this->getManager()->getRepository('MapBundle:Path');
+    }
+
+    /**
+     * @return LinkedPoiRepository
+     */
+    protected function getLinkedPoiRepository()
+    {
+        return $this->getManager()->getRepository('MapBundle:LinkedPoi');
     }
 }

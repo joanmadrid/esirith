@@ -29,6 +29,17 @@
 </p>
 {% endif %}
 
+{% if currentPoi.startLinks|length > 0 %}
+    <p>
+        You see...
+    <ul>
+        {% for link in currentPoi.startLinks %}
+            <li><a href="{{ path('map.travel.enter', {'id':link.end.id}) }}">{{ link.name }}</a></li>
+        {% endfor %}
+    </ul>
+    </p>
+{% endif %}
+
 <div class="map-wrapper">
     <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-10 }}px; left:{{ currentPoi.x-10 }}px;"></a>
     {% for paths in char.currentpoi.startpaths %}

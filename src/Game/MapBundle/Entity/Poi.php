@@ -71,6 +71,11 @@ class Poi
     protected $spawnList;
 
     /**
+     * @ORM\OneToMany(targetEntity="LinkedPoi", mappedBy="start")
+     */
+    protected $startLinks;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -213,7 +218,6 @@ class Poi
     }
 
     /**
-<<<<<<< HEAD
      * Add characters
      *
      * @param \Game\CharacterBundle\Entity\Character $characters
@@ -294,5 +298,61 @@ class Poi
     public function getSpawnList()
     {
         return $this->spawnList;
+    }
+
+    /**
+     * Add spawnList
+     *
+     * @param \Game\MonsterBundle\Entity\Spawn $spawnList
+     * @return Poi
+     */
+    public function addSpawnList(\Game\MonsterBundle\Entity\Spawn $spawnList)
+    {
+        $this->spawnList[] = $spawnList;
+    
+        return $this;
+    }
+
+    /**
+     * Remove spawnList
+     *
+     * @param \Game\MonsterBundle\Entity\Spawn $spawnList
+     */
+    public function removeSpawnList(\Game\MonsterBundle\Entity\Spawn $spawnList)
+    {
+        $this->spawnList->removeElement($spawnList);
+    }
+
+    /**
+     * Add startLinks
+     *
+     * @param \Game\MapBundle\Entity\LinkedPoi $startLinks
+     * @return Poi
+     */
+    public function addStartLink(\Game\MapBundle\Entity\LinkedPoi $startLinks)
+    {
+        $this->startLinks[] = $startLinks;
+    
+        return $this;
+    }
+
+    /**
+     * Remove startLinks
+     *
+     * @param \Game\MapBundle\Entity\LinkedPoi $startLinks
+     */
+    public function removeStartLink(\Game\MapBundle\Entity\LinkedPoi $startLinks)
+    {
+        $this->startLinks->removeElement($startLinks);
+    }
+
+    /**
+     * Get startLinks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStartLinks()
+    {
+        return $this->startLinks;
     }
 }
