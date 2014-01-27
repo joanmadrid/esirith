@@ -2,13 +2,16 @@
 
 {% block body %}
     <h1>Shop: {{ shop.name }}</h1>
+    <p>
+        Your gold: {{ char.gold }}
+    </p>
     <p>Items for sell:
         <ul>
             {% for shopItem in shop.items %}
             <li>
                 {{ shopItem.item.name }}
                 - {{ calculateSellPrice(shop, shopItem.item) }}
-                - <a href="">Buy</a>
+                - <a href="{{ path('shop.buy', {id:shopItem.id}) }}">Buy</a>
             </li>
             {% endfor %}
         </ul>
@@ -16,7 +19,13 @@
     <p>
         Your items:
         <ul>
-            <li></li>
+            {% for characterItem in items %}
+                <li>
+                    {{ characterItem.item.name }}
+                    - {{ calculateBuyPrice(shop, characterItem.item) }}
+                    - <a href="{{ path('shop.sell', {item:characterItem.id, shop:shop.id}) }}">Sell</a>
+                </li>
+            {% endfor %}
         </ul>
     </p>
     <img src="{{ asset('bundles/shop/images/blacksmith.png') }}" />

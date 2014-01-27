@@ -44,6 +44,13 @@ class Character extends Attributes
     protected $characterItems;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="gold", type="integer", length=255)
+     */
+    protected $gold;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -141,6 +148,22 @@ class Character extends Attributes
     public function getCharacterItems()
     {
         return $this->characterItems;
+    }
+
+    /**
+     * @param int $gold
+     */
+    public function setGold($gold)
+    {
+        $this->gold = $gold;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGold()
+    {
+        return $this->gold;
     }
 
     /**

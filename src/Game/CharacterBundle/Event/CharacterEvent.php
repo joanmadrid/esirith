@@ -4,6 +4,7 @@ namespace Game\CharacterBundle\Event;
 
 use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Model\CharacterRestore;
+use Game\ShopBundle\Model\Buyout;
 use Symfony\Component\EventDispatcher\Event;
 
 class CharacterEvent extends Event
@@ -13,6 +14,9 @@ class CharacterEvent extends Event
 
     /** @var  CharacterRestore $characterRestore */
     protected $characterRestore;
+
+    /** @var Buyout */
+    protected $buyout;
 
     public function __construct(Character $character)
     {
@@ -45,5 +49,21 @@ class CharacterEvent extends Event
     public function getCharacterRestore()
     {
         return $this->characterRestore;
+    }
+
+    /**
+     * @param \Game\ShopBundle\Model\Buyout $buyout
+     */
+    public function setBuyout($buyout)
+    {
+        $this->buyout = $buyout;
+    }
+
+    /**
+     * @return \Game\ShopBundle\Model\Buyout
+     */
+    public function getBuyout()
+    {
+        return $this->buyout;
     }
 }
