@@ -21,6 +21,7 @@ services:
         class: %character.character_restore_listener.class%
         tags:
             - { name: kernel.event_listener, event: character.travel, method: onCharacterTravel }
+            - { name: kernel.event_listener, event: character.rest, method: onCharacterRest }
 
     character.character_shop.listener:
         class: %character.character_shop_listener.class%

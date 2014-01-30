@@ -9,6 +9,7 @@ use Game\MapBundle\Entity\Map;
 use Game\MapBundle\Entity\Path;
 use Game\MapBundle\Entity\Poi;
 use Game\MapBundle\Entity\LinkedPoi;
+use Game\MapBundle\Entity\RestPoint;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -105,10 +106,32 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $manager->persist($aux);
         }
 
-        $manager->flush();
-
         $this->addReference('poi-start', $out[0]);
         $this->addReference('poi-city', $out[2]);
+
+        //añadimos restpoints
+        $restPoints = array();
+        $restPoints[] = array('Local inn', RestPoint::REST_POINT_TYPE_INN, 5, $out[2]);
+        $restPoints[] = array('Safe place in the ruined tower', RestPoint::REST_POINT_TYPE_SAFE_PLACE, 10, $out[7]);
+
+        foreach ($restPoints as $restPoint) {
+            $aux = new RestPoint();
+            $aux->setName($restPoint[0]);
+            $aux->setType($restPoint[1]);
+            switch ($restPoint[1]) {
+                case RestPoint::REST_POINT_TYPE_INN:
+                    $aux->setCost($restPoint[2]);
+                    break;
+                case RestPoint::REST_POINT_TYPE_SAFE_PLACE:
+                    $aux->setDanger($restPoint[2]);
+                    break;
+            }
+            $aux->setPoi($restPoint[3]);
+            $manager->persist($aux);
+        }
+
+
+        $manager->flush();
 
         // Añadimos todos los Poi's menos el inicial
         for ($i=1; $i<count($out); $i++) {

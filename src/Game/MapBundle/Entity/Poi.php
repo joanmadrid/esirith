@@ -4,6 +4,7 @@ namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Game\MonsterBundle\Entity\Spawn;
+use Game\MapBundle\Entity\RestPoint;
 use Symfony\Component\Validator\Constraints\Collection;
 
 /**
@@ -74,6 +75,11 @@ class Poi
      * @ORM\OneToMany(targetEntity="LinkedPoi", mappedBy="start")
      */
     protected $startLinks;
+
+    /**
+     * @ORM\OneToOne(targetEntity="RestPoint", mappedBy="poi")
+     */
+    protected $restPoint;
 
     /**
      * Get id
@@ -354,5 +360,28 @@ class Poi
     public function getStartLinks()
     {
         return $this->startLinks;
+    }
+
+    /**
+     * Set restPoint
+     *
+     * @param \Game\MapBundle\Entity\RestPoint $restPoint
+     * @return Poi
+     */
+    public function setRestPoint(\Game\MapBundle\Entity\RestPoint $restPoint = null)
+    {
+        $this->restPoint = $restPoint;
+    
+        return $this;
+    }
+
+    /**
+     * Get restPoint
+     *
+     * @return \Game\MapBundle\Entity\RestPoint 
+     */
+    public function getRestPoint()
+    {
+        return $this->restPoint;
     }
 }

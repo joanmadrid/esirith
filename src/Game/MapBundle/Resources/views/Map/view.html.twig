@@ -40,6 +40,18 @@
     </p>
 {% endif %}
 
+{% if currentPoi.restPoint|length > 0 %}
+    {% set restPoint = currentPoi.restPoint %}
+<p>
+    There is a {{ restPoint.name }} where you can rest.
+    {% if restPoint.type == 1 %}
+    <br />
+    It will cost you {{ restPoint.cost }} gold.
+    {% endif %}
+    <br /><a href="{{ path('map.rest', {id:restPoint.id}) }}">Rest</a>
+</p>
+{% endif %}
+
 <div class="map-wrapper">
     <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-10 }}px; left:{{ currentPoi.x-10 }}px;"></a>
     {% for paths in char.currentpoi.startpaths %}

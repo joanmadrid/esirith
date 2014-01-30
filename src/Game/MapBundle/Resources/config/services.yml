@@ -1,9 +1,19 @@
 parameters:
   game.map.class: Game\MapBundle\Manager\MapManager
   game.map.entity_class: Game\MapBundle\Entity\Map
+  game.restpoint.class: Game\MapBundle\Manager\RestPointManager
+  game.restpoint.entity_class: Game\MapBundle\Entity\RestPoint
 
 services:
   map.map_manager:
     class: %game.map.class%
     arguments: [%game.map.entity_class%]
     parent: core.core_manager
+
+  map.restpoint_manager:
+    class: %game.restpoint.class%
+    arguments: [%game.restpoint.entity_class%]
+    parent: core.core_manager
+    calls:
+      - [ setRollManager, [ @core.roll_manager ] ]
+      - [ setEventDispatcher, [ @event_dispatcher ] ]
