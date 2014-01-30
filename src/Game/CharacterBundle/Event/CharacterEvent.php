@@ -18,6 +18,9 @@ class CharacterEvent extends Event
     /** @var Buyout */
     protected $buyout;
 
+    /** @var integer */
+    protected $restType;
+
     public function __construct(Character $character)
     {
         $this->character = $character;
@@ -65,5 +68,21 @@ class CharacterEvent extends Event
     public function getBuyout()
     {
         return $this->buyout;
+    }
+
+    /**
+     * @param int $restType
+     */
+    public function setRestType($restType)
+    {
+        $this->restType = $restType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRestType()
+    {
+        return $this->restType;
     }
 }

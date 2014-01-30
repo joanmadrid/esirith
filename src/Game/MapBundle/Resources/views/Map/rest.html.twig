@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Resting</h1>
+
+    <p>
+        {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_SAFE') %}
+            You sleep placidly.
+            <br />Restored {{ restore.hp }} HP.
+        {% endif %}
+
+        {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_OK') %}
+            You reach to rest a little bit.
+            <br />Restored {{ restore.hp }} HP.
+        {% endif %}
+
+        {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_NOT_ENOUGH_MONEY') %}
+            You don't have enough money to sleep here.
+        {% endif %}
+
+        {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_DANGER') %}
+            You were trying to rest when a noise wakes you up!
+        {% endif %}
+    </p>
+
+{% endblock %}
