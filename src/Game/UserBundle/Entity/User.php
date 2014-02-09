@@ -22,8 +22,56 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\Character", mappedBy="user")
+     */
+    protected $characters;
+
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add characters
+     *
+     * @param \Game\CharacterBundle\Entity\Character $characters
+     * @return User
+     */
+    public function addCharacter(\Game\CharacterBundle\Entity\Character $characters)
+    {
+        $this->characters[] = $characters;
+    
+        return $this;
+    }
+
+    /**
+     * Remove characters
+     *
+     * @param \Game\CharacterBundle\Entity\Character $characters
+     */
+    public function removeCharacter(\Game\CharacterBundle\Entity\Character $characters)
+    {
+        $this->characters->removeElement($characters);
+    }
+
+    /**
+     * Get characters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
     }
 }

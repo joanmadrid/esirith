@@ -5,6 +5,7 @@ namespace Game\CharacterBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Game\CharacterBundle\Model\CharacterRestore;
 use Game\MapBundle\Entity\Poi;
+use Game\UserBundle\Entity\User;
 
 use Game\CharacterBundle\Entity\CharacterItem;
 
@@ -49,6 +50,12 @@ class Character extends Attributes
      * @ORM\Column(name="gold", type="integer", length=255)
      */
     protected $gold;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\UserBundle\Entity\User", inversedBy="characters")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * Constructor
@@ -152,10 +159,12 @@ class Character extends Attributes
 
     /**
      * @param int $gold
+     * @return $this
      */
     public function setGold($gold)
     {
         $this->gold = $gold;
+        return $this;
     }
 
     /**
@@ -164,6 +173,24 @@ class Character extends Attributes
     public function getGold()
     {
         return $this->gold;
+    }
+
+    /**
+     * @param mixed $user
+     * @return $this
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**

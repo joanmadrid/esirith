@@ -39,4 +39,18 @@ class CharacterRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findById($id)
+    {
+        $qb = $this->createQueryBuilder('char');
+        $qb
+            ->where('char.id = :id')
+            ->setParameter(':id', $id);
+
+        return $qb->getQuery()->getSingleResult();
+    }
 }

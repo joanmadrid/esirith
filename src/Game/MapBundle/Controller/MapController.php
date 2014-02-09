@@ -11,6 +11,7 @@ use Game\MapBundle\Entity\Map;
 use Game\MapBundle\Entity\RestPoint;
 use Game\MapBundle\Manager\RestPointManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Game\UserBundle\Manager\UserManager;
 
 class MapController extends Controller
 {
@@ -37,7 +38,7 @@ class MapController extends Controller
     public function viewAction(Map $map)
     {
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('CharacterBundle:Character')->findOneByName('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         return array(
             'char' => $char,
@@ -52,8 +53,7 @@ class MapController extends Controller
      */
     public function restAction(RestPoint $restPoint)
     {
-        // gamedo: Recuperar el personaje de session
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         try {
             $restResult = $this->getRestPointManager()->getRestResult($char, $restPoint);
@@ -102,5 +102,13 @@ class MapController extends Controller
     protected function getCharacterManager()
     {
         return $this->get('character.character_manager');
+    }
+
+    /**
+     * @return UserManager;
+     */
+    private function getUserManager()
+    {
+        return $this->get('user.user_manager');
     }
 }

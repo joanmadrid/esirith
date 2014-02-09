@@ -8,6 +8,11 @@ game_ui:
     prefix:   /
     type:     annotation
 
+game_character_roster:
+    resource: "@CharacterBundle/Controller/RosterController.php"
+    prefix:   /character/roster
+    type:     annotation
+
 game_character_inventory:
     resource: "@CharacterBundle/Controller/InventoryController.php"
     prefix:   /character/inventory

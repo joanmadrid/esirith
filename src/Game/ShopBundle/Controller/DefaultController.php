@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Game\ShopBundle\Entity\Shop;
 use Game\ShopBundle\Entity\ShopItem;
 use Game\CharacterBundle\Entity\CharacterItem;
+use Game\UserBundle\Manager\UserManager;
 
 class DefaultController extends Controller
 {
@@ -22,8 +23,7 @@ class DefaultController extends Controller
      */
     public function viewAction(Shop $shop)
     {
-        // gamedo: coger personaje de sesion
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         $items = $this->getCharacterItemManager()->getCharacterItems($char);
 
@@ -40,8 +40,7 @@ class DefaultController extends Controller
      */
     public function buyAction(ShopItem $shopItem)
     {
-        // gamedo: coger personaje de sesion
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         /** @var Buyout $buyout */
         $buyout = $this->getShopManager()->buy($char, $shopItem);
@@ -68,8 +67,7 @@ class DefaultController extends Controller
      */
     public function sellAction(CharacterItem $characterItem, Shop $shop)
     {
-        // gamedo: coger personaje de sesion
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         /** @var Buyout $buyout */
         $buyout = $this->getShopManager()->sell($characterItem, $shop);
@@ -111,5 +109,13 @@ class DefaultController extends Controller
     protected function getCharacterItemManager()
     {
         return $this->get('character.characteritem_manager');
+    }
+
+    /**
+     * @return UserManager;
+     */
+    private function getUserManager()
+    {
+        return $this->get('user.user_manager');
     }
 }

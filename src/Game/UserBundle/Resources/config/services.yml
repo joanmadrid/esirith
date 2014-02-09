@@ -1,7 +1,14 @@
 parameters:
-#    user.example.class: Game\UserBundle\Example
+    user.user.class: Game\UserBundle\Manager\UserManager
+    user.user.entity: Game\UserBundle\Entity\User
 
 services:
-#    user.example:
-#        class: %user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    user.user_manager:
+        class: %user.user.class%
+        arguments: [%user.user.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setSecurityContext, [ @security.context ] ]
+            - [ setFOSUserManager, [ @fos_user.user_manager ] ]
+            - [ setSession, [ @session ] ]
+            - [ setCharacterManager, [ @character.character_manager ] ]
