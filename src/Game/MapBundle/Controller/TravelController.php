@@ -17,6 +17,7 @@ use Game\MapBundle\Entity\Poi;
 use Game\CharacterBundle\Entity\Character;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Game\UserBundle\Manager\UserManager;
 
 class TravelController extends Controller
 {
@@ -27,8 +28,7 @@ class TravelController extends Controller
      */
     public function toAction(Poi $poi)
     {
-        // gamedo: Recuperar el personaje de session
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         /** @var CharacterEvent $characterEvent */
         $characterEvent = new CharacterEvent($char);
@@ -67,8 +67,7 @@ class TravelController extends Controller
      */
     public function enterAction(Poi $poi)
     {
-        // gamedo: Recuperar el personaje de session
-        $char = $this->getCharacterManager()->findByNameWithPoi('Conan');
+        $char = $this->getUserManager()->getCharacter();
 
         try {
             $link = $this->getMapManager()->findLinkToPoi($char->getCurrentPoi(), $poi);
@@ -125,5 +124,13 @@ class TravelController extends Controller
     protected function getRollManager()
     {
         return $this->get('core.roll_manager');
+    }
+
+    /**
+     * @return UserManager;
+     */
+    private function getUserManager()
+    {
+        return $this->get('user.user_manager');
     }
 }

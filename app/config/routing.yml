@@ -8,6 +8,11 @@ game_ui:
     prefix:   /
     type:     annotation
 
+game_character_roster:
+    resource: "@CharacterBundle/Controller/RosterController.php"
+    prefix:   /character/roster
+    type:     annotation
+
 game_character_inventory:
     resource: "@CharacterBundle/Controller/InventoryController.php"
     prefix:   /character/inventory
@@ -22,3 +27,25 @@ game_map:
     resource: "@MapBundle/Controller/MapController.php"
     prefix:   /map
     type:     annotation
+
+
+## FOSUser ##
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Roster</h1>
+    <ul>
+        {% for character in user.characters %}
+            <li>{{ character.name }} <a href="{{ path('character.roster.select', {id:character.id}) }}">select</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

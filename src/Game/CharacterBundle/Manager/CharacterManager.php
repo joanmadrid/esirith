@@ -41,6 +41,15 @@ class CharacterManager extends CoreManager
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function findById($id)
+    {
+        return $this->getRepository()->findById($id);
+    }
+
+    /**
      * @return CharacterRepository
      */
     protected function getRepository()
