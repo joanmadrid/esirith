@@ -124,14 +124,22 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @throws \Symfony\Component\Translation\Exception\NotFoundResourceException
      * @return int
      */
     public function getCharacter()
     {
+        return $this->getCharacterManager()->findById($this->getCharacterId());
+    }
+
+    /**
+     * @return mixed
+     * @throws \Symfony\Component\Translation\Exception\NotFoundResourceException
+     */
+    public function getCharacterId()
+    {
         $character_id = $this->getSession()->get(self::CHARACTER_ID);
         if ($character_id > 0) {
-            return $this->getCharacterManager()->findById($character_id);
+            return $character_id;
         } else {
             throw new NotFoundResourceException();
         }

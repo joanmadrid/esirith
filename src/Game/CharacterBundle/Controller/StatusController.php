@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 //use Symfony\Component\HttpFoundation\Response;
 use Game\UserBundle\Manager\UserManager;
+USE Game\CharacterBundle\Manager\CharacterManager;
 //use Game\CharacterBundle\Entity\Character;
 
 class StatusController extends Controller
@@ -17,7 +18,8 @@ class StatusController extends Controller
      */
     public function indexAction()
     {
-        $char = $this->getUserManager()->getCharacter();
+        $charId = $this->getUserManager()->getCharacterId();
+        $char = $this->getCharacterManager()->findByIdForStatus($charId);
 
         return array(
             'character' => $char
@@ -30,5 +32,13 @@ class StatusController extends Controller
     private function getUserManager()
     {
         return $this->get('user.user_manager');
+    }
+
+    /**
+     * @return CharacterManager
+     */
+    protected function getCharacterManager()
+    {
+        return $this->get('character.character_manager');
     }
 }
