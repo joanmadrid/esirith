@@ -1,0 +1,11 @@
+<div class="character-status">
+{% if character %}
+    <ul>
+        <li>{{ character.name }}</li>
+        <li>{{ character.gold }}</li>
+        <li>{{ character.currentHP }}/{{ character.hp }}</li>
+    </ul>
+{% else %}
+    <a href="{{ path('character.roster.index') }}">Select o create a character to start playing!</a>
+{% endif %}
+</div>

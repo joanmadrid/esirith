@@ -11,6 +11,7 @@ use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Manager\CharacterManager;
 
 use FOS\UserBundle\Doctrine\UserManager as FOSUserManager;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class UserManager extends CoreManager
 {
@@ -123,12 +124,17 @@ class UserManager extends CoreManager
     }
 
     /**
+     * @throws \Symfony\Component\Translation\Exception\NotFoundResourceException
      * @return int
      */
     public function getCharacter()
     {
         $character_id = $this->getSession()->get(self::CHARACTER_ID);
-        return $this->getCharacterManager()->findById($character_id);
+        if ($character_id > 0) {
+            return $this->getCharacterManager()->findById($character_id);
+        } else {
+            throw new NotFoundResourceException();
+        }
     }
 
 }
