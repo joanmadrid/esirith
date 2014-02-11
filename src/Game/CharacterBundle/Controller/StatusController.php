@@ -19,7 +19,11 @@ class StatusController extends Controller
     public function indexAction()
     {
         $charId = $this->getUserManager()->getCharacterId();
-        $char = $this->getCharacterManager()->findByIdForStatus($charId);
+        if ($charId) {
+            $char = $this->getCharacterManager()->findByIdForStatus($charId);
+        } else {
+            $char = null;
+        }
 
         return array(
             'character' => $char
