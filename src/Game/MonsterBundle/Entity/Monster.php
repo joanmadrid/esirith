@@ -53,6 +53,13 @@ class Monster extends Attributes
     protected $spawnList;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * @param int $id
      *
      * @return $this
@@ -149,5 +156,23 @@ class Monster extends Attributes
     public function getSpawnList()
     {
         return $this->spawnList;
+    }
+
+    /**
+     * @param string $image
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

@@ -67,6 +67,6 @@ class CharacterRepository extends EntityRepository
             ->where('char.id = :id')
             ->setParameter(':id', $id);
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

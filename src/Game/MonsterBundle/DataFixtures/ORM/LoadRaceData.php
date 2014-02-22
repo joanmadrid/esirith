@@ -16,9 +16,11 @@ class LoadRaceData extends AbstractFixture implements OrderedFixtureInterface
     {
         $raceList   = array();
         $raceList[] = array('Human', 'human', true);
-        $raceList[] = array('Dwarf', 'dwarf', false);
+        $raceList[] = array('Dwarf', 'dwarf', true);
         $raceList[] = array('Elf',   'elf',   true);
-        $raceList[] = array('Gnome', 'gnome', false);
+        $raceList[] = array('Gnome', 'gnome', true);
+        $raceList[] = array('Orc', 'orc', false);
+        $raceList[] = array('Undead', 'undead', false);
 
         $outList = array();
         foreach ($raceList as $race) {
@@ -34,8 +36,8 @@ class LoadRaceData extends AbstractFixture implements OrderedFixtureInterface
 
         }
 
-        foreach ($outList as $key => $out) {
-            $this->addReference('race-' . $raceList[$key][1], $out);
+        foreach ($outList as $out) {
+            $this->addReference('race-'.$out->getInternalName(), $out);
         }
 
         $manager->flush();
@@ -46,6 +48,6 @@ class LoadRaceData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 4;
+        return 5;
     }
 }
