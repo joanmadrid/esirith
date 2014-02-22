@@ -127,4 +127,14 @@ class Race
     {
         return $this->selectable;
     }
+
+    /**
+     * Get selectable
+     *
+     * @return boolean 
+     */
+    public function getSelectable()
+    {
+        return $this->selectable;
+    }
 }
