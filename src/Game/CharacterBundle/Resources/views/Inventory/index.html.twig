@@ -6,7 +6,7 @@
     <ul>
         {% for characterItem in items %}
         <li>
-            {{ characterItem.item.name }}
+            {{ renderItem(characterItem.item)|raw }}
             {% if characterItem.equipped %}
             <a href="{{ path('character.inventory.unequip', {id:characterItem.id}) }}">Unequip</a>
             <a href="{{ path('character.inventory.dpstest', {id:characterItem.id}) }}">DPS test</a>

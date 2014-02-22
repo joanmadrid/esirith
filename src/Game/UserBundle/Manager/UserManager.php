@@ -141,7 +141,8 @@ class UserManager extends CoreManager
         if ($character_id > 0) {
             return $character_id;
         } else {
-            throw new NotFoundResourceException();
+            return null;
+            //throw new NotFoundResourceException();
         }
     }
 

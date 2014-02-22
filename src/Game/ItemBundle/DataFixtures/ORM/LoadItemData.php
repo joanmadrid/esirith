@@ -15,16 +15,16 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $weapons = array();
-        $weapons[] = array('Dagger', 1, 4, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE);
-        $weapons[] = array('Short sword', 1, 6, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE);
-        $weapons[] = array('Long sword', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE);
-        $weapons[] = array('Handaxe', 1, 6, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 5, 3, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE);
+        $weapons[] = array('Dagger', 1, 4, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE, 'dagger.png');
+        $weapons[] = array('Short sword', 1, 6, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE, 'short_sword.png');
+        $weapons[] = array('Long sword', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE, 'long_sword.png');
+        $weapons[] = array('Handaxe', 1, 6, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 5, 3, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE, 'handaxe.png');
 
-        $weapons[] = array('Greatsword', 1, 10, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO);
-        $weapons[] = array('Heavy flail', 1, 10, Weapon::WEAPON_DAMAGE_TYPE_BLUDGEONING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO);
-        $weapons[] = array('Lance', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_PIERCING, 5, 3, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO);
+        $weapons[] = array('Greatsword', 1, 10, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO, 'greatsword.png');
+        $weapons[] = array('Heavy flail', 1, 10, Weapon::WEAPON_DAMAGE_TYPE_BLUDGEONING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO, 'heavy_flail.png');
+        $weapons[] = array('Lance', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_PIERCING, 5, 3, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_TWO, 'lance.png');
 
-        $weapons[] = array('Longbow', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_PIERCING, 5, 3, Weapon::WEAPON_TYPE_RANGED, Weapon::WEAPON_HANDS_TWO);
+        $weapons[] = array('Longbow', 1, 8, Weapon::WEAPON_DAMAGE_TYPE_PIERCING, 5, 3, Weapon::WEAPON_TYPE_RANGED, Weapon::WEAPON_HANDS_TWO, 'longbow.png');
 
         $out = array();
         foreach ($weapons as $weapon) {
@@ -37,6 +37,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $aux->setCriticalMultiplier($weapon[5]);
             $aux->setWeaponType($weapon[6]);
             $aux->setHands($weapon[7]);
+            $aux->setImage($weapon[8]);
             $aux->setValue(rand(5, 20));
             $manager->persist($aux);
             $out[] = $aux;

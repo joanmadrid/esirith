@@ -9,7 +9,7 @@
         <ul>
             {% for shopItem in shop.items %}
             <li>
-                {{ shopItem.item.name }}
+                {{ renderItem(shopItem.item)|raw }}
                 - {{ calculateSellPrice(shop, shopItem.item) }}
                 - <a href="{{ path('shop.buy', {id:shopItem.id}) }}">Buy</a>
             </li>
@@ -21,7 +21,7 @@
         <ul>
             {% for characterItem in items %}
                 <li>
-                    {{ characterItem.item.name }}
+                    {{ renderItem(characterItem.item)|raw }}
                     - {{ calculateBuyPrice(shop, characterItem.item) }}
                     - <a href="{{ path('shop.sell', {item:characterItem.id, shop:shop.id}) }}">Sell</a>
                 </li>

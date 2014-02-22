@@ -9,3 +9,8 @@ services:
         parent: core.core_manager
         calls:
             - [ setRollManager, [ @core.roll_manager ] ]
+
+    item.twig.item_extension:
+        class: Game\ItemBundle\Twig\ItemExtension
+        tags:
+            - { name: twig.extension }
