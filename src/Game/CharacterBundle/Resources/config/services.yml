@@ -11,6 +11,9 @@ services:
         class: %character.characteritem.class%
         arguments: [%character.characteritem.entity%]
         parent: core.core_manager
+        calls:
+            - [ setWeaponManager, [ @item.weapon_manager ] ]
+
 
     character.character_manager:
         class: %character.character.class%

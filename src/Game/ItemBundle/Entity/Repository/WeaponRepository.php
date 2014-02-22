@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class WeaponRepository extends EntityRepository
 {
+    /**
+     * Devuelve las armas equipadas de un personaje
+     *
+     * @param $char
+     * @return array
+     */
+    public function getEquippedWeapons($char)
+    {
+        $qb = $this->createQueryBuilder('weapon');
+        $qb
+            ->select('weapon')
+            ->innerJoin('weapon.characterItems', 'charItem')
+            ->innerJoin('charItem.character', 'char')
+            ->where('char = :char')
+            ->andWhere('charItem.equipped = :equipped')
+            ->setParameter(':char', $char)
+            ->setParameter(':equipped', true);
+
+        return $qb->getQuery()->getResult();
+    }
 }
