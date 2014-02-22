@@ -9,7 +9,7 @@ use Game\MapBundle\Entity\Poi;
 
 /**
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="user_unique",columns={"monster_id", "poi_id"})})
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\MonsterBundle\Entity\Repository\SpawnRepository")
  * @UniqueEntity(fields={"monster", "poi"})
  */
 class Spawn

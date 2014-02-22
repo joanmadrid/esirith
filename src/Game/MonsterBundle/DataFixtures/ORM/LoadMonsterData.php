@@ -14,12 +14,11 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        // name, internal, race, hp, damage, defense, fue, des
+        // name, internal, image, race, hp, damage, defense, fue, des
         $monsterList   = array();
-        $monsterList[] = array('Peter', 'boy_1', 'human', 10, 2, 13, 13, 10);
-        $monsterList[] = array('Joshé', 'boy_1', 'elf', 15, 1, 8, 10, 13);
-        $monsterList[] = array('Ann', 'girl_1', 'dwarf', 7, 2, 20, 15, 8);
-        $monsterList[] = array('Sareha', 'girl_2', 'gnome', 10, 3, 10, 8, 15);
+        $monsterList[] = array('Orc', 'orc_1', 'orc.png', 'orc', 10, 3, 1, 15, 8);
+        $monsterList[] = array('Shadow', 'shadow_1', 'shadow.png', 'undead', 20, 4, 1, 10, 10);
+        $monsterList[] = array('Lich', 'lich_1', 'lich.png', 'undead', 30, 6, 5, 10, 10);
 
         $out = array();
         foreach ($monsterList as $monster) {
@@ -28,13 +27,14 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
             $aux
                 ->setName($monster[0])
                 ->setInternalName($monster[1])
-                ->setRace($this->getReference('race-' . $monster[2]))
-                ->setHp($monster[3])
-                ->setCurrentHp($monster[3])
-                ->setDamage($monster[4])
-                ->setDefense($monster[5])
-                ->setFue($monster[6])
-                ->setDes($monster[7])
+                ->setImage($monster[2])
+                ->setRace($this->getReference('race-'.$monster[3]))
+                ->setHp($monster[4])
+                ->setCurrentHp($monster[4])
+                ->setDamage($monster[5])
+                ->setDefense($monster[6])
+                ->setFue($monster[7])
+                ->setDes($monster[8])
                 ->setLevel(1);
 
             $manager->persist($aux);
@@ -43,10 +43,9 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->flush();
 
-        $this->addReference('monster-human-boy', $out[0]);
-        $this->addReference('monster-elf-boy', $out[1]);
-        $this->addReference('monster-dwarf-girl', $out[2]);
-        $this->addReference('monster-gnome-girl', $out[3]);
+        foreach ($out as $val) {
+            $this->addReference('monster-'.$val->getInternalName(), $val);
+        }
     }
 
     /**
@@ -54,6 +53,6 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 5;
+        return 6;
     }
 }

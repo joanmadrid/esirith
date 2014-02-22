@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Class Monster
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\MonsterBundle\Entity\Repository\MonsterRepository")
  * @UniqueEntity("internalName")
  *
  * @ORM\Table(name="monster", options={"comment" = "Tabla de monser"})
@@ -51,6 +51,13 @@ class Monster extends Attributes
      * @ORM\OneToMany(targetEntity="Game\MonsterBundle\Entity\Spawn", mappedBy="monster")
      */
     protected $spawnList;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @param int $id
@@ -149,5 +156,23 @@ class Monster extends Attributes
     public function getSpawnList()
     {
         return $this->spawnList;
+    }
+
+    /**
+     * @param string $image
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

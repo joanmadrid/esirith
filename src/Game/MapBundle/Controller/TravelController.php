@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Game\BattleBundle\Manager\BattleManager;
 use Game\CharacterBundle\CharacterEventList;
 use Game\CharacterBundle\Event\CharacterEvent;
 use Game\CharacterBundle\Manager\CharacterManager;
@@ -18,6 +19,7 @@ use Game\CharacterBundle\Entity\Character;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Game\UserBundle\Manager\UserManager;
+use Game\ItemBundle\Manager\SpawnManager;
 
 class TravelController extends Controller
 {
@@ -46,13 +48,17 @@ class TravelController extends Controller
         $diceRoll      = $this->getRollManager()->roll(1, 100);
         $triggerBattle = $this->getMapManager()->triggerBattle($path, $diceRoll);
 
+        if ($triggerBattle) {
+            $monsters = $this->getSpawnManager()->spawnMonsters($path->getEnd());
+            $battle = $this->getBattleManager()->createMonsterBattle($char, $monsters, $path->getEnd());
+        }
+
         $this->getCharacterManager()->flush();
 
         return array(
             'char'    => $char,
             'poi'     => $poi,
             'dice'    => $diceRoll->getRollResult(),
-            'danger'  => '?',
             'combat'  => $triggerBattle,
             'restore' => $characterEvent->getCharacterRestore()
         );
@@ -132,5 +138,13 @@ class TravelController extends Controller
     private function getUserManager()
     {
         return $this->get('user.user_manager');
+    }
+
+    /**
+     * @return SpawnManager
+     */
+    private function getSpawnManager()
+    {
+        return $this->get('monster.spawn_manager');
     }
 }

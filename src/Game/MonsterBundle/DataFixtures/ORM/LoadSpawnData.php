@@ -15,7 +15,7 @@ class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $monsterList  = array('monster-human-boy', 'monster-elf-boy', 'monster-dwarf-girl', 'monster-gnome-girl');
+        $monsterList  = array('monster-orc_1', 'monster-shadow_1', 'monster-lich_1');
         $poiCount = 6; //Hard-code del numero de Poi's sin contar el inicial
 
         $insertKeys = array();
@@ -48,6 +48,6 @@ class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 6;
+        return 7;
     }
 }

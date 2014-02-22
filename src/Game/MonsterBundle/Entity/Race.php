@@ -7,9 +7,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * Class Monster
+ * Class Race
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Game\MonsterBundle\Entity\Repository\RaceRepository")
  * @UniqueEntity("internalName")
  *
  * @ORM\Table(name="race", options={"comment" = "Tabla de razas"})

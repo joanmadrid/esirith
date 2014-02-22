@@ -6,12 +6,9 @@
 <p>
     Checking if you encounter some problems...<br />
     Rolling a d100 dice...{{ dice }}<br />
-    The danger was {{ danger }}%...<br />
-    {% if combat %}Someone stumbled upon you!{% else %}You don't find any problems{% endif %}<br /><br />
-
+    {% if combat %}Someone stumbled upon you! <a href="">Combat</a>{% else %}You don't find any problems{% endif %}<br />
     Restore points: <br />
     Hp: +{{ restore.hp }}
-
 </p>
 <p><a href="{{ path('map.view', {'id':poi.map.id}) }}">View map</a></p>
 {% endblock %}
