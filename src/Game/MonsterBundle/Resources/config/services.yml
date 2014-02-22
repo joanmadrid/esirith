@@ -1,0 +1,11 @@
+parameters:
+  game.spawn.class: Game\MonsterBundle\Manager\SpawnManager
+  game.spawn.entity_class: Game\MonsterBundle\Entity\Spawn
+
+services:
+  monster.spawn_manager:
+      class: %game.spawn.class%
+      arguments: [%game.spawn.entity_class%]
+      parent: core.core_manager
+      calls:
+          - [ setRollManager, [ @core.roll_manager ] ]
