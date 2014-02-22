@@ -1,0 +1,12 @@
+parameters:
+  game.battle.class: Game\BattleBundle\Manager\BattleManager
+  game.battle.entity_class: Game\BattleBundle\Entity\Battle
+
+services:
+  battle.battle_manager:
+    class: %game.battle.class%
+    arguments: [%game.battle.entity_class%]
+    parent: core.core_manager
+#    calls:
+#      - [ setRollManager, [ @core.roll_manager ] ]
+#      - [ setEventDispatcher, [ @event_dispatcher ] ]
