@@ -6,7 +6,7 @@
 <p>
     Checking if you encounter some problems...<br />
     Rolling a d100 dice...{{ dice }}<br />
-    {% if combat %}Someone stumbled upon you! <a href="">Combat</a>{% else %}You don't find any problems{% endif %}<br />
+    {% if combat %}Someone stumbled upon you! <a href="{{ path('battle.battle.view') }}">Combat</a>{% else %}You don't find any problems{% endif %}<br />
     Restore points: <br />
     Hp: +{{ restore.hp }}
 </p>
