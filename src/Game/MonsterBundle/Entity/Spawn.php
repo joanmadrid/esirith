@@ -47,6 +47,20 @@ class Spawn
     protected $rate;
 
     /**
+     * @ORM\Column(name="min", type="integer")
+     *
+     * @var  int $rate
+     */
+    protected $min;
+
+    /**
+     * @ORM\Column(name="max", type="integer")
+     *
+     * @var  int $rate
+     */
+    protected $max;
+
+    /**
      * @param int $id
      *
      * @return $this
@@ -125,4 +139,42 @@ class Spawn
     {
         return $this->rate;
     }
+
+    /**
+     * @param int $max
+     * @return $this
+     */
+    public function setMax($max)
+    {
+        $this->max = $max;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMax()
+    {
+        return $this->max;
+    }
+
+    /**
+     * @param int $min
+     * @return $this
+     */
+    public function setMin($min)
+    {
+        $this->min = $min;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMin()
+    {
+        return $this->min;
+    }
+
+
 }
