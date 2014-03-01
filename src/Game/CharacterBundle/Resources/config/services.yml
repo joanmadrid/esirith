@@ -1,10 +1,12 @@
 parameters:
-    character.characteritem.class: Game\CharacterBundle\Manager\CharacterItemManager
     character.characteritem.entity: Game\CharacterBundle\Entity\CharacterItem
-    character.character.class: Game\CharacterBundle\Manager\CharacterManager
     character.character.entity: Game\CharacterBundle\Entity\Character
+    character.characteritem.class: Game\CharacterBundle\Manager\CharacterItemManager
+    character.character.class: Game\CharacterBundle\Manager\CharacterManager
+    character.xp.class: Game\CharacterBundle\Manager\XPManager
     character.character_restore_listener.class: Game\CharacterBundle\EventListener\CharacterRestoreListener
     character.character_shop_listener.class: Game\CharacterBundle\EventListener\CharacterShopListener
+    character.character_xp_listener.class: Game\CharacterBundle\EventListener\CharacterXPListener
 
 services:
     character.characteritem_manager:
@@ -23,6 +25,11 @@ services:
             - [ setRollManager, [ @core.roll_manager ] ]
             - [ setCharacterItemManager, [ @character.characteritem_manager ] ]
 
+    character.xp_manager:
+        class: %character.xp.class%
+        arguments: []
+
+
     character.character_restore.listener:
         class: %character.character_restore_listener.class%
         tags:
@@ -34,3 +41,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: character.buy, method: onCharacterBuy}
             - { name: kernel.event_listener, event: character.sell, method: onCharacterSell}
+
+    character.character_xp.listener:
+        class: %character.character_xp_listener.class%
+        calls:
+            - [ setXPManager, [ @character.xp_manager ] ]
+        tags:
+            - { name: kernel.event_listener, event: character.kill, method: onCharacterKill}

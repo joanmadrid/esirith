@@ -24,4 +24,9 @@ final class CharacterEventList
      * This event occurs when a characters rests
      */
     const REST = 'character.rest';
+
+    /**
+     * This event occurs when a character kills a monster
+     */
+    const KILL = 'character.kill';
 }

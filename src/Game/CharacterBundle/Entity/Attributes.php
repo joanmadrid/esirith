@@ -152,7 +152,7 @@ abstract class Attributes
      */
     public function getStr()
     {
-        return $this->fue;
+        return $this->str;
     }
 
     /**

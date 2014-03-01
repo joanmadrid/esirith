@@ -6,6 +6,7 @@ use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Model\CharacterRestore;
 use Game\ShopBundle\Model\Buyout;
 use Symfony\Component\EventDispatcher\Event;
+use Game\MonsterBundle\Entity\Monster;
 
 class CharacterEvent extends Event
 {
@@ -20,6 +21,9 @@ class CharacterEvent extends Event
 
     /** @var integer */
     protected $restType;
+
+    /** @var Monster */
+    protected $monster;
 
     public function __construct(Character $character)
     {
@@ -84,5 +88,21 @@ class CharacterEvent extends Event
     public function getRestType()
     {
         return $this->restType;
+    }
+
+    /**
+     * @param \Game\MonsterBundle\Entity\Monster $monster
+     */
+    public function setMonster($monster)
+    {
+        $this->monster = $monster;
+    }
+
+    /**
+     * @return \Game\MonsterBundle\Entity\Monster
+     */
+    public function getMonster()
+    {
+        return $this->monster;
     }
 }

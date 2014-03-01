@@ -2,11 +2,13 @@
 {% if character %}
     <ul>
         <li><strong>{{ character.name }}</strong></li>
-        <li><i class="char-level"></i> {{ character.level }}</li>
-        <li><i class="char-gold"></i> {{ character.gold }}</li>
-        <li><i class="char-hp"></i> {{ character.currentHP }}/{{ character.hp }}</li>
-        <li><i class="char-damage"></i> {{ character.damage }}</li>
-        <li><i class="char-defense"></i> {{ character.defense }}</li>
+        <li><i class="char-level" title="Level and current XP"></i> {{ character.level }} ({{ character.xp }}XP)</li>
+        <li><i class="char-gold" title="Gold"></i> {{ character.gold }}</li>
+        <li><i class="char-hp" title="Health points"></i> {{ character.currentHP }}/{{ character.hp }}</li>
+        <li><i class="char-damage" title="Damage"></i> {{ character.damage }}</li>
+        <li><i class="char-defense" title="Defense"></i> {{ character.defense }}</li>
+        <li><i class="char-str" title="Strength"></i> {{ character.str }}</li>
+        <li><i class="char-dex" title="Dextery"></i> {{ character.dex }}</li>
     </ul>
 {% else %}
     <a href="{{ path('character.roster.index') }}">Select o create a character to start playing!</a>
