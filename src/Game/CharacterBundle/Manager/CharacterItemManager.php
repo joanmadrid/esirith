@@ -36,6 +36,10 @@ class CharacterItemManager extends CoreManager
         return $equip;
     }
 
+    /**
+     * @param CharacterItem $item
+     * @return bool
+     */
     public function unequip(CharacterItem $item)
     {
         $item->setEquipped(false);
@@ -43,6 +47,10 @@ class CharacterItemManager extends CoreManager
         return true;
     }
 
+    /**
+     * @param $char
+     * @return array
+     */
     public function getCharacterItems($char)
     {
         return $this->getRepository()->findItemsByCharacter($char);

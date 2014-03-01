@@ -8,6 +8,7 @@ class RollManager
 {
     /**
      * Roll a number of dices
+     * Critical es el % de posibilidades
      *
      * @param $number
      * @param $dice
@@ -30,6 +31,17 @@ class RollManager
         $roll->setRollResult($total);
 
         return $roll;
+    }
+
+    /**
+     * Prueba de 1d100 <= limite
+     *
+     * @param $limit
+     * @return bool
+     */
+    public function rollPercentEqualOrBelow($limit)
+    {
+        return ($this->roll(1, 100)->getRollResult() <= $limit);
     }
 
     /**

@@ -28,6 +28,11 @@ game_map:
     prefix:   /map
     type:     annotation
 
+game_battle:
+    resource: "@BattleBundle/Controller/BattleController.php"
+    prefix:   /battle
+    type:     annotation
+
 
 ## FOSUser ##
 

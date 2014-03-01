@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    {% if battle.status == 1 %}
+        <p>You won the battle.</p>
+        <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
+    {% else %}
+        <p>You lost the battle.</p>
+        <img src="{{ asset('bundles/ui/img/event/battle_result_lost.jpg') }}" />
+    {% endif %}
+{% endblock %}

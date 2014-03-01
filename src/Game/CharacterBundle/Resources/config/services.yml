@@ -19,6 +19,9 @@ services:
         class: %character.character.class%
         arguments: [%character.character.entity%]
         parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+            - [ setCharacterItemManager, [ @character.characteritem_manager ] ]
 
     character.character_restore.listener:
         class: %character.character_restore_listener.class%

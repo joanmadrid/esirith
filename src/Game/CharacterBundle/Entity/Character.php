@@ -58,6 +58,11 @@ class Character extends Attributes
     protected $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="Game\BattleBundle\Entity\Battle", mappedBy="character")
+     */
+    protected $battles;
+
+    /**
      * Constructor
      */
     public function __construct()

@@ -4,8 +4,6 @@ namespace Game\MonsterBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-
-
 use Game\MonsterBundle\Entity\Spawn;
 
 class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
@@ -35,7 +33,9 @@ class LoadSpawnData extends AbstractFixture implements OrderedFixtureInterface
             $aux
                 ->setMonster($monster)
                 ->setPoi($poi)
-                ->setRate(mt_rand(0, 75));
+                ->setRate(mt_rand(0, 75))
+                ->setMin(1)
+                ->setMax(mt_rand(1, 4));
 
             $manager->persist($aux);
         }

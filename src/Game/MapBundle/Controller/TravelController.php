@@ -19,7 +19,7 @@ use Game\CharacterBundle\Entity\Character;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Game\UserBundle\Manager\UserManager;
-use Game\ItemBundle\Manager\SpawnManager;
+use Game\MonsterBundle\Manager\SpawnManager;
 
 class TravelController extends Controller
 {
@@ -51,6 +51,7 @@ class TravelController extends Controller
         if ($triggerBattle) {
             $monsters = $this->getSpawnManager()->spawnMonsters($path->getEnd());
             $battle = $this->getBattleManager()->createMonsterBattle($char, $monsters, $path->getEnd());
+            $this->getBattleManager()->flush();
         }
 
         $this->getCharacterManager()->flush();

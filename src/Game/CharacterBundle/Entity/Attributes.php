@@ -37,16 +37,16 @@ abstract class Attributes
     /**
      * @var integer
      *
-     * @ORM\Column(name="fue", type="integer")
+     * @ORM\Column(name="str", type="integer")
      */
-    protected $fue;
+    protected $str;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="des", type="integer")
+     * @ORM\Column(name="dex", type="integer")
      */
-    protected $des;
+    protected $dex;
 
     /**
      * @var integer
@@ -116,13 +116,13 @@ abstract class Attributes
     }
 
     /**
-     * @param int $des
+     * @param int $dex
      *
      * @return $this
      */
-    public function setDes($des)
+    public function setDex($dex)
     {
-        $this->des = $des;
+        $this->dex = $dex;
 
         return $this;
     }
@@ -130,19 +130,19 @@ abstract class Attributes
     /**
      * @return int
      */
-    public function getDes()
+    public function getDex()
     {
-        return $this->des;
+        return $this->dex;
     }
 
     /**
-     * @param int $fue
+     * @param int $str
      *
      * @return $this
      */
-    public function setFue($fue)
+    public function setStr($str)
     {
-        $this->fue = $fue;
+        $this->str = $str;
 
         return $this;
     }
@@ -150,7 +150,7 @@ abstract class Attributes
     /**
      * @return int
      */
-    public function getFue()
+    public function getStr()
     {
         return $this->fue;
     }
