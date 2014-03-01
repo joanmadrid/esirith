@@ -33,8 +33,8 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
                 ->setCurrentHp($monster[4])
                 ->setDamage($monster[5])
                 ->setDefense($monster[6])
-                ->setFue($monster[7])
-                ->setDes($monster[8])
+                ->setStr($monster[7])
+                ->setDex($monster[8])
                 ->setLevel(1);
 
             $manager->persist($aux);

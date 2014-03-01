@@ -39,8 +39,12 @@ class BattleController extends Controller
         $battle = $this->getBattleManager()->getActiveBattle($char);
 
         $result = $this->getBattleManager()->resolveBattle($battle);
-        $this->getBattleManager()->saveResolution($result);
         $this->getBattleManager()->flush();
+
+        $char->setCurrentHp($result->getCurrentHP());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($char);
+        $em->flush();
 
         return $this->redirect(
             $this->generateUrl(
@@ -60,7 +64,9 @@ class BattleController extends Controller
     public function resultAction(Battle $battle)
     {
         $char = $this->getUserManager()->getCharacter();
-        return array();
+        return array(
+            'battle' => $battle
+        );
     }
 
     /**

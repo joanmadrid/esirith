@@ -13,6 +13,8 @@ use Game\BattleBundle\Entity\Battle;
 
 class BattleManager extends CoreManager
 {
+    /** @var BattleResolver */
+    protected $battleResolver;
 
     /**
      * @return BattleRepository
@@ -20,6 +22,14 @@ class BattleManager extends CoreManager
     protected function getRepository()
     {
         return parent::getRepository();
+    }
+
+    /**
+     * @param \Game\BattleBundle\Manager\BattleResolver $battleResolver
+     */
+    public function setBattleResolver($battleResolver)
+    {
+        $this->battleResolver = $battleResolver;
     }
 
     /**
@@ -65,15 +75,15 @@ class BattleManager extends CoreManager
      */
     public function resolveBattle(Battle $battle)
     {
-        $result = new BattleResult();
+        $resolver = $this->battleResolver;
+        $resolver->setBattle($battle);
+        $result = $resolver->resolve();
+
+        //guardo la resolución
+        $battle->setStatus($result->getStatus());
+        $battle->setResolution($result->generateJSON());
+        $this->persist($battle);
+
         return $result;
-    }
-
-    /**
-     * @param BattleResult $result
-     */
-    public function saveResolution(BattleResult $result)
-    {
-
     }
 }

@@ -44,6 +44,11 @@ class Battle
      */
     private $battleMonsters;
 
+    /**
+     * @ORM\Column(name="resolution", type="text", nullable=true)
+     */
+    private $resolution;
+
 
     /**
      * Get id
@@ -139,5 +144,21 @@ class Battle
     public function getBattleMonsters()
     {
         return $this->battleMonsters;
+    }
+
+    /**
+     * @param mixed $resolution
+     */
+    public function setResolution($resolution)
+    {
+        $this->resolution = $resolution;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResolution()
+    {
+        return $this->resolution;
     }
 }
