@@ -131,6 +131,11 @@ class UserManager extends CoreManager
         return $this->getCharacterManager()->findById($this->getCharacterId());
     }
 
+    public function getCharacterWithMap()
+    {
+        return $this->getCharacterManager()->findCharacterWithMap($this->getCharacterId());
+    }
+
     /**
      * @return mixed
      * @throws \Symfony\Component\Translation\Exception\NotFoundResourceException

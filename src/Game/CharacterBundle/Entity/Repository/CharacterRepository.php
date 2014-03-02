@@ -69,4 +69,21 @@ class CharacterRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findCharacterWithMap($id)
+    {
+        $qb = $this->createQueryBuilder('char');
+        $qb
+            ->select('char, poi, map')
+            ->innerJoin('char.currentPoi', 'poi')
+            ->innerJoin('poi.map', 'map')
+            ->where('char.id = :id')
+            ->setParameter(':id', $id);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
