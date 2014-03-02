@@ -14,6 +14,11 @@
             <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_HEALTH')}) }}">+</a>
         </li>
         <li>
+            <i class="char-mana" title="Mana points"></i>
+            Mana
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_MANA')}) }}">+</a>
+        </li>
+        <li>
             <i class="char-damage" title="Damage"></i>
             Damage
             <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_DAMAGE')}) }}">+</a>
@@ -32,6 +37,16 @@
             <i class="char-dex" title="Dextery"></i>
             Dextery
             <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_DEX')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-int" title="Intelligence"></i>
+            Intelligence
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_INT')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-spi" title="Spirit"></i>
+            Spirit
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_SPI')}) }}">+</a>
         </li>
     </ul>
 
