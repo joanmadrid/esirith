@@ -12,10 +12,13 @@ class XPManager
     const LEVELUP_XP_NEEDED = 100;
 
     const LEVELUP_STAT_HEALTH = 1;
-    const LEVELUP_STAT_DAMAGE = 2;
-    const LEVELUP_STAT_DEFENSE = 3;
-    const LEVELUP_STAT_STR = 4;
-    const LEVELUP_STAT_DEX = 5;
+    const LEVELUP_STAT_MANA = 2;
+    const LEVELUP_STAT_DAMAGE = 3;
+    const LEVELUP_STAT_DEFENSE = 4;
+    const LEVELUP_STAT_STR = 5;
+    const LEVELUP_STAT_DEX = 6;
+    const LEVELUP_STAT_INT = 7;
+    const LEVELUP_STAT_SPI = 8;
 
     /** @var CharacterManager */
     protected $characterManager;
@@ -63,6 +66,9 @@ class XPManager
             case self::LEVELUP_STAT_HEALTH:
                 $char->setHp($char->getHp() + 10);
                 break;
+            case self::LEVELUP_STAT_MANA:
+                $char->setMana($char->getMana() + 10);
+                break;
             case self::LEVELUP_STAT_DAMAGE:
                 $char->setDamage($char->getDamage() + 1);
                 break;
@@ -75,8 +81,15 @@ class XPManager
             case self::LEVELUP_STAT_DEX:
                 $char->setDex($char->getDex() + 1);
                 break;
+            case self::LEVELUP_STAT_INT:
+                $char->setInt($char->getInt() + 1);
+                break;
+            case self::LEVELUP_STAT_SPI:
+                $char->setSpi($char->getSpi() + 1);
+                break;
         }
         $char->setXP($char->getXP() - self::LEVELUP_XP_NEEDED);
+        $char->setLevel($char->getLevel()+1);
         $this->characterManager->persist($char);
     }
 }

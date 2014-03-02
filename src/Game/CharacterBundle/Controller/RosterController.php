@@ -32,7 +32,7 @@ class RosterController extends Controller
     public function selectAction(Character $char)
     {
         $this->getUserManager()->selectCharacter($char);
-        return $this->redirect($this->generateUrl('map.list'));
+        return $this->redirect($this->generateUrl('map.view'));
     }
 
     /**
