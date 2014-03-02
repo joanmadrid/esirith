@@ -2,7 +2,11 @@
 {% if character %}
     <ul>
         <li><strong>{{ character.name }}</strong></li>
-        <li><i class="char-level" title="Level and current XP"></i> {{ character.level }} ({{ character.xp }}XP)</li>
+        {% if character.xp >= constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_XP_NEEDED') %}
+        <li><i class="char-xp-lvl" title="Level and Experience"></i> {{ character.level }} ({{ character.xp }}XP) <a href="{{ path('character.levelup.index') }}">Level up</a></li>
+        {% else %}
+        <li><i class="char-xp" title="Level and Experience"></i> {{ character.level }} ({{ character.xp }}XP)</li>
+        {% endif %}
         <li><i class="char-gold" title="Gold"></i> {{ character.gold }}</li>
         <li><i class="char-hp" title="Health points"></i> {{ character.currentHP }}/{{ character.hp }}</li>
         <li><i class="char-damage" title="Damage"></i> {{ character.damage }}</li>

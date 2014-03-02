@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Level up</h1>
+
+    <p>
+        Your character has enough experience to level up.<br />
+        Choose one of the stats to upgrade it:
+    </p>
+    <ul>
+        <li>
+            <i class="char-hp" title="Health points"></i>
+            Health
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_HEALTH')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-damage" title="Damage"></i>
+            Damage
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_DAMAGE')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-defense" title="Defense"></i>
+            Defense
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_DEFENSE')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-str" title="Strength"></i>
+            Strength
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_STR')}) }}">+</a>
+        </li>
+        <li>
+            <i class="char-dex" title="Dextery"></i>
+            Dextery
+            <a href="{{ path('character.levelup.upgrade', {'type':constant('Game\\CharacterBundle\\Manager\\XPManager::LEVELUP_STAT_DEX')}) }}">+</a>
+        </li>
+    </ul>
+
+{% endblock %}

@@ -10,6 +10,7 @@ use Game\CharacterBundle\Entity\CharacterItem;
 use Game\CharacterBundle\Manager\CharacterItemManager;
 use Symfony\Component\HttpFoundation\Response;
 use Game\CoreBundle\Model\Roll;
+use Game\UserBundle\Manager\UserManager;
 
 class InventoryController extends Controller
 {
@@ -20,7 +21,7 @@ class InventoryController extends Controller
     public function indexAction()
     {
         //personaje activo
-        $char = $this->getDoctrine()->getRepository('CharacterBundle:Character')->findOneByName('Conan');
+        $char = $char = $this->getUserManager()->getCharacter();
 
         //items
         $items = $this->getDoctrine()->getRepository('CharacterBundle:CharacterItem')->findItemsByCharacter($char);
@@ -100,5 +101,13 @@ class InventoryController extends Controller
     private function getWeaponManager()
     {
         return $this->get('item.weapon_manager');
+    }
+
+    /**
+     * @return UserManager;
+     */
+    private function getUserManager()
+    {
+        return $this->get('user.user_manager');
     }
 }

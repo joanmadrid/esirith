@@ -28,6 +28,8 @@ services:
     character.xp_manager:
         class: %character.xp.class%
         arguments: []
+        calls:
+            - [ setCharacterManager, [ @character.character_manager ] ]
 
 
     character.character_restore.listener:
