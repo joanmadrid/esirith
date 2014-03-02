@@ -34,6 +34,7 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
         $gear = new CharacterItem();
         $gear->setItem($this->getReference('weapon-long-sword'));
         $gear->setCharacter($char);
+        $gear->setEquipped(true);
         $manager->persist($gear);
 
         $manager->flush();

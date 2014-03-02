@@ -63,6 +63,13 @@ class Character extends Attributes
     protected $battles;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="xp", type="integer", length=255)
+     */
+    protected $xp = 0;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -199,6 +206,24 @@ class Character extends Attributes
     }
 
     /**
+     * @param int $xp
+     * @return $this
+     */
+    public function setXp($xp)
+    {
+        $this->xp = $xp;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getXp()
+    {
+        return $this->xp;
+    }
+
+    /**
      * @return CharacterRestore
      */
     public function restore()
@@ -222,5 +247,15 @@ class Character extends Attributes
         }
 
         return $hpRestored;
+    }
+
+    /**
+     * @param $amount
+     * @return $this
+     */
+    public function addXP($amount)
+    {
+        $this->setXp($this->getXp() + $amount);
+        return $this;
     }
 }

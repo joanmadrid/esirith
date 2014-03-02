@@ -5,11 +5,14 @@ namespace Game\BattleBundle\Manager;
 use Game\BattleBundle\Entity\Battle;
 use Game\BattleBundle\Model\BattleAttack;
 use Game\BattleBundle\Model\BattleResult;
+use Game\CharacterBundle\Manager\XPManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\CharacterBundle\Entity\Character;
 use Game\BattleBundle\Model\BattlePlayer;
 use Game\CoreBundle\Model\Roll;
 use Game\CharacterBundle\Manager\CharacterManager;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Game\CharacterBundle\Event\CharacterEvent;
 
 class BattleResolver {
 
@@ -30,6 +33,12 @@ class BattleResolver {
     /** @var CharacterManager */
     protected $characterManager;
 
+    /** @var EventDispatcher */
+    protected $eventDispatcher;
+
+    /** @var XPManager */
+    protected $XPManager;
+
     function __construct()
     {
         $this->result = new BattleResult();
@@ -41,6 +50,14 @@ class BattleResolver {
     public function setCharacterManager($characterManager)
     {
         $this->characterManager = $characterManager;
+    }
+
+    /**
+     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
+     */
+    public function setEventDispatcher($eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -60,6 +77,13 @@ class BattleResolver {
         $this->rollManager = $rollManager;
     }
 
+    /**
+     * @param \Game\CharacterBundle\Manager\XPManager $XPManager
+     */
+    public function setXPManager($XPManager)
+    {
+        $this->XPManager = $XPManager;
+    }
 
     /**
      * @return BattleResult
@@ -256,7 +280,14 @@ class BattleResolver {
                     //3) si esta muerto lo saco
                     if ($target->isDead()) {
                         $this->log("Lo mata");
-                        //unset($order[$targetPos]);
+                        //gana XP
+                        if ($target->getEnemy()) {
+//                            $characterEvent = new CharacterEvent($player->getPlayer());
+//                            $characterEvent->setMonster($target->getPlayer());
+//                            $this->eventDispatcher->dispatch(CharacterEventList::KILL, $characterEvent);
+                            $xp = $this->XPManager->calcKillXP($player->getPlayer(), $target->getPlayer());
+                            $result->addGainedXP($xp);
+                        }
                     }
                 } else {
                     $this->log("No hay objetivo, gana.");

@@ -16,3 +16,5 @@ services:
     calls:
       - [ setRollManager, [ @core.roll_manager ] ]
       - [ setCharacterManager, [ @character.character_manager ] ]
+      - [ setEventDispatcher, [ @event_dispatcher ] ]
+      - [ setXPManager, [ @character.xp_manager ] ]

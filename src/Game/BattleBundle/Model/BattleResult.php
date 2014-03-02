@@ -11,6 +11,8 @@ class BattleResult {
 
     protected $currentHP;
 
+    protected $gainedXP = 0;
+
     public function generateJSON()
     {
         return "";
@@ -47,4 +49,30 @@ class BattleResult {
     {
         return $this->currentHP;
     }
+
+    /**
+     * @param mixed $gainedXP
+     */
+    public function setGainedXP($gainedXP)
+    {
+        $this->gainedXP = $gainedXP;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGainedXP()
+    {
+        return $this->gainedXP;
+    }
+
+    /**
+     * @param $amount
+     */
+    public function addGainedXP($amount)
+    {
+        $this->setGainedXP($this->getGainedXP() + $amount);
+    }
+
+
 }
