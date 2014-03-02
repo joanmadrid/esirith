@@ -12,6 +12,7 @@ use Game\MapBundle\Entity\RestPoint;
 use Game\MapBundle\Manager\RestPointManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Game\UserBundle\Manager\UserManager;
+use Game\CharacterBundle\Entity\Character;
 
 class MapController extends Controller
 {
@@ -31,14 +32,16 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("/view/{id}/", name="map.view", requirements={"id" = "\d+"}, defaults={"id" = 1})
+     * @Route("/view", name="map.view")
      * @Template()
-     * @ParamConverter("map", class="MapBundle:Map")
      */
-    public function viewAction(Map $map)
+    public function viewAction()
     {
         //personaje activo
-        $char = $this->getUserManager()->getCharacter();
+        /** @var Character $char */
+        $char = $this->getUserManager()->getCharacterWithMap();
+
+        $map = $char->getCurrentPoi()->getMap();
 
         return array(
             'char' => $char,
@@ -74,7 +77,7 @@ class MapController extends Controller
             );
         } catch (NotFoundHttpException $exc) {
             $characterMap = $char->getCurrentPoi()->getMap();
-            return $this->redirect($this->generateUrl('map.view', array('id' => $characterMap->getId())));
+            return $this->redirect($this->generateUrl('map.view'));
         }
 
     }

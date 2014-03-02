@@ -42,7 +42,7 @@ class TravelController extends Controller
         } catch (NotFoundHttpException $exc) {
             $characterMap = $char->getCurrentPoi()->getMap();
 
-            return $this->redirect($this->generateUrl('map.view', array('id' => $characterMap->getId())));
+            return $this->redirect($this->generateUrl('map.view'));
         }
 
         $diceRoll      = $this->getRollManager()->roll(1, 100);
@@ -81,7 +81,7 @@ class TravelController extends Controller
             $this->getCharacterManager()->move($char, $poi);
         } catch (NotFoundHttpException $exc) {
             $characterMap = $char->getCurrentPoi()->getMap();
-            return $this->redirect($this->generateUrl('map.view', array('id' => $characterMap->getId())));
+            return $this->redirect($this->generateUrl('map.view'));
         }
 
         $this->getCharacterManager()->flush();

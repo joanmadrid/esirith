@@ -38,7 +38,7 @@ class LevelUpController extends Controller
         $this->getXPManager()->levelUp($char, $type);
         $this->getXPManager()->flush();
 
-        return $this->redirect($this->generateUrl('character.levelup.index'));
+        return $this->redirect($this->generateUrl('map.view'));
     }
 
     /**
