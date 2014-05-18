@@ -46,6 +46,13 @@ class Poi
     private $y;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="startPoint", type="boolean")
+     */
+    private $startPoint = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Map", inversedBy="pois")
      * @ORM\JoinColumn(name="map_id", referencedColumnName="id")
      */
@@ -148,6 +155,24 @@ class Poi
         $this->y = $y;
     
         return $this;
+    }
+
+    /**
+     * @param boolean $startPoint
+     * @return $this
+     */
+    public function setStartPoint($startPoint)
+    {
+        $this->startPoint = $startPoint;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStartPoint()
+    {
+        return $this->startPoint;
     }
 
     /**

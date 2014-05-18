@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Create new character</h1>
+    <form action="{{ path('character.roster.create') }}" method="post">
+        Name:
+        <input type="text" name="name" />
+        <br />
+        Race:
+        <select name="race">
+            {% for race in races %}
+            <option value="{{ race.id }}">{{ race.name }}</option>
+            {% endfor %}
+        </select>
+        <br />
+        Class:
+        <select name="class">
+            {% for class in classes %}
+                <option value="{{ class.id }}">{{ class.name }}</option>
+            {% endfor %}
+        </select>
+        <br />
+        <input type="submit" value="Create" />
+    </form>
+{% endblock %}

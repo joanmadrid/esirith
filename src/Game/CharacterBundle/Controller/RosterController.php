@@ -2,6 +2,10 @@
 
 namespace Game\CharacterBundle\Controller;
 
+use Game\CharacterBundle\Manager\CharacterClassManager;
+use Game\CharacterBundle\Manager\RosterManager;
+use Game\MapBundle\Manager\PoiManager;
+use Game\MonsterBundle\Manager\RaceManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -9,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Game\UserBundle\Manager\UserManager;
 use Game\CharacterBundle\Entity\Character;
+use Symfony\Component\HttpFoundation\Request;
 
 class RosterController extends Controller
 {
@@ -36,10 +41,66 @@ class RosterController extends Controller
     }
 
     /**
+     * @Route("/create", name="character.roster.create")
+     * @Template()
+     */
+    public function createAction(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $name   = $request->get('name');
+            $race   = $this->getRaceManager()->findRace($request->get('race'));
+            $class  = $this->getCharacterClassManager()->findClass($request->get('class'));
+            $poi    = $this->getPoiManager()->getStartingPoi();
+
+            $user = $this->getUserManager()->getCurrentUser();
+            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi);
+            $this->getRosterManager()->flush();
+            return $this->selectAction($character);
+        }
+
+        return array(
+            'races'     => $this->getRaceManager()->getSelectableRaces(),
+            'classes'   => $this->getCharacterClassManager()->getSelectableClasses()
+        );
+    }
+
+    /**
      * @return UserManager;
      */
     private function getUserManager()
     {
         return $this->get('user.user_manager');
+    }
+
+    /**
+     * @return RosterManager
+     */
+    private function getRosterManager()
+    {
+        return $this->get('character.roster_manager');
+    }
+
+    /**
+     * @return RaceManager
+     */
+    private function getRaceManager()
+    {
+        return $this->get('monster.race_manager');
+    }
+
+    /**
+     * @return CharacterClassManager
+     */
+    private function getCharacterClassManager()
+    {
+        return $this->get('character.characterclass_manager');
+    }
+
+    /**
+     * @return PoiManager
+     */
+    private function getPoiManager()
+    {
+        return $this->get('map.poi_manager');
     }
 }

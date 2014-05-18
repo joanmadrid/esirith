@@ -15,6 +15,7 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $manager)
     {
+        //gamedo: hacerlo por el service
         $char = new Character();
         $char
             ->setName('Conan')
@@ -27,7 +28,10 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
             ->setLevel(1)
             ->setCurrentPoi($this->getReference('poi-start'))
             ->setGold(100)
-            ->setUser($this->getReference('user-0'));
+            ->setUser($this->getReference('user-0'))
+            ->setRace($this->getReference('race-human'))
+            ->setClass($this->getReference('class-warrior'))
+        ;
 
         $manager->persist($char);
 

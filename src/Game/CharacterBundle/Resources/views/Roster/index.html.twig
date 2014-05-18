@@ -6,5 +6,6 @@
         {% for character in user.characters %}
             <li>{{ character.name }} <a href="{{ path('character.roster.select', {id:character.id}) }}">select</a></li>
         {% endfor %}
+        <li><a href="{{ path('character.roster.create') }}">Create a new character</a></li>
     </ul>
 {% endblock %}

@@ -84,6 +84,12 @@ abstract class Attributes
     protected $level = 1;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Game\MonsterBundle\Entity\Race")
+     * @ORM\JoinColumn(name="race_id", referencedColumnName="id")
+     */
+    protected $race;
+
+    /**
      * @param int $currentHp
      *
      * @return $this
@@ -225,10 +231,12 @@ abstract class Attributes
 
     /**
      * @param int $currentMana
+     * @return $this
      */
     public function setCurrentMana($currentMana)
     {
         $this->currentMana = $currentMana;
+        return $this;
     }
 
     /**
@@ -241,10 +249,12 @@ abstract class Attributes
 
     /**
      * @param int $int
+     * @return $this
      */
     public function setInt($int)
     {
         $this->int = $int;
+        return $this;
     }
 
     /**
@@ -257,10 +267,12 @@ abstract class Attributes
 
     /**
      * @param int $mana
+     * @return $this
      */
     public function setMana($mana)
     {
         $this->mana = $mana;
+        return $this;
     }
 
     /**
@@ -273,10 +285,12 @@ abstract class Attributes
 
     /**
      * @param int $spi
+     * @return $this
      */
     public function setSpi($spi)
     {
         $this->spi = $spi;
+        return $this;
     }
 
     /**
@@ -287,5 +301,23 @@ abstract class Attributes
         return $this->spi;
     }
 
+    /**
+     * @param mixed $race
+     *
+     * @return $this
+     */
+    public function setRace($race)
+    {
+        $this->race = $race;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
 }

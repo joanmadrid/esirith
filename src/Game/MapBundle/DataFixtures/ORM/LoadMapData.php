@@ -31,21 +31,21 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         //pois
         $data = array();
-        $data[0] = array('Wyvernstone', 145, 620, $map);
-        $data[1] = array("Shadewood's crossroad", 278, 554, $map);
-        $data[2] = array('Addelost', 304, 507, $map);
-        $data[3] = array('Tibby', 312, 619, $map);
-        $data[4] = array('Southward Keep', 366, 663, $map);
-        $data[5] = array('Elmswell', 460, 588, $map);
-        $data[6] = array('Shadewood', 344, 562, $map);
-        $data[7] = array('Ruined tower', 205, 527, $map);
+        $data[0] = array('Wyvernstone', 145, 620, $map, true);
+        $data[1] = array("Shadewood's crossroad", 278, 554, $map, false);
+        $data[2] = array('Addelost', 304, 507, $map, false);
+        $data[3] = array('Tibby', 312, 619, $map, false);
+        $data[4] = array('Southward Keep', 366, 663, $map, false);
+        $data[5] = array('Elmswell', 460, 588, $map, false);
+        $data[6] = array('Shadewood', 344, 562, $map, false);
+        $data[7] = array('Ruined tower', 205, 527, $map, false);
 
-        $data[8] = array('Entrance', 483, 534, $dungeon);
-        $data[9] = array('Large room', 516, 422, $dungeon);
-        $data[10] = array('Room', 498, 211, $dungeon);//
-        $data[11] = array('Large room', 456, 422, $dungeon);
-        $data[12] = array('Room', 390, 254, $dungeon);//
-        $data[13] = array('Strange room', 296, 422, $dungeon);//
+        $data[8] = array('Entrance', 483, 534, $dungeon, false);
+        $data[9] = array('Large room', 516, 422, $dungeon, false);
+        $data[10] = array('Room', 498, 211, $dungeon, false);//
+        $data[11] = array('Large room', 456, 422, $dungeon, false);
+        $data[12] = array('Room', 390, 254, $dungeon, false);//
+        $data[13] = array('Strange room', 296, 422, $dungeon, false);//
 
         $out = array();
         foreach ($data as $poi) {
@@ -54,6 +54,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $aux->setX($poi[1]);
             $aux->setY($poi[2]);
             $aux->setMap($poi[3]);
+            $aux->setStartPoint($poi[4]);
             $manager->persist($aux);
             $out[] = $aux;
         }
