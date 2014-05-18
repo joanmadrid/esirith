@@ -49,7 +49,7 @@ class Character extends Attributes
      *
      * @ORM\Column(name="gold", type="integer", length=255)
      */
-    protected $gold;
+    protected $gold = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="Game\UserBundle\Entity\User", inversedBy="characters")
@@ -68,6 +68,12 @@ class Character extends Attributes
      * @ORM\Column(name="xp", type="integer", length=255)
      */
     protected $xp = 0;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CharacterClass")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="id")
+     */
+    protected $class;
 
     /**
      * Constructor
@@ -222,6 +228,24 @@ class Character extends Attributes
     {
         return $this->xp;
     }
+
+    /**
+     * @param CharacterClass $class
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * @return CharacterClass
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+
 
     /**
      * @return CharacterRestore

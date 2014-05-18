@@ -28,12 +28,6 @@ class Monster extends Attributes
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\MonsterBundle\Entity\Race")
-     * @ORM\JoinColumn(name="race_id", referencedColumnName="id")
-     */
-    protected $race;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="internal_name", type="string", length=255)
@@ -122,26 +116,6 @@ class Monster extends Attributes
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param mixed $race
-     *
-     * @return $this
-     */
-    public function setRace($race)
-    {
-        $this->race = $race;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRace()
-    {
-        return $this->race;
     }
 
     /**

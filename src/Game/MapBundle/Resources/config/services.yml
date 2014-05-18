@@ -3,6 +3,8 @@ parameters:
   game.map.entity_class: Game\MapBundle\Entity\Map
   game.restpoint.class: Game\MapBundle\Manager\RestPointManager
   game.restpoint.entity_class: Game\MapBundle\Entity\RestPoint
+  game.poi.class: Game\MapBundle\Manager\PoiManager
+  game.poi.entity_class: Game\MapBundle\Entity\Poi
 
 services:
   map.map_manager:
@@ -17,3 +19,8 @@ services:
     calls:
       - [ setRollManager, [ @core.roll_manager ] ]
       - [ setEventDispatcher, [ @event_dispatcher ] ]
+
+  map.poi_manager:
+    class: %game.poi.class%
+    arguments: [%game.poi.entity_class%]
+    parent: core.core_manager
