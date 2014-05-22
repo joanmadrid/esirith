@@ -8,6 +8,11 @@ game_ui:
     prefix:   /
     type:     annotation
 
+game_character:
+    resource: "@CharacterBundle/Controller/CharacterController.php"
+    prefix:   /character
+    type:     annotation
+
 game_character_lvlup:
     resource: "@CharacterBundle/Controller/LevelUpController.php"
     prefix:   /character/level-up
