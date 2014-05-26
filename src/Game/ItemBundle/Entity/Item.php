@@ -57,6 +57,11 @@ abstract class Item
      */
     protected $shopItems;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\MonsterBundle\Entity\LootItem", mappedBy="item")
+     */
+    protected $lootItems;
+
     public function __construct()
     {
     }
@@ -197,5 +202,23 @@ abstract class Item
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @param mixed $lootItems
+     * @return $this
+     */
+    public function setLootItems($lootItems)
+    {
+        $this->lootItems = $lootItems;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLootItems()
+    {
+        return $this->lootItems;
     }
 }

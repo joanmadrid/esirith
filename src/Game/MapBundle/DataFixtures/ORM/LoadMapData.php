@@ -11,7 +11,7 @@ use Game\MapBundle\Entity\Poi;
 use Game\MapBundle\Entity\LinkedPoi;
 use Game\MapBundle\Entity\RestPoint;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+class LoadMapData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * {@inheritDoc}
