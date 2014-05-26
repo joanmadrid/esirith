@@ -3,6 +3,17 @@
 {% block body %}
     {% if battle.status == 1 %}
         <p>You won the battle.</p>
+        <strong>Loot</strong>
+        <ul>
+            {% if loot.gold > 0 %}
+            <li>Gold: {{ loot.gold }}</li>
+            {% endif %}
+            {% if loot.items|length > 0 %}
+                {% for item in loot.items %}
+                <li>{{ renderItem(item)|raw }}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
         <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
     {% else %}
         <p>You lost the battle.</p>

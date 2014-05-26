@@ -2,6 +2,7 @@
 
 namespace Game\BattleBundle\Controller;
 
+use Game\MonsterBundle\Manager\LootManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -39,12 +40,19 @@ class BattleController extends Controller
         $battle = $this->getBattleManager()->getActiveBattle($char);
 
         $result = $this->getBattleManager()->resolveBattle($battle);
-        $this->getBattleManager()->flush();
+
+        $loot = $this->getLootManager()->generateBattleLoot($result);
+        $this->getLootManager()->giveTo($char, $loot);
+        $this->getLootManager()->flush();
+        $battle->setLoot($loot->generateJSON());
 
         $char->setCurrentHp($result->getCurrentHP());
         $em = $this->getDoctrine()->getManager();
         $em->persist($char);
+
         $em->flush();
+
+        $this->getBattleManager()->flush();
 
         return $this->redirect(
             $this->generateUrl(
@@ -63,9 +71,13 @@ class BattleController extends Controller
      */
     public function resultAction(Battle $battle)
     {
-        $char = $this->getUserManager()->getCharacter();
+        //$char = $this->getUserManager()->getCharacter();
+        $lootLog = $battle->getLoot();
+        $loot = $this->getLootManager()->lootLogTransformer($lootLog);
+
         return array(
-            'battle' => $battle
+            'battle' => $battle,
+            'loot' => $loot
         );
     }
 
@@ -83,5 +95,13 @@ class BattleController extends Controller
     private function getUserManager()
     {
         return $this->get('user.user_manager');
+    }
+
+    /**
+     * @return LootManager;
+     */
+    private function getLootManager()
+    {
+        return $this->get('monster.loot_manager');
     }
 }

@@ -81,7 +81,7 @@ class WeaponManager extends CoreManager
         }
 
         if(($handCount + $item->getHands()) > 2) {
-            return EQUIP_ERROR_HANDS;
+            return self::EQUIP_ERROR_HANDS;
         }
 
         return true;

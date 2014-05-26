@@ -5,13 +5,18 @@ namespace Game\BattleBundle\Model;
 //use Game\BattleBundle\Entity\Battle;
 //use Game\CharacterBundle\Entity\Character;
 
-class BattleResult {
+use Game\MonsterBundle\Entity\Monster;
+
+class BattleResult
+{
 
     protected $status;
 
     protected $currentHP;
 
-    protected $gainedXP = 0;
+    protected $monstersKilled = array();
+
+    protected $gainedXP = 0;//gamedo: seguramente un manager tiene que hacer el calculo, a partir de los monstruos muertos
 
     public function generateJSON()
     {
@@ -48,6 +53,30 @@ class BattleResult {
     public function getCurrentHP()
     {
         return $this->currentHP;
+    }
+
+    /**
+     * @param array $monstersKilled
+     */
+    public function setMonstersKilled($monstersKilled)
+    {
+        $this->monstersKilled = $monstersKilled;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMonstersKilled()
+    {
+        return $this->monstersKilled;
+    }
+
+    /**
+     * @param Monster $monster
+     */
+    public function addMonsterKilled($monster)
+    {
+        $this->monstersKilled[] = $monster;
     }
 
     /**
