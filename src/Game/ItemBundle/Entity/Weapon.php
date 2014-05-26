@@ -26,15 +26,6 @@ class Weapon extends Item
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="damage_dice", type="integer")
      */
     private $damageDice;
@@ -97,16 +88,6 @@ class Weapon extends Item
     public function __construct()
     {
         $this->characterItems = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

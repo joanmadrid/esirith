@@ -3,6 +3,8 @@ parameters:
   game.spawn.entity_class: Game\MonsterBundle\Entity\Spawn
   game.race.class: Game\MonsterBundle\Manager\RaceManager
   game.race.entity_class: Game\MonsterBundle\Entity\Race
+  game.loot.class: Game\MonsterBundle\Manager\LootManager
+  game.loottable.entity_class: Game\MonsterBundle\Entity\LootTable
 
 services:
   monster.spawn_manager:
@@ -15,4 +17,9 @@ services:
   monster.race_manager:
       class: %game.race.class%
       arguments: [%game.race.entity_class%]
+      parent: core.core_manager
+
+  monster.loot_manager:
+      class: %game.loot.class%
+      arguments: [%game.loottable.entity_class%]
       parent: core.core_manager

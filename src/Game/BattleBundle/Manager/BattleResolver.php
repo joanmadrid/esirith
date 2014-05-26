@@ -286,6 +286,7 @@ class BattleResolver {
 //                            $characterEvent->setMonster($target->getPlayer());
 //                            $this->eventDispatcher->dispatch(CharacterEventList::KILL, $characterEvent);
                             $xp = $this->XPManager->calcKillXP($player->getPlayer(), $target->getPlayer());
+                            $result->addMonsterKilled($target);
                             $result->addGainedXP($xp);
                         }
                     }

@@ -282,4 +282,14 @@ class Character extends Attributes
         $this->setXp($this->getXp() + $amount);
         return $this;
     }
+
+    /**
+     * @param $amount
+     * @return $this
+     */
+    public function addGold($amount)
+    {
+        $this->setGold($this->getGold() + $amount);
+        return $this;
+    }
 }

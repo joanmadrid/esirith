@@ -14,11 +14,11 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        // name, internal, image, race, hp, damage, defense, fue, des
+        // name, internal, image, race, hp, damage, defense, fue, des,lvl, loottable
         $monsterList   = array();
-        $monsterList[] = array('Orc', 'orc_1', 'orc.png', 'orc', 10, 3, 1, 15, 8);
-        $monsterList[] = array('Shadow', 'shadow_1', 'shadow.png', 'undead', 20, 4, 1, 10, 10);
-        $monsterList[] = array('Lich', 'lich_1', 'lich.png', 'undead', 30, 6, 5, 10, 10);
+        $monsterList[] = array('Orc', 'orc_1', 'orc.png', 'orc', 10, 3, 1, 15, 8, 2, 'low');
+        $monsterList[] = array('Shadow', 'shadow_1', 'shadow.png', 'undead', 20, 4, 1, 10, 10, 3, 'low');
+        $monsterList[] = array('Lich', 'lich_1', 'lich.png', 'undead', 30, 6, 5, 10, 10, 4, 'low');
 
         $out = array();
         foreach ($monsterList as $monster) {
@@ -35,7 +35,8 @@ class LoadMonsterData extends AbstractFixture implements OrderedFixtureInterface
                 ->setDefense($monster[6])
                 ->setStr($monster[7])
                 ->setDex($monster[8])
-                ->setLevel(1);
+                ->setLevel($monster[9])
+                ->setLootTable($this->getReference('loottable-'.$monster[10]));
 
             $manager->persist($aux);
             $out[] = $aux;

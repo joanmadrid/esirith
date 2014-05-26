@@ -49,6 +49,11 @@ class Battle
      */
     private $resolution;
 
+    /**
+     * @ORM\Column(name="loot", type="text", nullable=true)
+     */
+    private $loot;
+
 
     /**
      * Get id
@@ -160,5 +165,21 @@ class Battle
     public function getResolution()
     {
         return $this->resolution;
+    }
+
+    /**
+     * @param mixed $loot
+     */
+    public function setLoot($loot)
+    {
+        $this->loot = $loot;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLoot()
+    {
+        return $this->loot;
     }
 }

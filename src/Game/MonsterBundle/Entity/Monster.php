@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Game\CharacterBundle\Entity\Attributes;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Game\MonsterBundle\Entity\LootTable;
 
 /**
  * Class Monster
@@ -57,6 +58,12 @@ class Monster extends Attributes
      * @ORM\OneToMany(targetEntity="Game\BattleBundle\Entity\BattleMonster", mappedBy="monster")
      */
     private $battleMonsters;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LootTable", inversedBy="monsters")
+     * @ORM\JoinColumn(name="loottable_id", referencedColumnName="id")
+     */
+    private $lootTable;
 
     /**
      * @param int $id
@@ -209,5 +216,23 @@ class Monster extends Attributes
     public function getBattleMonsters()
     {
         return $this->battleMonsters;
+    }
+
+    /**
+     * @param LootTable $lootTable
+     * @return $this
+     */
+    public function setLootTable($lootTable)
+    {
+        $this->lootTable = $lootTable;
+        return $this;
+    }
+
+    /**
+     * @return LootTable
+     */
+    public function getLootTable()
+    {
+        return $this->lootTable;
     }
 }
