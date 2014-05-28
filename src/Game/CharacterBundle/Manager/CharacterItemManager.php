@@ -6,12 +6,16 @@ use Game\CharacterBundle\Entity\Repository\CharacterItemRepository;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CharacterBundle\Entity\CharacterItem;
 use Game\ItemBundle\Entity\Repository\ItemRepository;
+use Game\ItemBundle\Manager\ArmorManager;
 use Game\ItemBundle\Manager\WeaponManager;
 
 class CharacterItemManager extends CoreManager
 {
     /** @var WeaponManager */
     protected $weaponManager;
+
+    /** @var ArmorManager */
+    protected $armorManager;
 
     /**
      * @param CharacterItem $charItem
@@ -26,6 +30,9 @@ class CharacterItemManager extends CoreManager
         switch ($class) {
             case 'Weapon':
                 $equip = $this->getWeaponManager()->canEquip($charItem);
+                break;
+            case 'Armor':
+                $equip = $this->getArmorManager()->canEquip($charItem);
                 break;
         }
 
@@ -78,5 +85,21 @@ class CharacterItemManager extends CoreManager
     public function getWeaponManager()
     {
         return $this->weaponManager;
+    }
+
+    /**
+     * @param \Game\ItemBundle\Manager\ArmorManager $armorManager
+     */
+    public function setArmorManager($armorManager)
+    {
+        $this->armorManager = $armorManager;
+    }
+
+    /**
+     * @return \Game\ItemBundle\Manager\ArmorManager
+     */
+    public function getArmorManager()
+    {
+        return $this->armorManager;
     }
 }

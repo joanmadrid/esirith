@@ -67,7 +67,7 @@ class InventoryController extends Controller
     }
 
     /**
-     * @return object
+     * @return CharacterItemManager
      */
     private function getCharacterItemManager()
     {

@@ -12,5 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArmorRepository extends EntityRepository
 {
+    /**
+     * Devuelve las armaduras equipadas de un personaje
+     *
+     * @param $char
+     * @return array
+     */
+    public function getEquippedArmors($char)
+    {
+        $qb = $this->createQueryBuilder('armor');
+        $qb
+            ->select('armor')
+            ->innerJoin('armor.characterItems', 'charItem')
+            ->innerJoin('charItem.character', 'char')
+            ->where('char = :char')
+            ->andWhere('charItem.equipped = :equipped')
+            ->setParameter(':char', $char)
+            ->setParameter(':equipped', true);
 
+        return $qb->getQuery()->getResult();
+    }
 }

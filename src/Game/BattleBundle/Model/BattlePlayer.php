@@ -3,6 +3,7 @@
 namespace Game\BattleBundle\Model;
 
 use Game\CharacterBundle\Entity\Attributes;
+use Game\ItemBundle\Entity\Armor;
 
 class BattlePlayer extends Attributes
 {
@@ -14,6 +15,9 @@ class BattlePlayer extends Attributes
     protected $enemy;
 
     protected $lastTarget = -1;
+
+    /** @var Armor */
+    protected $equippedArmor;
 
     /**
      * @param mixed $initiative
@@ -78,6 +82,37 @@ class BattlePlayer extends Attributes
     {
         return $this->lastTarget;
     }
+
+    /**
+     * @param \Game\ItemBundle\Entity\Armor $equippedArmor
+     */
+    public function setEquippedArmor($equippedArmor)
+    {
+        $this->equippedArmor = $equippedArmor;
+    }
+
+    /**
+     * @return \Game\ItemBundle\Entity\Armor
+     */
+    public function getEquippedArmor()
+    {
+        return $this->equippedArmor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getComputedDefense()
+    {
+        $defense = 0;
+        if ($this->getEquippedArmor()) {
+            $defense += $this->getEquippedArmor()->getDefense();
+        }
+        $defense += $this->getDefense();
+        return $defense;
+    }
+
+
 
     /**
      * Está muerto?

@@ -10,7 +10,7 @@ use Game\CoreBundle\Manager\RollManager;
 use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Entity\CharacterItem;
 
-class WeaponManager extends CoreManager
+class WeaponManager extends CoreManager implements EquipableWeaponInterface
 {
     const EQUIP_ERROR_HANDS = -1;
 

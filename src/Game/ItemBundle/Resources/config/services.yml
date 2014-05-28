@@ -1,11 +1,20 @@
 parameters:
     item.weapon.class: Game\ItemBundle\Manager\WeaponManager
     item.weapon.entity: Game\ItemBundle\Entity\Weapon
+    item.armor.class: Game\ItemBundle\Manager\ArmorManager
+    item.armor.entity: Game\ItemBundle\Entity\Armor
 
 services:
     item.weapon_manager:
         class: %item.weapon.class%
         arguments: [%item.weapon.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+
+    item.armor_manager:
+        class: %item.armor.class%
+        arguments: [%item.armor.entity%]
         parent: core.core_manager
         calls:
             - [ setRollManager, [ @core.roll_manager ] ]

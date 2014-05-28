@@ -109,6 +109,7 @@ class BattleResolver {
         $bp->setHp($character->getHp());
         $bp->setCurrentHp($character->getCurrentHp());
         $bp->setEnemy(false);
+        $bp->setEquippedArmor(null);//gamedo: añadir la armadura del PJ (el cálculo ya se hará solo)
 
         $init[] = $bp;
 
@@ -232,7 +233,8 @@ class BattleResolver {
     private function attack(BattlePlayer &$player, BattlePlayer &$target)
     {
         if (!$player->getEnemy()) {
-            $attack = $this->characterManager->rollAttack($player->getPlayer(), $target->getPlayer()->getDefense());
+            $targetDefense = $target->getComputedDefense();
+            $attack = $this->characterManager->rollAttack($player->getPlayer(), $targetDefense);
             //$target->decreaseHP($attack->getDamage());
             return $attack;
         } else {
