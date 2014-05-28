@@ -5,6 +5,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
+use Game\ItemBundle\Entity\Armor;
 use Game\ItemBundle\Entity\Weapon;
 
 class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
@@ -13,6 +14,12 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager)
+    {
+        $this->loadWeapons($manager);
+        $this->loadArmors($manager);
+    }
+
+    private function loadWeapons($manager)
     {
         $weapons = array();
         $weapons[] = array('Dagger', 1, 4, Weapon::WEAPON_DAMAGE_TYPE_SLASHING, 10, 2, Weapon::WEAPON_TYPE_MELEE, Weapon::WEAPON_HANDS_ONE, 'dagger.png');
@@ -53,6 +60,28 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('weapon-heavy-flail', $out[5]);
         $this->addReference('weapon-lance', $out[6]);
         $this->addReference('weapon-longbow', $out[7]);
+    }
+
+    private function loadArmors($manager)
+    {
+        $armors = array(
+            array('Leather', 1, 10, 'leather.png'),
+            array('Mail', 2, 50, 'mail.png'),
+            array('Plated', 5, 250, 'plated.png'),
+            array('Full plated', 10, 500, 'full.png'),
+        );
+
+        foreach ($armors as $armorInfo) {
+            $armor = new Armor();
+            $armor->setName($armorInfo[0]);
+            $armor->setDefense($armorInfo[1]);
+            $armor->setValue($armorInfo[2]);
+            $armor->setImage($armorInfo[3]);
+            $manager->persist($armor);
+            $this->addReference('armor-'.strtolower(str_replace(" ", "-", $armorInfo[0])), $armor);
+        }
+
+        $manager->flush();
     }
 
     /**

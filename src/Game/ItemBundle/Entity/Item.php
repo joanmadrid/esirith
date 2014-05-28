@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  * @ORM\Table()
  * @ORM\InheritanceType("JOINED")
  * @DiscriminatorColumn(name="type", type="smallint")
- * @DiscriminatorMap({"1" = "Game\ItemBundle\Entity\Weapon"})
+ * @DiscriminatorMap({"1" = "Game\ItemBundle\Entity\Weapon", "2" = "Game\ItemBundle\Entity\Armor"})
  */
 abstract class Item
 {
