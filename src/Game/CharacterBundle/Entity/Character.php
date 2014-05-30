@@ -245,32 +245,19 @@ class Character extends Attributes
         return $this->class;
     }
 
-
-
     /**
-     * @return CharacterRestore
+     * @param $points
      */
-    public function restore()
+    public function restore($points)
     {
-        $characterRestore = new CharacterRestore();
-        $characterRestore
-            ->setHp($this->restoreHp());
+        $maxHP = $this->getHp();
+        $currentHP = $this->getCurrentHp() + $points;
 
-        return $characterRestore;
-    }
-
-    /**
-     * @return int
-     */
-    protected function restoreHp()
-    {
-        $hpRestored      = mt_rand(1, 3);
-        $this->currentHp = $this->currentHp + $hpRestored;
-        if ($this->currentHp > $this->hp) {
-            $this->currentHp = $this->hp;
+        if ($currentHP > $maxHP) {
+            $currentHP = $maxHP;
         }
 
-        return $hpRestored;
+        $this->setHp($currentHP);
     }
 
     /**

@@ -13,8 +13,8 @@ class CharacterEvent extends Event
     /** @var  Character $character */
     protected $character;
 
-    /** @var  CharacterRestore $characterRestore */
-    protected $characterRestore;
+    /** @var integer */
+    protected $restored;
 
     /** @var Buyout */
     protected $buyout;
@@ -39,23 +39,19 @@ class CharacterEvent extends Event
     }
 
     /**
-     * @param CharacterRestore $characterRestore
-     *
-     * @return $this
+     * @param int $restored
      */
-    public function setCharacterRestore(CharacterRestore $characterRestore)
+    public function setRestored($restored)
     {
-        $this->characterRestore = $characterRestore;
-
-        return $this;
+        $this->restored = $restored;
     }
 
     /**
-     * @return CharacterRestore
+     * @return int
      */
-    public function getCharacterRestore()
+    public function getRestored()
     {
-        return $this->characterRestore;
+        return $this->restored;
     }
 
     /**
