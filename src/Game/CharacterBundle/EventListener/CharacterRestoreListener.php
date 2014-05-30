@@ -16,8 +16,7 @@ class CharacterRestoreListener
      */
     public function onCharacterTravel(CharacterEvent $event)
     {
-        $character = $event->getCharacter();
-        $event->setCharacterRestore($character->restore());
+        $this->restore($event, 1);
     }
 
     /**
@@ -25,14 +24,24 @@ class CharacterRestoreListener
      */
     public function onCharacterRest(CharacterEvent $event)
     {
-        //gamedo: hacer diferentes tipo de restore FULL, TRAVEL, SAFE, OK
+        $toRestore = 0;
 
-        $character = $event->getCharacter();
-
-        if ($event->getRestType() == RestPointManager::REST_RESULT_SAFE) {
-            $event->setCharacterRestore($character->restore());
-        } else if ($event->getRestType() == RestPointManager::REST_RESULT_OK) {
-            $event->setCharacterRestore($character->restore());
+        switch ($event->getRestored()) {
+            case RestPointManager::REST_RESULT_SAFE:
+                $toRestore = 100;
+                break;
+            case RestPointManager::REST_RESULT_OK:
+                $toRestore = rand(10, 100);
+                break;
         }
+
+        $this->restore($event, $toRestore);
+    }
+
+    private function restore($event, $toRestore)
+    {
+        $character = $event->getCharacter();
+        $character->restore($toRestore);
+        $event->setRestored($toRestore);
     }
 }
