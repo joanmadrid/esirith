@@ -18,7 +18,7 @@ class ArmorRepository extends EntityRepository
      * @param $char
      * @return array
      */
-    public function getEquippedArmors($char)
+    public function getEquippedArmor($char)
     {
         $qb = $this->createQueryBuilder('armor');
         $qb
@@ -30,6 +30,6 @@ class ArmorRepository extends EntityRepository
             ->setParameter(':char', $char)
             ->setParameter(':equipped', true);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

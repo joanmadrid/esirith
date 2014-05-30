@@ -11,6 +11,7 @@ use Game\CharacterBundle\Entity\Character;
 use Game\BattleBundle\Model\BattlePlayer;
 use Game\CoreBundle\Model\Roll;
 use Game\CharacterBundle\Manager\CharacterManager;
+use Game\ItemBundle\Manager\ArmorManager;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Game\CharacterBundle\Event\CharacterEvent;
 
@@ -38,6 +39,9 @@ class BattleResolver {
 
     /** @var XPManager */
     protected $XPManager;
+
+    /** @var ArmorManager */
+    protected $armorManager;
 
     function __construct()
     {
@@ -86,6 +90,14 @@ class BattleResolver {
     }
 
     /**
+     * @param \Game\ItemBundle\Manager\ArmorManager $armorManager
+     */
+    public function setArmorManager($armorManager)
+    {
+        $this->armorManager = $armorManager;
+    }
+
+    /**
      * @return BattleResult
      */
     public function getBattleResult()
@@ -109,7 +121,7 @@ class BattleResolver {
         $bp->setHp($character->getHp());
         $bp->setCurrentHp($character->getCurrentHp());
         $bp->setEnemy(false);
-        $bp->setEquippedArmor(null);//gamedo: añadir la armadura del PJ (el cálculo ya se hará solo)
+        $bp->setEquippedArmor($this->armorManager->getEquippedArmor($character));
 
         $init[] = $bp;
 
@@ -135,8 +147,8 @@ class BattleResolver {
     /**
      * Función comparativa: Ordena en orden descendente por iniciativas
      *
-     * @param $a
-     * @param $b
+     * @param BattlePlayer $a
+     * @param BattlePlayer $b
      * @return int
      */
     static function orderByInitiative($a, $b)
