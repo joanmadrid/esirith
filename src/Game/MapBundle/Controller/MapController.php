@@ -63,7 +63,7 @@ class MapController extends Controller
 
             $restore = null;
             if ($restResult == RestPointManager::REST_RESULT_OK || $restResult == RestPointManager::REST_RESULT_SAFE) {
-                $restore = $this->getRestPointManager()->rest($char, $restResult)->getCharacterRestore();
+                $restore = $this->getRestPointManager()->rest($char, $restResult)->getRestored();
             } else {
                 // gamedo: batalla
             }
@@ -76,7 +76,6 @@ class MapController extends Controller
                 'restore' => $restore
             );
         } catch (NotFoundHttpException $exc) {
-            $characterMap = $char->getCurrentPoi()->getMap();
             return $this->redirect($this->generateUrl('map.view'));
         }
 
