@@ -22,8 +22,12 @@ class LoadShopData extends AbstractFixture implements OrderedFixtureInterface
         $shop->setPoi($this->getReference('poi-city'));
         $manager->persist($shop);
 
-        $items = array('weapon-dagger', 'weapon-short-sword', 'weapon-long-sword', 'weapon-handaxe',
-            'weapon-greatsword', 'weapon-heavy-flail', 'weapon-lance', 'weapon-longbow');
+        $items = array(
+            //weapons
+            'weapon-dagger', 'weapon-short-sword', 'weapon-long-sword', 'weapon-handaxe',
+            'weapon-greatsword', 'weapon-heavy-flail', 'weapon-lance', 'weapon-longbow',
+            //armors
+            'armor-leather', 'armor-mail', 'armor-plated', 'armor-full-plated');
 
         foreach ($items as $itemRef) {
             $item = new ShopItem();

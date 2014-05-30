@@ -18,3 +18,4 @@ services:
       - [ setCharacterManager, [ @character.character_manager ] ]
       - [ setEventDispatcher, [ @event_dispatcher ] ]
       - [ setXPManager, [ @character.xp_manager ] ]
+      - [ setArmorManager, [ @item.armor_manager ] ]

@@ -3,6 +3,7 @@
 namespace Game\BattleBundle\Manager;
 
 use Game\BattleBundle\Entity\BattleMonster;
+use Game\BattleBundle\Entity\Repository\BattleRepository;
 use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\Entity\Character;
 use Game\CoreBundle\Manager\CoreManager;
