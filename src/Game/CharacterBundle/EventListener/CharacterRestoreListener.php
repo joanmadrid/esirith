@@ -38,6 +38,10 @@ class CharacterRestoreListener
         $this->restore($event, $toRestore);
     }
 
+    /**
+     * @param CharacterEvent $event
+     * @param $toRestore
+     */
     private function restore($event, $toRestore)
     {
         $character = $event->getCharacter();

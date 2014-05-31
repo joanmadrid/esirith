@@ -8,7 +8,7 @@
     Rolling a d100 dice...{{ dice }}<br />
     {% if combat %}Someone stumbled upon you! <a href="{{ path('battle.battle.view') }}">Combat</a>{% else %}You don't find any problems{% endif %}<br />
     Restore points: <br />
-    Hp: +{{ restore.hp }}
+    Hp: +{{ restored }}
 </p>
 <p><a href="{{ path('map.view') }}">View map</a></p>
 {% endblock %}
