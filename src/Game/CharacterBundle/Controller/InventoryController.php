@@ -75,25 +75,6 @@ class InventoryController extends Controller
     }
 
     /**
-     * @Route("/dpstest/{id}", name="character.inventory.dpstest", requirements={"id" = "\d+"})
-     * @Template()
-     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
-     */
-    public function dpsTestAction(CharacterItem $item)
-    {
-        $weaponManager = $this->getWeaponManager();
-
-        if ($weaponManager->isWeapon($item->getItem())) {
-            /** @var Roll $damageRoll */
-            $damageRoll = $weaponManager->rollDamage($item->getItem());
-            $this->get('session')->getFlashBag()->add('success',
-                'Damage roll: '.$damageRoll->getRollResult()
-            );
-        }
-        return $this->redirect($this->generateUrl('character.inventory.index'));
-    }
-
-    /**
      * Devuelve el servicio WeaponManager
      *
      * @return object

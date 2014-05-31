@@ -9,7 +9,6 @@
             {{ renderItem(characterItem.item)|raw }}
             {% if characterItem.equipped %}
             <a href="{{ path('character.inventory.unequip', {id:characterItem.id}) }}">Unequip</a>
-            <a href="{{ path('character.inventory.dpstest', {id:characterItem.id}) }}">DPS test</a>
             {% else %}
             <a href="{{ path('character.inventory.equip', {id:characterItem.id}) }}">Equip</a>
             {% endif %}
