@@ -257,7 +257,7 @@ class Character extends Attributes
             $currentHP = $maxHP;
         }
 
-        $this->setHp($currentHP);
+        $this->setCurrentHp($currentHP);
     }
 
     /**

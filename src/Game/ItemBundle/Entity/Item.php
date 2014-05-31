@@ -72,6 +72,13 @@ abstract class Item
      */
     private $isEquipable;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_usable", type="boolean")
+     */
+    private $isUsable;
+
     public function __construct()
     {
     }
@@ -248,5 +255,23 @@ abstract class Item
     public function getIsEquipable()
     {
         return $this->isEquipable;
+    }
+
+    /**
+     * @param boolean $isUsable
+     * @return $this
+     */
+    public function setIsUsable($isUsable)
+    {
+        $this->isUsable = $isUsable;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsUsable()
+    {
+        return $this->isUsable;
     }
 }

@@ -89,6 +89,7 @@ class Weapon extends Item
     {
         $this->characterItems = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setIsEquipable(true);
+        $this->setIsUsable(false);
     }
 
     /**

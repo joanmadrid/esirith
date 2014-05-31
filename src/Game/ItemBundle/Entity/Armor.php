@@ -15,6 +15,7 @@ class Armor extends Item
     public function __construct()
     {
         $this->setIsEquipable(true);
+        $this->setIsUsable(false);
     }
 
     /**

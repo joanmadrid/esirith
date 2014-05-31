@@ -24,6 +24,7 @@ class Potion extends Item
     public function __construct()
     {
         $this->setIsEquipable(false);
+        $this->setIsUsable(true);
     }
 
     /**

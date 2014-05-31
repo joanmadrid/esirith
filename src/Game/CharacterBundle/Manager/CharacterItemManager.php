@@ -7,6 +7,7 @@ use Game\CoreBundle\Manager\CoreManager;
 use Game\CharacterBundle\Entity\CharacterItem;
 use Game\ItemBundle\Entity\Repository\ItemRepository;
 use Game\ItemBundle\Manager\ArmorManager;
+use Game\ItemBundle\Manager\PotionManager;
 use Game\ItemBundle\Manager\WeaponManager;
 
 class CharacterItemManager extends CoreManager
@@ -16,6 +17,9 @@ class CharacterItemManager extends CoreManager
 
     /** @var ArmorManager */
     protected $armorManager;
+
+    /** @var PotionManager */
+    protected $potionManager;
 
     /**
      * @param CharacterItem $charItem
@@ -52,6 +56,26 @@ class CharacterItemManager extends CoreManager
         $item->setEquipped(false);
         $this->persist($item, true);
         return true;
+    }
+
+    /**
+     * @param CharacterItem $charItem
+     * @return bool
+     */
+    public function utilize(CharacterItem $charItem)
+    {
+        $item = $charItem->getItem();
+        $char = $charItem->getCharacter();
+        $class = explode("\\", get_class($item));
+        $class = array_pop($class);
+        $used = false;
+        switch ($class) {
+            case 'Potion':
+                $this->getPotionManager()->drink($charItem);
+                $used = true;
+                break;
+        }
+        return $used;
     }
 
     /**
@@ -101,5 +125,21 @@ class CharacterItemManager extends CoreManager
     public function getArmorManager()
     {
         return $this->armorManager;
+    }
+
+    /**
+     * @param \Game\ItemBundle\Manager\PotionManager $potionManager
+     */
+    public function setPotionManager($potionManager)
+    {
+        $this->potionManager = $potionManager;
+    }
+
+    /**
+     * @return \Game\ItemBundle\Manager\PotionManager
+     */
+    public function getPotionManager()
+    {
+        return $this->potionManager;
     }
 }
