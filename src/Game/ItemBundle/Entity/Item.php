@@ -65,6 +65,13 @@ abstract class Item
      */
     protected $lootItems;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_equipable", type="boolean")
+     */
+    private $isEquipable;
+
     public function __construct()
     {
     }
@@ -223,5 +230,23 @@ abstract class Item
     public function getLootItems()
     {
         return $this->lootItems;
+    }
+
+    /**
+     * @param boolean $isEquipable
+     * @return $this
+     */
+    public function setIsEquipable($isEquipable)
+    {
+        $this->isEquipable = $isEquipable;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsEquipable()
+    {
+        return $this->isEquipable;
     }
 }

@@ -21,6 +21,11 @@ class Potion extends Item
      */
     private $potionType = 0;
 
+    public function __construct()
+    {
+        $this->setIsEquipable(false);
+    }
+
     /**
      * @param mixed $potionType
      */

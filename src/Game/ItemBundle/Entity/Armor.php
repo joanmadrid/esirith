@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Armor extends Item
 {
+    public function __construct()
+    {
+        $this->setIsEquipable(true);
+    }
+
     /**
      * @var integer
      *
