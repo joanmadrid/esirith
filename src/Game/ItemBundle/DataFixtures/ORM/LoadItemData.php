@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Game\ItemBundle\Entity\Armor;
+use Game\ItemBundle\Entity\Potion;
 use Game\ItemBundle\Entity\Weapon;
 
 class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
@@ -17,6 +18,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
     {
         $this->loadWeapons($manager);
         $this->loadArmors($manager);
+        $this->loadPotions($manager);
     }
 
     private function loadWeapons($manager)
@@ -78,10 +80,33 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $armor->setValue($armorInfo[2]);
             $armor->setImage($armorInfo[3]);
             $manager->persist($armor);
-            $this->addReference('armor-'.strtolower(str_replace(" ", "-", $armorInfo[0])), $armor);
+            $this->addReference('armor-'.$this->transformToReference($armorInfo[0]), $armor);
         }
 
         $manager->flush();
+    }
+
+    private function loadPotions($manager)
+    {
+        $potions = array(
+            array('Potion of health', Potion::POTION_TYPE_HEAL, 100, 'red.png')
+        );
+
+        foreach ($potions as $potionInfo) {
+            $potion = new Potion();
+            $potion->setName($potionInfo[0]);
+            $potion->setPotionType($potionInfo[1]);
+            $potion->setValue($potionInfo[2]);
+            $potion->setImage($potionInfo[3]);
+            $manager->persist($potion);
+            $this->addReference($this->transformToReference($potionInfo[0]), $potion);
+        }
+        $manager->flush();
+    }
+
+    private function transformToReference($name)
+    {
+        return strtolower(str_replace(" ", "-", $name));
     }
 
     /**
