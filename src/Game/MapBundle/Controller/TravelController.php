@@ -40,8 +40,6 @@ class TravelController extends Controller
             $path = $this->getMapManager()->findPathToPoi($char->getCurrentPoi(), $poi);
             $this->getCharacterManager()->move($char, $poi);
         } catch (NotFoundHttpException $exc) {
-            $characterMap = $char->getCurrentPoi()->getMap();
-
             return $this->redirect($this->generateUrl('map.view'));
         }
 
@@ -61,7 +59,7 @@ class TravelController extends Controller
             'poi'     => $poi,
             'dice'    => $diceRoll->getRollResult(),
             'combat'  => $triggerBattle,
-            'restore' => $characterEvent->getCharacterRestore()
+            'restored' => $characterEvent->getRestored()
         );
     }
 
@@ -80,7 +78,6 @@ class TravelController extends Controller
             $link = $this->getMapManager()->findLinkToPoi($char->getCurrentPoi(), $poi);
             $this->getCharacterManager()->move($char, $poi);
         } catch (NotFoundHttpException $exc) {
-            $characterMap = $char->getCurrentPoi()->getMap();
             return $this->redirect($this->generateUrl('map.view'));
         }
 

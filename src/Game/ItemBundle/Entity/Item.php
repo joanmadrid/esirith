@@ -13,7 +13,10 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  * @ORM\Table()
  * @ORM\InheritanceType("JOINED")
  * @DiscriminatorColumn(name="type", type="smallint")
- * @DiscriminatorMap({"1" = "Game\ItemBundle\Entity\Weapon", "2" = "Game\ItemBundle\Entity\Armor"})
+ * @DiscriminatorMap({
+ *      "1" = "Game\ItemBundle\Entity\Weapon",
+ *      "2" = "Game\ItemBundle\Entity\Armor",
+ *      "3" = "Game\ItemBundle\Entity\Potion"})
  */
 abstract class Item
 {
@@ -61,6 +64,20 @@ abstract class Item
      * @ORM\OneToMany(targetEntity="Game\MonsterBundle\Entity\LootItem", mappedBy="item")
      */
     protected $lootItems;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_equipable", type="boolean")
+     */
+    private $isEquipable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_usable", type="boolean")
+     */
+    private $isUsable;
 
     public function __construct()
     {
@@ -220,5 +237,41 @@ abstract class Item
     public function getLootItems()
     {
         return $this->lootItems;
+    }
+
+    /**
+     * @param boolean $isEquipable
+     * @return $this
+     */
+    public function setIsEquipable($isEquipable)
+    {
+        $this->isEquipable = $isEquipable;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsEquipable()
+    {
+        return $this->isEquipable;
+    }
+
+    /**
+     * @param boolean $isUsable
+     * @return $this
+     */
+    public function setIsUsable($isUsable)
+    {
+        $this->isUsable = $isUsable;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsUsable()
+    {
+        return $this->isUsable;
     }
 }

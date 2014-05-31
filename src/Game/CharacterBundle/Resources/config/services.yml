@@ -20,6 +20,7 @@ services:
         calls:
             - [ setWeaponManager, [ @item.weapon_manager ] ]
             - [ setArmorManager, [ @item.armor_manager ] ]
+            - [ setPotionManager, [ @item.potion_manager ] ]
 
     character.character_manager:
         class: %character.character.class%

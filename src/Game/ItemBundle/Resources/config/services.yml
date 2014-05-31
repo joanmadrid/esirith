@@ -3,6 +3,8 @@ parameters:
     item.weapon.entity: Game\ItemBundle\Entity\Weapon
     item.armor.class: Game\ItemBundle\Manager\ArmorManager
     item.armor.entity: Game\ItemBundle\Entity\Armor
+    item.potion.class: Game\ItemBundle\Manager\PotionManager
+    item.potion.entity: Game\ItemBundle\Entity\Potion
 
 services:
     item.weapon_manager:
@@ -15,6 +17,13 @@ services:
     item.armor_manager:
         class: %item.armor.class%
         arguments: [%item.armor.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+
+    item.potion_manager:
+        class: %item.potion.class%
+        arguments: [%item.potion.entity%]
         parent: core.core_manager
         calls:
             - [ setRollManager, [ @core.roll_manager ] ]

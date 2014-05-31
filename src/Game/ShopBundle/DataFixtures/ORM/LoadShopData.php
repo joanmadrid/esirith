@@ -27,7 +27,10 @@ class LoadShopData extends AbstractFixture implements OrderedFixtureInterface
             'weapon-dagger', 'weapon-short-sword', 'weapon-long-sword', 'weapon-handaxe',
             'weapon-greatsword', 'weapon-heavy-flail', 'weapon-lance', 'weapon-longbow',
             //armors
-            'armor-leather', 'armor-mail', 'armor-plated', 'armor-full-plated');
+            'armor-leather', 'armor-mail', 'armor-plated', 'armor-full-plated',
+            //potions
+            'potion-of-health'
+        );
 
         foreach ($items as $itemRef) {
             $item = new ShopItem();

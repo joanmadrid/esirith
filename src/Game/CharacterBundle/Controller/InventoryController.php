@@ -67,30 +67,31 @@ class InventoryController extends Controller
     }
 
     /**
+     * @Route("/use/{id}", name="character.inventory.use", requirements={"id" = "\d+"})
+     * @Template()
+     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
+     */
+    public function useAction(CharacterItem $item)
+    {
+        if (!$this->getCharacterItemManager()->utilize($item)) {
+            $this->get('session')->getFlashBag()->add('error',
+                'No puedes usar este objeto'
+            );
+        } else {
+            $this->get('session')->getFlashBag()->add('info',
+                'Has utilizado '.$item->getItem()->getName().'.'
+            );
+            $this->getCharacterItemManager()->flush();
+        }
+        return $this->redirect($this->generateUrl('character.inventory.index'));
+    }
+
+    /**
      * @return CharacterItemManager
      */
     private function getCharacterItemManager()
     {
         return $this->get('character.characteritem_manager');
-    }
-
-    /**
-     * @Route("/dpstest/{id}", name="character.inventory.dpstest", requirements={"id" = "\d+"})
-     * @Template()
-     * @ParamConverter("map", class="CharacterBundle:CharacterItem")
-     */
-    public function dpsTestAction(CharacterItem $item)
-    {
-        $weaponManager = $this->getWeaponManager();
-
-        if ($weaponManager->isWeapon($item->getItem())) {
-            /** @var Roll $damageRoll */
-            $damageRoll = $weaponManager->rollDamage($item->getItem());
-            $this->get('session')->getFlashBag()->add('success',
-                'Damage roll: '.$damageRoll->getRollResult()
-            );
-        }
-        return $this->redirect($this->generateUrl('character.inventory.index'));
     }
 
     /**

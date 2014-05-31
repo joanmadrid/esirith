@@ -88,6 +88,8 @@ class Weapon extends Item
     public function __construct()
     {
         $this->characterItems = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setIsEquipable(true);
+        $this->setIsUsable(false);
     }
 
     /**
