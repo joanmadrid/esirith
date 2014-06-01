@@ -2,11 +2,11 @@
 
 namespace Game\CharacterBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Game\CharacterBundle\Model\CharacterRestore;
 use Game\MapBundle\Entity\Poi;
 use Game\UserBundle\Entity\User;
-
 use Game\CharacterBundle\Entity\CharacterItem;
 
 /**
@@ -74,6 +74,11 @@ class Character extends Attributes
      * @ORM\JoinColumn(name="class_id", referencedColumnName="id")
      */
     protected $class;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\MapBundle\Entity\Treasure", mappedBy="openedBy")
+     */
+    protected $openedTreasures;
 
     /**
      * Constructor
@@ -244,6 +249,24 @@ class Character extends Attributes
     {
         return $this->class;
     }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $openedTreasures
+     */
+    public function setOpenedTreasures($openedTreasures)
+    {
+        $this->openedTreasures = $openedTreasures;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOpenedTreasures()
+    {
+        return $this->openedTreasures;
+    }
+
+    ////
 
     /**
      * @param $points

@@ -2,7 +2,9 @@
 
 namespace Game\MapBundle\Controller;
 
+use Game\MapBundle\Entity\Treasure;
 use Game\MapBundle\Manager\MapManager;
+use Game\MapBundle\Manager\TreasureManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -43,9 +45,12 @@ class MapController extends Controller
 
         $map = $char->getCurrentPoi()->getMap();
 
+        $treasure = $this->getTreasureManager()->findForTreasures($char);
+
         return array(
             'char' => $char,
-            'map'  => $map
+            'map'  => $map,
+            'treasure' => $treasure
         );
     }
 
@@ -81,6 +86,24 @@ class MapController extends Controller
 
     }
 
+    /**
+     * @Route("/treasure/open/{id}/", name="map.open.treasure", requirements={"id" = "\d+"})
+     * @Template()
+     * @ParamConverter("treasure", class="MapBundle:Treasure")
+     */
+    public function openTreasureAction(Treasure $treasure)
+    {
+        $char = $this->getUserManager()->getCharacter();
+        if ($this->getTreasureManager()->open($char, $treasure)) {
+            $this->getTreasureManager()->flush();
+            return array(
+                'treasure' => $treasure
+            );
+        } else {
+            return $this->redirect($this->generateUrl('map.view'));
+        }
+    }
+
 
     /**
      * @return MapManager
@@ -112,5 +135,13 @@ class MapController extends Controller
     private function getUserManager()
     {
         return $this->get('user.user_manager');
+    }
+
+    /**
+     * @return TreasureManager
+     */
+    private function getTreasureManager()
+    {
+        return $this->get('map.treasure_manager');
     }
 }

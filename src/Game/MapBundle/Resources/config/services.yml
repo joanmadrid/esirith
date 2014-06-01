@@ -5,6 +5,8 @@ parameters:
   game.restpoint.entity_class: Game\MapBundle\Entity\RestPoint
   game.poi.class: Game\MapBundle\Manager\PoiManager
   game.poi.entity_class: Game\MapBundle\Entity\Poi
+  game.treasure.class: Game\MapBundle\Manager\TreasureManager
+  game.treasure.entity_class: Game\MapBundle\Entity\Treasure
 
 services:
   map.map_manager:
@@ -23,4 +25,9 @@ services:
   map.poi_manager:
     class: %game.poi.class%
     arguments: [%game.poi.entity_class%]
+    parent: core.core_manager
+
+  map.treasure_manager:
+    class: %game.treasure.class%
+    arguments: [%game.treasure.entity_class%]
     parent: core.core_manager
