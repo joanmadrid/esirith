@@ -37,13 +37,13 @@ class Treasure
     private $opened = false;
 
     /**
-     * @ORM\OneToOne(targetEntity="Poi", inversedBy="treasures")
+     * @ORM\ManyToOne(targetEntity="Poi", inversedBy="treasures")
      * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
      */
     protected $poi;
 
     /**
-     * @ORM\OneToOne(targetEntity="Game\CharacterBundle\Entity\Character", inversedBy="openedTreasures")
+     * @ORM\ManyToOne(targetEntity="Game\CharacterBundle\Entity\Character", inversedBy="openedTreasures")
      * @ORM\JoinColumn(name="char_id", referencedColumnName="id")
      */
     private $openedBy;

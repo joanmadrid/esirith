@@ -84,12 +84,17 @@ class Poi
     protected $startLinks;
 
     /**
+     * @ORM\OneToMany(targetEntity="LinkedPoi", mappedBy="end")
+     */
+    protected $endLinks;
+
+    /**
      * @ORM\OneToOne(targetEntity="RestPoint", mappedBy="poi")
      */
     protected $restPoint;
 
     /**
-     * @ORM\OneToOne(targetEntity="Treasure", mappedBy="poi")
+     * @ORM\OneToMany(targetEntity="Treasure", mappedBy="poi")
      */
     protected $treasures;
 
