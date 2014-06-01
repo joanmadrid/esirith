@@ -3,7 +3,7 @@
 namespace Game\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Game\MapBundle\Entity\Poi;
+use Game\CharacterBundle\Entity\Character;
 
 /**
  * Treasure
@@ -37,10 +37,16 @@ class Treasure
     private $opened = false;
 
     /**
-     * @ORM\OneToOne(targetEntity="Poi", inversedBy="restPoint")
+     * @ORM\OneToOne(targetEntity="Poi", inversedBy="treasures")
      * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
      */
     protected $poi;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Game\CharacterBundle\Entity\Character", inversedBy="openedTreasures")
+     * @ORM\JoinColumn(name="char_id", referencedColumnName="id")
+     */
+    private $openedBy;
 
 
     /**
@@ -120,5 +126,28 @@ class Treasure
     public function getPoi()
     {
         return $this->poi;
+    }
+
+    /**
+     * Set openedBy
+     *
+     * @param Character $openedBy
+     * @return Treasure
+     */
+    public function setOpenedBy(Character $openedBy = null)
+    {
+        $this->openedBy = $openedBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get openedBy
+     *
+     * @return \Game\MapBundle\Entity\Character 
+     */
+    public function getOpenedBy()
+    {
+        return $this->openedBy;
     }
 }

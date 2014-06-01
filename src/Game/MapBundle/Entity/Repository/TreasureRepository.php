@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Game\MapBundle\Entity\Treasure;
 
 /**
  * TreasureRepository
@@ -12,4 +13,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class TreasureRepository extends EntityRepository
 {
+    /**
+     * @param $poi
+     * @return Treasure|null
+     */
+    public function getTreasureFromPoi($poi)
+    {
+        $qb = $this->createQueryBuilder('treasure');
+
+        $qb
+            ->where('treasure.poi = :poi')
+            ->andWhere('treasure.opened = :opened')
+            ->setMaxResults(1)
+            ->setParameters(array(':poi' => $poi, 'opened'=>false));
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

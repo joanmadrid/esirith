@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Treasure</h1>
+
+    <p>
+        You found an old and forgotten treasure, there is gold and jewelry for the value of {{ treasure.gold }}.
+    </p>
+
+    <img src="{{ asset('bundles/ui/img/event/treasure.jpg') }}" />
+
+{% endblock %}

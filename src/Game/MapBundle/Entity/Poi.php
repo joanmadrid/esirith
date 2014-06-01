@@ -89,6 +89,11 @@ class Poi
     protected $restPoint;
 
     /**
+     * @ORM\OneToOne(targetEntity="Treasure", mappedBy="poi")
+     */
+    protected $treasures;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -408,5 +413,28 @@ class Poi
     public function getRestPoint()
     {
         return $this->restPoint;
+    }
+
+    /**
+     * Set treasures
+     *
+     * @param \Game\MapBundle\Entity\Treasure $treasures
+     * @return Poi
+     */
+    public function setTreasures(\Game\MapBundle\Entity\Treasure $treasures = null)
+    {
+        $this->treasures = $treasures;
+    
+        return $this;
+    }
+
+    /**
+     * Get treasures
+     *
+     * @return \Game\MapBundle\Entity\Treasure 
+     */
+    public function getTreasures()
+    {
+        return $this->treasures;
     }
 }

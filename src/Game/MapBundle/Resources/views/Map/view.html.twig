@@ -52,6 +52,15 @@
 </p>
 {% endif %}
 
+{% if treasure %}
+<p>
+    You found a unoppened chest.
+    <ul>
+        <li><a href="{{ path('map.open.treasure', {id:treasure.id}) }}">Open</a></li>
+    </ul>
+</p>
+{% endif %}
+
 <div class="map-wrapper">
     <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-10 }}px; left:{{ currentPoi.x-10 }}px;"></a>
     {% for paths in char.currentpoi.startpaths %}
