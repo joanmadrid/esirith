@@ -298,7 +298,7 @@ class BattleResolver {
                             $log->addTurn('Critical!');
                         }
                         $log->addTurn('Dealing '.$attack->getDamage().' points of damage');
-                        $log->addTurn($target->getPlayer()->getName().' HP is now '.$target->getHp());
+                        $log->addTurn($target->getPlayer()->getName().' HP is now '.$target->getCurrentHp());
                     } else {
                         $log->addTurn('But misses');
                     }

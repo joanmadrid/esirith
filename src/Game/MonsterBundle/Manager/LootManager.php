@@ -6,6 +6,7 @@ use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Entity\CharacterItem;
 use Game\CoreBundle\Manager\CoreManager;
+use Game\CoreBundle\Manager\RollManager;
 use Game\MonsterBundle\Entity\Monster;
 use Game\MonsterBundle\Entity\Repository\LootTableRepository;
 use Game\MonsterBundle\Model\Loot;
@@ -13,8 +14,19 @@ use Game\MonsterBundle\Model\Loot;
 class LootManager extends CoreManager
 {
     const LOOT_CHANCE_GOLD = 20;
+    const LOOT_CHANCE_ITEMS = 30;
+    const LOOT_CHANCE_ITEM_DECREMENT = 10;
 
-    const LOOT_CHANCE_ITEM_DECREMENT = 5;
+    /** @var RollManager */
+    protected $rollManager;
+
+    /**
+     * @param RollManager $rollManager
+     */
+    public function setRollManager($rollManager)
+    {
+        $this->rollManager = $rollManager;
+    }
 
     /**
      * @return LootTableRepository
@@ -55,26 +67,28 @@ class LootManager extends CoreManager
         $lootTable = $monster->getLootTable();
 
         //oro
-        if (rand(1, 100) <= self::LOOT_CHANCE_GOLD) {
+        if ($this->rollManager->rollPercentEqualOrBelow(self::LOOT_CHANCE_GOLD)) {
             $loot->setGold(rand($lootTable->getGoldMin(), $lootTable->getGoldMax()));
         }
 
         //items
-        $lootItems = $lootTable->getLootItems()->toArray();
-        shuffle($lootItems);
-        if ($lootItems) {
-            $decrement = 0;
-            foreach ($lootItems as $lootItem) {
-                $chance = $lootItem->getChance() - $decrement;
-                //si el decremento de posibilidades es mayor a 100% me salgo
-                if ($decrement>= 100) {
-                    break;
-                }
-                //solo sigo si hay alguna posibilidad
-                if ($chance > 0) {
-                    if (rand(1, 100) <= $chance) {
-                        $loot->addItem($lootItem->getItem());
-                        $decrement += self::LOOT_CHANCE_ITEM_DECREMENT;
+        if ($this->rollManager->rollPercentEqualOrBelow(self::LOOT_CHANCE_ITEMS)) {
+            $lootItems = $lootTable->getLootItems()->toArray();
+            shuffle($lootItems);
+            if ($lootItems) {
+                $decrement = 0;
+                foreach ($lootItems as $lootItem) {
+                    $chance = $lootItem->getChance() - $decrement;
+                    //si el decremento de posibilidades es mayor a 100% me salgo
+                    if ($decrement>= 100) {
+                        break;
+                    }
+                    //solo sigo si hay alguna posibilidad
+                    if ($chance > 0) {
+                        if ($this->rollManager->rollPercentEqualOrBelow($chance)) {
+                            $loot->addItem($lootItem->getItem());
+                            $decrement += self::LOOT_CHANCE_ITEM_DECREMENT;
+                        }
                     }
                 }
             }

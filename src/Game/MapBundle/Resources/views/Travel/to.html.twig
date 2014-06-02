@@ -22,8 +22,14 @@
                 {% endfor %}
             </ul>
         </p>
+        <code>
+            {% for turn in result.log.turns %}
+                {{ turn }}<br />
+            {% endfor %}
+        </code>
         {% if result.status == 1 %}
             <p>You won the battle.</p>
+            {% if loot.gold or loot.items|length > 0 %}
             <strong>Loot</strong>
             <ul>
                 {% if loot.gold > 0 %}
@@ -35,6 +41,7 @@
                     {% endfor %}
                 {% endif %}
             </ul>
+            {% endif %}
             <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
         {% else %}
             <p>You lost the battle.</p>
