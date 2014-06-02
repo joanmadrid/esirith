@@ -23,3 +23,5 @@ services:
       class: %game.loot.class%
       arguments: [%game.loottable.entity_class%]
       parent: core.core_manager
+      calls:
+          - [ setRollManager, [ @core.roll_manager ] ]
