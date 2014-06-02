@@ -28,7 +28,7 @@
             {% endfor %}
         </code>
         {% if result.status == 1 %}
-            <p>You won the battle.</p>
+            <p>You won the battle. Gained {{ result.gainedXP }} XP</p>
             {% if loot.gold or loot.items|length > 0 %}
             <strong>Loot</strong>
             <ul>
