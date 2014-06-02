@@ -4,6 +4,7 @@ namespace Game\BattleBundle\Manager;
 
 use Game\BattleBundle\Entity\Battle;
 use Game\BattleBundle\Model\BattleAttack;
+use Game\BattleBundle\Model\BattleLog;
 use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\Manager\XPManager;
 use Game\CoreBundle\Manager\RollManager;
@@ -17,7 +18,7 @@ use Game\CharacterBundle\Event\CharacterEvent;
 
 class BattleResolver {
 
-    const DEBUG = true;
+    const DEBUG = false;
 
     /** @var Battle */
     protected $battle;
@@ -266,6 +267,8 @@ class BattleResolver {
         $order = $this->getPlayerTurns();
         $finished = false;
         $turn = 1;
+        $log = new BattleLog();
+        $log->addTurn('The battle begins.');
 
         while ($finished === false) {
             $round = 1;
@@ -286,8 +289,20 @@ class BattleResolver {
                     $target = $order[$targetPos];
                     $this->log("Target: ".$target->getPlayer()->getName());
                     //2) ataco
+                    $log->addTurn($player->getPlayer()->getName().' attacks to '.$target->getPlayer()->getName().'...');
                     $attack = $this->attack($player, $target);
                     $target->decreaseHP($attack->getDamage());
+
+                    if ($attack->getHits() > 0) {
+                        if ($attack->getCriticals() > 0) {
+                            $log->addTurn('Critical!');
+                        }
+                        $log->addTurn('Dealing '.$attack->getDamage().' points of damage');
+                        $log->addTurn($target->getPlayer()->getName().' HP is now '.$target->getHp());
+                    } else {
+                        $log->addTurn('But misses');
+                    }
+
                     $this->log("Attack dmg:".$attack->getDamage().", crit:".$attack->getCriticals().", hits:".$attack->getHits().", miss:".$attack->getMiss());
                     $this->log("Target HP: ".$target->getCurrentHp()."/".$target->getHp());
 
@@ -295,6 +310,7 @@ class BattleResolver {
                     if ($target->isDead()) {
                         $this->log("Lo mata");
                         //gana XP
+                        $log->addTurn($target->getPlayer()->getName().' is dead.');
                         if ($target->getEnemy()) {
 //                            $characterEvent = new CharacterEvent($player->getPlayer());
 //                            $characterEvent->setMonster($target->getPlayer());
@@ -306,6 +322,7 @@ class BattleResolver {
                     }
                 } else {
                     $this->log("No hay objetivo, gana.");
+                    $log->addTurn('The battle ends.');
                     $finished = true;
                     $result->setStatus($player->getEnemy() ? Battle::STATUS_LOST : Battle::STATUS_WON);
                     break;
@@ -320,6 +337,7 @@ class BattleResolver {
         $charPos = $this->findCharacter($order);
         $char = $order[$charPos];
         $result->setCurrentHP($char->getCurrentHp());
+        $result->setLog($log);
         return $result;
     }
 
