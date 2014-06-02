@@ -3,12 +3,15 @@
 namespace Game\MapBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Game\BattleBundle\Entity\Battle;
 use Game\BattleBundle\Manager\BattleManager;
+use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\CharacterEventList;
 use Game\CharacterBundle\Event\CharacterEvent;
 use Game\CharacterBundle\Manager\CharacterManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\MapBundle\Manager\MapManager;
+use Game\MonsterBundle\Manager\LootManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -49,18 +52,22 @@ class TravelController extends Controller
         if ($triggerBattle) {
             $monsters = $this->getSpawnManager()->spawnMonsters($path->getEnd());
             $battle = $this->getBattleManager()->createMonsterBattle($char, $monsters, $path->getEnd());
-            $this->getBattleManager()->flush();
+            list($result, $loot) = $this->resolveBattle($battle);
+            $this->getCharacterManager()->flush();
+
+            return array(
+                'char'    => $char,
+                'poi'     => $poi,
+                'dice'    => $diceRoll->getRollResult(),
+                'restored' => $characterEvent->getRestored(),
+                'result' => $result,
+                'loot' => $loot,
+                'battle' => $battle
+            );
+        } else {
+            $this->getCharacterManager()->flush();
+            return $this->redirect($this->generateUrl('map.view'));
         }
-
-        $this->getCharacterManager()->flush();
-
-        return array(
-            'char'    => $char,
-            'poi'     => $poi,
-            'dice'    => $diceRoll->getRollResult(),
-            'combat'  => $triggerBattle,
-            'restored' => $characterEvent->getRestored()
-        );
     }
 
     /**
@@ -88,6 +95,30 @@ class TravelController extends Controller
             'poi'     => $poi,
             'link'    => $link
         );
+    }
+
+    /**
+     * @param Battle $battle
+     * @return array
+     */
+    private function resolveBattle(Battle $battle)
+    {
+        $result = $this->getBattleManager()->resolveBattle($battle);
+        $char = $battle->getCharacter();
+
+        $loot = $this->getLootManager()->generateBattleLoot($result);
+        $this->getLootManager()->giveTo($char, $loot);
+        $this->getLootManager()->flush();
+        $battle->setLoot($loot->generateJSON());
+
+        $char->setCurrentHp($result->getCurrentHP());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($char);
+        $em->flush();
+
+        $this->getBattleManager()->flush();
+
+        return array($result, $loot);
     }
 
     /**
@@ -144,5 +175,13 @@ class TravelController extends Controller
     private function getSpawnManager()
     {
         return $this->get('monster.spawn_manager');
+    }
+
+    /**
+     * @return LootManager;
+     */
+    private function getLootManager()
+    {
+        return $this->get('monster.loot_manager');
     }
 }

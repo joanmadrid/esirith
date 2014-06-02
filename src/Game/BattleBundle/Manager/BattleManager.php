@@ -54,6 +54,7 @@ class BattleManager extends CoreManager
             $battleMonster->setMonster($monsterItem->getMonster());
             $battleMonster->setNumber($monsterItem->getNumber());
             $battleMonster->setBattle($battle);
+            $battle->addBattleMonster($battleMonster);
             $this->persist($battleMonster);
         }
         $this->persist($battle);

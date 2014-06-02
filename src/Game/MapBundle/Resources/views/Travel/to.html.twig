@@ -1,14 +1,47 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>Travel</h1>
-<p>{{ char.name }} is travelling to {{ poi.name }}...</p>
-<p>
-    Checking if you encounter some problems...<br />
-    Rolling a d100 dice...{{ dice }}<br />
-    {% if combat %}Someone stumbled upon you! <a href="{{ path('battle.battle.view') }}">Combat</a>{% else %}You don't find any problems{% endif %}<br />
-    Restore points: <br />
-    Hp: +{{ restored }}
-</p>
-<p><a href="{{ path('map.view') }}">View map</a></p>
+    <div class="travel-info">
+        <h1>Travel</h1>
+        <p>{{ char.name }} is travelling to {{ poi.name }}...</p>
+        <p>
+            Checking if you encounter some problems...<br />
+            Rolling a d100 dice...{{ dice }}<br />
+            Restore points: <br />
+            Hp: +{{ restored }}
+        </p>
+    </div>
+    <div class="battle-info">
+        <h1>Battle</h1>
+        <p>
+            Enemies:
+            <ul>
+                {% for battleMonster in battle.battleMonsters %}
+                    {% set monster = battleMonster.monster %}
+                    <li><img src="{{ asset('bundles/ui/img/monster/'~monster.image) }}" /> {{ monster.name }} x {{ battleMonster.number }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        {% if result.status == 1 %}
+            <p>You won the battle.</p>
+            <strong>Loot</strong>
+            <ul>
+                {% if loot.gold > 0 %}
+                    <li>Gold: {{ loot.gold }}</li>
+                {% endif %}
+                {% if loot.items|length > 0 %}
+                    {% for item in loot.items %}
+                        <li>{{ renderItem(item)|raw }}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+            <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
+        {% else %}
+            <p>You lost the battle.</p>
+            <img src="{{ asset('bundles/ui/img/event/battle_result_lost.jpg') }}" />
+        {% endif %}
+    </div>
+    <p>
+        <a href="{{ path('map.view') }}">View map</a>
+    </p>
 {% endblock %}
