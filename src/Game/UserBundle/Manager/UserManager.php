@@ -124,6 +124,14 @@ class UserManager extends CoreManager
     }
 
     /**
+     *
+     */
+    public function unselectCharacter()
+    {
+        $this->getSession()->remove(self::CHARACTER_ID);
+    }
+
+    /**
      * @return int
      */
     public function getCharacter()

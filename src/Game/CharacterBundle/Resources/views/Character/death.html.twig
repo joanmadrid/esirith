@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Death</h1>
+
+    <p>
+        {{ char.name }} is dead. Was defeated in battle.
+    </p>
+
+    <img src="{{ asset('bundles/ui/img/event/death.jpg') }}" />
+
+{% endblock %}

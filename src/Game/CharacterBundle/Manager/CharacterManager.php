@@ -14,6 +14,8 @@ use Game\CharacterBundle\Manager\CharacterItemManager;
 
 class CharacterManager extends CoreManager
 {
+    const DEATH_CHANCE = 50;
+
     /** @var RollManager */
     protected $rollManager;
 
@@ -156,5 +158,13 @@ class CharacterManager extends CoreManager
         $battleAttack->setHits($hits);
         $battleAttack->setMiss($miss);
         return $battleAttack;
+    }
+
+    /**
+     * @return bool
+     */
+    public function rollDeath()
+    {
+        return $this->rollManager->rollPercentEqualOrBelow(self::DEATH_CHANCE);
     }
 }

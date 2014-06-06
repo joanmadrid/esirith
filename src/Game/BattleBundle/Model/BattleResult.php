@@ -9,6 +9,9 @@ use Game\MonsterBundle\Entity\Monster;
 
 class BattleResult
 {
+    const STATUS_WON = 1;
+    const STATUS_LOST = 2;
+
 
     protected $status;
 
@@ -27,7 +30,7 @@ class BattleResult
     {
         $monstersKilled = array();
 
-        foreach($this->monstersKilled as $monsterKilled) {
+        foreach ($this->monstersKilled as $monsterKilled) {
             $monstersKilled[] = $monsterKilled->getPlayer()->getName();
         }
 
