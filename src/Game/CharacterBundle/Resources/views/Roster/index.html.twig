@@ -4,7 +4,14 @@
     <h1>Roster</h1>
     <ul>
         {% for character in user.characters %}
-            <li>{{ character.name }} <a href="{{ path('character.roster.select', {id:character.id}) }}">select</a></li>
+            <li>
+                {{ character.name }}
+                {% if character.dead %}
+                *dead*
+                {% else %}
+                <a href="{{ path('character.roster.select', {id:character.id}) }}">select</a>
+                {% endif %}
+            </li>
         {% endfor %}
         <li><a href="{{ path('character.roster.create') }}">Create a new character</a></li>
     </ul>
