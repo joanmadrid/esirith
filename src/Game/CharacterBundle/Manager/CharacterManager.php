@@ -139,6 +139,7 @@ class CharacterManager extends CoreManager
             if ($attackRoll->getIsCritical()) {
                 $damage = 5;
                 $hits++;
+                $critical++;
             } else {
                 if ($attackRoll->getRollResult() + $char->getDex() >= $defense) {
                     $hits++;

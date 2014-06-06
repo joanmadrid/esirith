@@ -13,6 +13,7 @@ use Game\BattleBundle\Model\BattlePlayer;
 use Game\CoreBundle\Model\Roll;
 use Game\CharacterBundle\Manager\CharacterManager;
 use Game\ItemBundle\Manager\ArmorManager;
+use Game\MonsterBundle\Manager\MonsterManager;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Game\CharacterBundle\Event\CharacterEvent;
 
@@ -44,7 +45,10 @@ class BattleResolver {
     /** @var ArmorManager */
     protected $armorManager;
 
-    function __construct()
+    /** @var MonsterManager */
+    protected $monsterManager;
+
+    public function __construct()
     {
         $this->result = new BattleResult();
     }
@@ -96,6 +100,14 @@ class BattleResolver {
     public function setArmorManager($armorManager)
     {
         $this->armorManager = $armorManager;
+    }
+
+    /**
+     * @param MonsterManager $monsterManager
+     */
+    public function setMonsterManager($monsterManager)
+    {
+        $this->monsterManager = $monsterManager;
     }
 
     /**
@@ -152,7 +164,7 @@ class BattleResolver {
      * @param BattlePlayer $b
      * @return int
      */
-    static function orderByInitiative($a, $b)
+    private static function orderByInitiative($a, $b)
     {
         $iniA = $a->getInitiative();
         $iniB = $b->getInitiative();
@@ -213,7 +225,7 @@ class BattleResolver {
      */
     private function findCharacter($order)
     {
-        foreach ($order as $key=>$val) {
+        foreach ($order as $key => $val) {
             if (!$val->getEnemy()) {
                 return $key;
             }
@@ -230,7 +242,7 @@ class BattleResolver {
      */
     private function findEnemy($order)
     {
-        foreach ($order as $key=>$val) {
+        foreach ($order as $key => $val) {
             if ($val->getEnemy() && !$val->isDead()) {
                 return $key;
             }
@@ -251,9 +263,7 @@ class BattleResolver {
             //$target->decreaseHP($attack->getDamage());
             return $attack;
         } else {
-            //$target->decreaseHp(1);
-            $attack = new BattleAttack();
-            $attack->setDamage(1);
+            $attack = $this->monsterManager->attack($player, $target);
             return $attack;
         }
     }
