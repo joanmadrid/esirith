@@ -116,7 +116,7 @@ class UserManager extends CoreManager
      */
     public function selectCharacter(Character $char)
     {
-        if ($char->getUser() == $this->getCurrentUser()) {
+        if ($char->getUser() == $this->getCurrentUser() && !$char->getDead()) {
             $this->getSession()->set(self::CHARACTER_ID, $char->getId());
         } else {
             throw new NotFoundHttpException();
