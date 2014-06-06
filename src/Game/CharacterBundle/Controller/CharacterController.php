@@ -2,11 +2,13 @@
 
 namespace Game\CharacterBundle\Controller;
 
+use Game\CharacterBundle\Entity\Character;
 use Game\UserBundle\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CharacterController extends Controller
 {
@@ -20,6 +22,19 @@ class CharacterController extends Controller
         return array(
             'character' => $char
         );
+    }
+
+    /**
+     * @Route("/death/{id}", name="character.death")
+     * @ParamConverter("char", class="CharacterBundle:Character")
+     * @Template()
+     */
+    public function deathAction(Character $char)
+    {
+        if (!$char->getDead()) {
+            throw new AccessDeniedException('This char is not dead');
+        }
+        return array('char'=>$char);
     }
 
     /**

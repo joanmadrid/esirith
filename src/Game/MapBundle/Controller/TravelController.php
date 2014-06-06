@@ -33,6 +33,7 @@ class TravelController extends Controller
      */
     public function toAction(Poi $poi)
     {
+        /** @var Character $char */
         $char = $this->getUserManager()->getCharacter();
 
         /** @var CharacterEvent $characterEvent */
@@ -52,7 +53,24 @@ class TravelController extends Controller
         if ($triggerBattle) {
             $monsters = $this->getSpawnManager()->spawnMonsters($path->getEnd());
             $battle = $this->getBattleManager()->createMonsterBattle($char, $monsters, $path->getEnd());
+            /** @var BattleResult $result */
             list($result, $loot) = $this->resolveBattle($battle);
+
+            //si pierde
+            if ($result->getStatus() == BattleResult::STATUS_LOST) {
+                if ($char->getCurrentHp() <= 0) {
+                    //muere?
+                    if ($this->getCharacterManager()->rollDeath()) {
+                        $char->setDead(true);
+                        $this->getCharacterManager()->flush();
+                        $this->getUserManager()->unselectCharacter();
+                        return $this->redirect($this->generateUrl('character.death', array('id'=>$char->getId())));
+                    } else {
+                        $char->setCurrentHp(1);
+                    }
+                }
+            }
+
             $this->getCharacterManager()->flush();
 
             return array(

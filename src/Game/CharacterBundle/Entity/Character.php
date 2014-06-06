@@ -81,6 +81,13 @@ class Character extends Attributes
     protected $openedTreasures;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="dead", type="boolean")
+     */
+    protected $dead = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -264,6 +271,24 @@ class Character extends Attributes
     public function getOpenedTreasures()
     {
         return $this->openedTreasures;
+    }
+
+    /**
+     * @param boolean $dead
+     * @return $this
+     */
+    public function setDead($dead)
+    {
+        $this->dead = $dead;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getDead()
+    {
+        return $this->dead;
     }
 
     ////
