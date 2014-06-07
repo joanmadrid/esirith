@@ -53,7 +53,31 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+# FosUser
 fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Game\UserBundle\Entity\User
+
+# HWIO
+hwi_oauth:
+    connect:
+        account_connector: user.user_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook: facebook_id
+            twitter: twitter_id
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           284314515082984
+            client_secret:       bc26de934b5092ae5daebba7eb310d1a
+            scope: ""
+            options:
+                display: popup
+        twitter:
+            type:                twitter
+            client_id:           lXGWpekcDtljep0pMml4iayQw
+            client_secret:       oNO7dnF4UNxoAogdvOUti2qNzlM4QKWe1UsgHPkzf1tFZOmM1p

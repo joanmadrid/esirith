@@ -27,6 +27,26 @@ class User extends BaseUser
      */
     protected $characters;
 
+    /**
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
+     */
+    protected $facebook_id;
+
+    /**
+     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+     */
+    protected $facebook_access_token;
+
+    /**
+     * @ORM\Column(name="twitter_id", type="string", length=255, nullable=true)
+     */
+    protected $twitter_id;
+
+    /**
+     * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
+     */
+    protected $twitter_access_token;
+
     public function __construct()
     {
         parent::__construct();
@@ -74,4 +94,79 @@ class User extends BaseUser
     {
         return $this->characters;
     }
+
+    /**
+     * @param mixed $facebook_access_token
+     * @return $this
+     */
+    public function setFacebookAccessToken($facebook_access_token)
+    {
+        $this->facebook_access_token = $facebook_access_token;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebook_access_token;
+    }
+
+    /**
+     * @param mixed $facebook_id
+     * @return $this
+     */
+    public function setFacebookId($facebook_id)
+    {
+        $this->facebook_id = $facebook_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
+
+    /**
+     * @param mixed $twitter_access_token
+     * @return $this
+     */
+    public function setTwitterAccessToken($twitter_access_token)
+    {
+        $this->twitter_access_token = $twitter_access_token;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitterAccessToken()
+    {
+        return $this->twitter_access_token;
+    }
+
+    /**
+     * @param mixed $twitter_id
+     * @return $this
+     */
+    public function setTwitterId($twitter_id)
+    {
+        $this->twitter_id = $twitter_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTwitterId()
+    {
+        return $this->twitter_id;
+    }
+
+
 }
+
