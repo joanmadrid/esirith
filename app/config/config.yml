@@ -74,9 +74,9 @@ hwi_oauth:
             type:                facebook
             client_id:           284314515082984
             client_secret:       bc26de934b5092ae5daebba7eb310d1a
-            scope: ""
-            options:
-                display: popup
+#            scope: ""
+#            options:
+#                display: popup
         twitter:
             type:                twitter
             client_id:           lXGWpekcDtljep0pMml4iayQw
