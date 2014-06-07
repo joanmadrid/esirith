@@ -1,6 +1,7 @@
 parameters:
     user.user.class: Game\UserBundle\Manager\UserManager
     user.user.entity: Game\UserBundle\Entity\User
+    user.user_provider.class: Game\UserBundle\Security\Core\User\FOSUBUserProvider
 
 services:
     user.user_manager:
@@ -12,3 +13,7 @@ services:
             - [ setFOSUserManager, [ @fos_user.user_manager ] ]
             - [ setSession, [ @session ] ]
             - [ setCharacterManager, [ @character.character_manager ] ]
+
+    user.user_provider:
+        class: "%user.user_provider.class%"
+        arguments: [@fos_user.user_manager,{facebook: facebook_id, twitter: twitter_id}]
