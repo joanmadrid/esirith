@@ -26,7 +26,7 @@ class CharacterRestoreListener
     {
         $toRestore = 0;
 
-        switch ($event->getRestored()) {
+        switch ($event->getRestType()) {
             case RestPointManager::REST_RESULT_SAFE:
                 $toRestore = 100;
                 break;

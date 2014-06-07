@@ -31,7 +31,7 @@ class LevelUpController extends Controller
     {
         $char = $this->getUserManager()->getCharacter();
 
-        if(!$this->getXPManager()->isReadyToLevelUp($char)) {
+        if (!$this->getXPManager()->isReadyToLevelUp($char)) {
             throw new NotFoundHttpException();
         }
 

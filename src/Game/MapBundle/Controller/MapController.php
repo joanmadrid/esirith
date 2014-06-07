@@ -61,10 +61,25 @@ class MapController extends Controller
      */
     public function restAction(RestPoint $restPoint)
     {
+        /** @var Character $char */
         $char = $this->getUserManager()->getCharacter();
 
         try {
             $restResult = $this->getRestPointManager()->getRestResult($char, $restPoint);
+
+            if ($restPoint->getCost()) {
+                $em = $this->getDoctrine()->getManager();
+                if ($char->removeGold($restPoint->getCost())) {
+                    $em->persist($char);
+                    $em->flush();
+                } else {
+                    $this->get('session')->getFlashBag()->add(
+                        'error',
+                        'You don\'t have enough money'
+                    );
+                    return $this->redirect($this->generateUrl('map.view'));
+                }
+            }
 
             $restore = null;
             if ($restResult == RestPointManager::REST_RESULT_OK || $restResult == RestPointManager::REST_RESULT_SAFE) {

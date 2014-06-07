@@ -327,4 +327,18 @@ class Character extends Attributes
         $this->setGold($this->getGold() + $amount);
         return $this;
     }
+
+    /**
+     * @param $amount
+     * @return bool
+     */
+    public function removeGold($amount)
+    {
+        if ($this->getGold() >= $amount) {
+            $this->setGold($this->getGold()-$amount);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -94,7 +94,7 @@ class RestPointManager extends CoreManager
      *
      * @param Character $char
      * @param $restResult
-     * @return \Symfony\Component\EventDispatcher\Event
+     * @return CharacterEvent
      */
     public function rest(Character $char, $restResult)
     {

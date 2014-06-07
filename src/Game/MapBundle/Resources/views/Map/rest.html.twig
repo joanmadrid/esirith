@@ -6,12 +6,12 @@
     <p>
         {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_SAFE') %}
             You sleep placidly.
-            <br />Restored {{ restore.hp }} HP.
+            <br />Restored {{ restore }} HP.
         {% endif %}
 
         {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_OK') %}
             You reach to rest a little bit.
-            <br />Restored {{ restore.hp }} HP.
+            <br />Restored {{ restore }} HP.
         {% endif %}
 
         {% if restResult == constant('Game\\MapBundle\\Manager\\RestPointManager::REST_RESULT_NOT_ENOUGH_MONEY') %}

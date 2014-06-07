@@ -28,7 +28,7 @@
             {% endfor %}
         </code>
         {% if result.status == 1 %}
-            <p>You won the battle. Gained {{ result.gainedXP }} XP</p>
+            <p>You won the battle. Gained {{ xp }} XP</p>
             {% if loot.gold or loot.items|length > 0 %}
             <strong>Loot</strong>
             <ul>
@@ -44,7 +44,7 @@
             {% endif %}
             <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
         {% else %}
-            <p>You lost the battle. You barely manage to escape from the battle.</p>
+            <p>You lost the battle. You barely manage to escape from the battle. Gained {{ xp }} XP</p>
             <img src="{{ asset('bundles/ui/img/event/battle_result_lost.jpg') }}" />
         {% endif %}
     </div>

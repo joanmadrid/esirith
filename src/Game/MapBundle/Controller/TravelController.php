@@ -9,6 +9,7 @@ use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\CharacterEventList;
 use Game\CharacterBundle\Event\CharacterEvent;
 use Game\CharacterBundle\Manager\CharacterManager;
+use Game\CharacterBundle\Manager\XPManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\MapBundle\Manager\MapManager;
 use Game\MonsterBundle\Manager\LootManager;
@@ -54,7 +55,7 @@ class TravelController extends Controller
             $monsters = $this->getSpawnManager()->spawnMonsters($path->getEnd());
             $battle = $this->getBattleManager()->createMonsterBattle($char, $monsters, $path->getEnd());
             /** @var BattleResult $result */
-            list($result, $loot) = $this->resolveBattle($battle);
+            list($result, $loot, $xp) = $this->resolveBattle($battle);
 
             //si pierde
             if ($result->getStatus() == BattleResult::STATUS_LOST) {
@@ -80,7 +81,8 @@ class TravelController extends Controller
                 'restored' => $characterEvent->getRestored(),
                 'result' => $result,
                 'loot' => $loot,
-                'battle' => $battle
+                'battle' => $battle,
+                'xp' => $xp
             );
         } else {
             $this->getCharacterManager()->flush();
@@ -121,22 +123,33 @@ class TravelController extends Controller
      */
     private function resolveBattle(Battle $battle)
     {
+        //battle
         $result = $this->getBattleManager()->resolveBattle($battle);
         $char = $battle->getCharacter();
 
-        $loot = $this->getLootManager()->generateBattleLoot($result);
-        $this->getLootManager()->giveTo($char, $loot);
-        $this->getLootManager()->flush();
-        $battle->setLoot($loot->generateJSON());
+        //xp
+        $xp = $this->getXPManager()->calculateXPFromBattleResult($result, $char);
+        $char->addXP($xp);
 
+        $loot = null;
+        if ($result->getStatus() == BattleResult::STATUS_WON) {
+            //loot
+            $loot = $this->getLootManager()->generateBattleLoot($result);
+            $this->getLootManager()->giveTo($char, $loot);
+            $this->getLootManager()->flush();
+            $battle->setLoot($loot->generateJSON());
+        }
+
+        //hp
         $char->setCurrentHp($result->getCurrentHP());
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($char);
         $em->flush();
 
         $this->getBattleManager()->flush();
 
-        return array($result, $loot);
+        return array($result, $loot, $xp);
     }
 
     /**
@@ -201,5 +214,13 @@ class TravelController extends Controller
     private function getLootManager()
     {
         return $this->get('monster.loot_manager');
+    }
+
+    /**
+     * @return XPManager
+     */
+    private function getXPManager()
+    {
+        return $this->get('character.xp_manager');
     }
 }
