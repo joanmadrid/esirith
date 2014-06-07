@@ -48,7 +48,7 @@ class MonsterManager extends CoreManager
         $attackRoll = $this->rollManager->roll(1, 20, 5);
 
         if ($attackRoll->getIsCritical()) {
-            $damage = (int)$monsterAttr->getDamage()*self::ATTACK_DAMAGE_MULTIPLIER;
+            $damage = intval($monsterAttr->getDamage()*self::ATTACK_DAMAGE_MULTIPLIER);
             $hits++;
             $critical++;
         } else {

@@ -3,6 +3,7 @@
 namespace Game\CharacterBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Game\BattleBundle\Model\BattleResult;
 use Game\CharacterBundle\Entity\Character;
 use Game\MonsterBundle\Entity\Monster;
 use Game\CharacterBundle\Manager\CharacterManager;
@@ -20,6 +21,8 @@ class XPManager
     const LEVELUP_STAT_INT = 7;
     const LEVELUP_STAT_SPI = 8;
 
+    const XP_ALGORITHM_LEVEL_DIFFERENCE = 3;
+
     /** @var CharacterManager */
     protected $characterManager;
 
@@ -34,16 +37,6 @@ class XPManager
     public function flush()
     {
         $this->characterManager->flush();
-    }
-
-    /**
-     * @param Character $char
-     * @param Monster $monster
-     * @return int
-     */
-    public function calcKillXP(Character $char, Monster $monster)
-    {
-        return rand(2,5);
     }
 
     /**
@@ -91,5 +84,33 @@ class XPManager
         $char->setXP($char->getXP() - self::LEVELUP_XP_NEEDED);
         $char->setLevel($char->getLevel()+1);
         $this->characterManager->persist($char);
+    }
+
+    /**
+     * @param BattleResult $battleResult
+     * @param Character $char
+     * @return int
+     */
+    public function calculateXPFromBattleResult(BattleResult $battleResult, Character $char)
+    {
+        $monstersKilled = $battleResult->getMonstersKilled();
+        $xp = 0;
+
+        if (count($monstersKilled) > 0) {
+            /** @var Monster $monster */
+            foreach ($monstersKilled as $monster) {
+                $charLvl = $char->getLevel();
+                $monsterLvl = $monster->getLevel();
+                $monsterXP = 0;
+                if ($charLvl < $monsterLvl + self::XP_ALGORITHM_LEVEL_DIFFERENCE) {
+                    $monsterXP = $monsterLvl - $charLvl;
+                    if ($monsterXP <= 0) {
+                        $monsterXP = 1;
+                    }
+                }
+                $xp += $monsterXP;
+            }
+        }
+        return $xp;
     }
 }

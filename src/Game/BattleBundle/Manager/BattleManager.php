@@ -48,8 +48,7 @@ class BattleManager extends CoreManager
         $battle->setCharacter($char);
         $battle->setStatus(Battle::STATUS_PENDING);
 
-        foreach ($monsters as $monsterItem)
-        {
+        foreach ($monsters as $monsterItem) {
             $battleMonster = new BattleMonster();
             $battleMonster->setMonster($monsterItem->getMonster());
             $battleMonster->setNumber($monsterItem->getNumber());
@@ -77,8 +76,6 @@ class BattleManager extends CoreManager
      */
     public function resolveBattle(Battle $battle)
     {
-        $char = $battle->getCharacter();
-
         $resolver = $this->battleResolver;
         $resolver->setBattle($battle);
         $result = $resolver->resolve();
@@ -87,10 +84,6 @@ class BattleManager extends CoreManager
         $battle->setStatus($result->getStatus());
         $battle->setResolution($result->generateJSON());
         $this->persist($battle);
-
-        //xp
-        $char->addXP($result->getGainedXP());
-        $this->persist($char);
 
         return $result;
     }

@@ -19,8 +19,6 @@ class BattleResult
 
     protected $monstersKilled = array();
 
-    protected $gainedXP = 0;//gamedo: seguramente un manager tiene que hacer el calculo, a partir de los monstruos muertos
-
     /**
      * @var BattleLog
      */
@@ -37,7 +35,6 @@ class BattleResult
         return json_encode(array(
             'status' => $this->status,
             'currentHP' => $this->currentHP,
-            'gainedXP' => $this->gainedXP,
             'monstersKilled' => $monstersKilled,
             'log' => $this->log->getTurns()
         ));
@@ -97,30 +94,6 @@ class BattleResult
     public function addMonsterKilled($monster)
     {
         $this->monstersKilled[] = $monster;
-    }
-
-    /**
-     * @param mixed $gainedXP
-     */
-    public function setGainedXP($gainedXP)
-    {
-        $this->gainedXP = $gainedXP;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGainedXP()
-    {
-        return $this->gainedXP;
-    }
-
-    /**
-     * @param $amount
-     */
-    public function addGainedXP($amount)
-    {
-        $this->setGainedXP($this->getGainedXP() + $amount);
     }
 
     /**
