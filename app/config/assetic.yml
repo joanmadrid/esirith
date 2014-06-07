@@ -6,3 +6,17 @@ assetic:
         lessphp:
             file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
             apply_to: "\.less$"
+    assets:
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/jquery/jquery.min.js
+            output: js/jquery.js
+        jquery_ui:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/jqueryui/ui/minified/jquery-ui.min.js
+                - %kernel.root_dir%/../vendor/components/jqueryui/ui/minified/jquery.ui.tooltip.min.js
+            output: js/jquery.ui.js
+        jquery_ui_theme:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/jqueryui/themes/humanity/jquery-ui.min.css
+            ouput: css/jquery.ui.theme.css

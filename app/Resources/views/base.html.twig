@@ -7,24 +7,33 @@
         {% block stylesheets %}{% endblock %}
 
         <link href="http://fonts.googleapis.com/css?family=Fondamento" rel="stylesheet" type="text/css">
-        {% stylesheets 'bundles/ui/less/game.less' filter='cssrewrite' %}
+        {% stylesheets
+        'bundles/ui/less/game.less'
+        '@jquery_ui_theme'
+        filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
+
+        {% javascripts
+        '@jquery'
+        '@jquery_ui' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     </head>
     <body>
         <div class="outer">
             <div class="header">
                 <a class="logo" href=""></a>
                 <ul>
-                    <li><a class="menu-faq" href=""></a></li>
-                    <li><a class="menu-search" href=""></a></li>
-                    <li><a class="menu-pm" href=""></a></li>
-                    <li><a class="menu-register" href=""></a></li>
-                    <li><a class="menu-groups" href=""></a></li>
-                    <li><a class="menu-profile" href="{{ path('character.sheet') }}"></a></li>
-                    <li><a class="menu-members" href="{{ path('character.roster.index') }}"></a></li>
-                    <li><a class="menu-login" href="{{ path('character.inventory.index') }}"></a></li>
-                    <li><a class="menu-map" href="{{ path('map.view') }}"></a></li>
+                    {#<li><a class="menu-faq" href=""></a></li>#}
+                    {#<li><a class="menu-search" href=""></a></li>#}
+                    {#<li><a class="menu-pm" href=""></a></li>#}
+                    {#<li><a class="menu-register" href=""></a></li>#}
+                    {#<li><a class="menu-groups" href=""></a></li>#}
+                    <li><a class="menu-profile has-tooltip" href="{{ path('character.sheet') }}" title="Character Sheet"></a></li>
+                    {#<li><a class="menu-members has-tooltip" href="{{ path('character.roster.index') }}" title="Character Selection"></a></li>#}
+                    <li><a class="menu-login has-tooltip" href="{{ path('character.inventory.index') }}" title="Inventory"></a></li>
+                    <li><a class="menu-map has-tooltip" href="{{ path('map.view') }}" title="Map"></a></li>
                 </ul>
             </div>
             {{ render(controller('CharacterBundle:Status:index')) }}
@@ -56,5 +65,10 @@
             <div class="corner corner-br"></div>
         </div>
         {% block javascripts %}{% endblock %}
+        {% javascripts
+        '@UIBundle/Resources/public/js/base.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     </body>
 </html>
