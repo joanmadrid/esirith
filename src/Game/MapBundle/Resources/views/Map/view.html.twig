@@ -1,71 +1,74 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>Mapa</h1>
 
 {% set currentPoi = char.currentpoi %}
 
-<p>{{ char.name }} is in {{ currentPoi.name }}</p>
+<div class="module-map">
+    <div class="map-actions">
+        <p class="history">
+            {{ char.name }} is in {{ currentPoi.name }}.
+            {% if currentPoi.startpaths|length > 0 %}
+            There is a path to:
+                {% for paths in currentPoi.startpaths %}
+                    {% if loop.index != 1 %}, {% endif %}{{ paths.end.name }}
+                    <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" class="btn">Travel</a>
+                {% endfor %}. Be careful, the paths may be dangerous!
+            {% endif %}
+        </p>
 
-{% if currentPoi.startpaths|length > 0 %}
-<p>
-    Could travel to:
-    <ul>
-        {% for paths in currentPoi.startpaths %}
-        <li><a href="{{ path('map.travel.to', {'id':paths.end.id}) }}">{{ paths.end.name }}</a></li>
-        {% endfor %}
-    </ul>
-</p>
-{% endif %}
+        {% if currentPoi.shops|length > 0 %}
+            <div class="map-shop">
+                <p class="history">
+                    Maybe you want to buy some adventuring gear or sell your bounties:
+                    {% for shop in currentPoi.shops %}
+                        {{ shop.name }} <a href="{{ path('shop.view', {id:shop.id}) }}" class="btn">Trade</a>
+                    {% endfor %}
+                </p>
+            </div>
+        {% endif %}
 
-{% if currentPoi.shops|length > 0 %}
-<p>
-    Shops:
-    <ul>
-        {% for shop in currentPoi.shops %}
-            <li><a href="{{ path('shop.view', {id:shop.id}) }}">{{ shop.name }}</a></li>
-        {% endfor %}
-    </ul>
-</p>
-{% endif %}
+        {% if currentPoi.startLinks|length > 0 %}
+            <div class="map-links">
+                <p class="history">You see an
+                    {% for link in currentPoi.startLinks %}
+                        {% if loop.index != 1 %}, {% endif %}
+                        {{ link.name }} <a href="{{ path('map.travel.enter', {'id':link.end.id}) }}" class="btn">Enter</a>
+                {% endfor %}
+                </p>
+            </div>
+        {% endif %}
 
-{% if currentPoi.startLinks|length > 0 %}
-    <p>
-        You see...
-    <ul>
-        {% for link in currentPoi.startLinks %}
-            <li><a href="{{ path('map.travel.enter', {'id':link.end.id}) }}">{{ link.name }}</a></li>
-        {% endfor %}
-    </ul>
-    </p>
-{% endif %}
+        {% if currentPoi.restPoint|length > 0 %}
+            {% set restPoint = currentPoi.restPoint %}
+            <div class="map-restpoint">
+                <p class="history">
+                    There is a {{ restPoint.name }} where you can rest.
+                    {% if restPoint.type == 1 %}
+                        <br />
+                        It will cost you {{ restPoint.cost }} gold.
+                    {% endif %}
+                    <a class="btn" href="{{ path('map.rest', {id:restPoint.id}) }}">Rest</a>
+                </p>
+            </div>
 
-{% if currentPoi.restPoint|length > 0 %}
-    {% set restPoint = currentPoi.restPoint %}
-<p>
-    There is a {{ restPoint.name }} where you can rest.
-    {% if restPoint.type == 1 %}
-    <br />
-    It will cost you {{ restPoint.cost }} gold.
-    {% endif %}
-    <br /><a href="{{ path('map.rest', {id:restPoint.id}) }}">Rest</a>
-</p>
-{% endif %}
+        {% endif %}
 
-{% if treasure %}
-<p>
-    You found a unoppened chest.
-    <ul>
-        <li><a href="{{ path('map.open.treasure', {id:treasure.id}) }}">Open</a></li>
-    </ul>
-</p>
-{% endif %}
+        {% if treasure %}
+            <div class="map-treasure">
+                <p class="history">
+                    You found a unoppened chest <a href="{{ path('map.open.treasure', {id:treasure.id}) }}" class="btn">Open</a>.
+                </p>
+            </div>
+        {% endif %}
+    </div>
 
-<div class="map-wrapper">
-    <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-10 }}px; left:{{ currentPoi.x-10 }}px;"></a>
-    {% for paths in char.currentpoi.startpaths %}
-    <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>
-    {% endfor %}
-    <img src="{{asset('bundles/map/images/'~map.filename) }}" />
+    <div class="map-wrapper">
+        <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-15 }}px; left:{{ currentPoi.x-15 }}px;"></a>
+        {#{% for paths in char.currentpoi.startpaths %}#}
+            {#<a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>#}
+        {#{% endfor %}#}
+        <img src="{{asset('bundles/map/images/'~map.filename) }}" />
+    </div>
 </div>
 {% endblock %}

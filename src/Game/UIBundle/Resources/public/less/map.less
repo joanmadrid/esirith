@@ -1,16 +1,45 @@
-.map-wrapper {
-    position: relative;
-    .map-poi {
-        position:absolute;
-        width:20px;
-        height:20px;
-        border:1px solid #ccc;
-        &:hover {
-            box-shadow: 0px 0px 15px red;
-            border:1px solid red;
+.module-map {
+
+    .map-actions {
+        //border:1px solid #775D39;
+        //width:900px;
+        //margin:0px auto;
+        margin-bottom:20px;
+        .map-links {
+            margin-top:20px;
+            width: 376px;
+            height: 491px;
+            background: url('../img/modules/map-dungeon.png') no-repeat;
+            ul {
+                background-color: #FAF3E3;
+                border:1px solid #775D39;
+                padding:10px;
+            }
+        }
+        .map-shop {
+            margin-top:20px;
+        }
+        .map-restpoint {
+            margin-top:20px;
+        }
+        .map-treasure {
+            margin-top:20px;
         }
     }
-    .current-poi {
-        border-color:green;
+
+    .map-wrapper {
+        position: relative;
+        .map-poi {
+            position:absolute;
+            width:30px;
+            height:30px;
+            border:2px solid #775D39;
+            .border-radius(6px);
+            box-shadow: 0px 0px 10px 5px #fff;
+            &:hover {
+            }
+        }
+        .current-poi {
+        }
     }
 }
