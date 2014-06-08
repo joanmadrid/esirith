@@ -53,7 +53,7 @@ a{
         }
         ul {
             list-style:none;
-            padding:0px;
+            padding:5px;
             margin-bottom:0px;
             margin-top:88px;
             height:40px;
@@ -66,6 +66,7 @@ a{
                     height:41px;
                     margin:0 2px;
                     display:block;
+
                     &.menu-faq { background: url("../img/menu/nav_faq.gif") no-repeat; }
                     &.menu-search { background: url("../img/menu/nav_search.gif") no-repeat; }
                     &.menu-members { background: url("../img/menu/nav_members.gif") no-repeat; }
@@ -82,15 +83,20 @@ a{
 
     >.character-status {
         border-bottom:2px solid #775D39;
+        padding: 5px;
         padding-left:30px;
         background-color:darken(#FAF3E3, 20%);
         ul {
             list-style:none;
             padding:0px;
             margin:0px;
+            font-size:15px;
             li {
                 display:inline-block;
                 margin-right:20px;
+                strong {
+                    font-weight: bold;
+                }
             }
         }
     }
