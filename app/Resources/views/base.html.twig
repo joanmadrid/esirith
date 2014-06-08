@@ -49,7 +49,11 @@
             <div class="header">
                 <a class="logo" href=""></a>
                 {% if app.user %}
-                <ul>
+                <ul class="menu-user">
+                    <li>Logged as <strong>{{ app.user.username }}</strong></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                </ul>
+                <ul class="menu-game">
                     {#<li><a class="menu-faq" href=""></a></li>#}
                     {#<li><a class="menu-search" href=""></a></li>#}
                     {#<li><a class="menu-pm" href=""></a></li>#}

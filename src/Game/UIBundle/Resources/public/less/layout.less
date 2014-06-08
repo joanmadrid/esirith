@@ -24,6 +24,10 @@ a{
     }
 }
 
+strong {
+    font-weight: bold;
+}
+
 .history {
     font-family: 'Fondamento', cursive;
     font-size: 20px;
@@ -44,6 +48,7 @@ a{
     .header {
         height:134px;
         border-bottom:2px solid #775D39;
+        position: relative;
         .logo {
             display:block;
             width:685px;
@@ -51,7 +56,7 @@ a{
             background:url("../img/layout/logo.jpg") no-repeat;
             float:left;
         }
-        ul {
+        ul.menu-game {
             list-style:none;
             padding:5px;
             margin-bottom:0px;
@@ -79,6 +84,15 @@ a{
                 }
             }
         }
+        ul.menu-user {
+            position:absolute;
+            top:5px;
+            right:100px;
+            li {
+                float:left;
+                margin-left:10px;
+            }
+        }
     }
 
     >.character-status {
@@ -94,9 +108,6 @@ a{
             li {
                 display:inline-block;
                 margin-right:20px;
-                strong {
-                    font-weight: bold;
-                }
             }
         }
     }
