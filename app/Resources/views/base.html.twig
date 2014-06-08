@@ -24,6 +24,7 @@
         <div class="outer">
             <div class="header">
                 <a class="logo" href=""></a>
+                {% if app.user %}
                 <ul>
                     {#<li><a class="menu-faq" href=""></a></li>#}
                     {#<li><a class="menu-search" href=""></a></li>#}
@@ -35,8 +36,11 @@
                     <li><a class="menu-login has-tooltip" href="{{ path('character.inventory.index') }}" title="Inventory"></a></li>
                     <li><a class="menu-map has-tooltip" href="{{ path('map.view') }}" title="Map"></a></li>
                 </ul>
+                {% endif %}
             </div>
-            {{ render(controller('CharacterBundle:Status:index')) }}
+            {% if app.user %}
+                {{ render(controller('CharacterBundle:Status:index')) }}
+            {% endif %}
             <div class="inner">
 
                 {% for flashMessage in app.session.flashbag.get('success') %}
