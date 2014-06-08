@@ -1,18 +1,25 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <h1>Roster</h1>
-    <ul>
-        {% for character in user.characters %}
-            <li>
-                {{ character.name }}
-                {% if character.dead %}
-                *dead*
-                {% else %}
-                <a href="{{ path('character.roster.select', {id:character.id}) }}">select</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-        <li><a href="{{ path('character.roster.create') }}">Create a new character</a></li>
-    </ul>
+    <div class="module-roster">
+        <p class="history">Let's choose which character go to Esirith, or create a new one.</p>
+        <ul>
+            {% for character in user.characters %}
+                <li>
+                    <span class="roster-name">{{ character.name }}</span>
+                    <span class="roster-info">{{ character.race.name }} / {{ character.class.name }}</span>
+                    {% if character.dead %}
+                        <span class="roster-dead">Dead</span>
+                    {% else %}
+                        <a href="{{ path('character.roster.select', {id:character.id}) }}" class="btn">Select</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ path('character.roster.create') }}" class="btn btn-large roster-new">Create a new character</a>
+
+        <div class="module-roster-image">
+            <img src="{{ asset('bundles/ui/img/modules/roster.jpg') }}" />
+        </div>
+    </div>
 {% endblock %}
