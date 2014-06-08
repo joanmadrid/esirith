@@ -1,25 +1,36 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <h1>Create new character</h1>
-    <form action="{{ path('character.roster.create') }}" method="post">
-        Name:
-        <input type="text" name="name" />
-        <br />
-        Race:
-        <select name="race">
-            {% for race in races %}
-            <option value="{{ race.id }}">{{ race.name }}</option>
-            {% endfor %}
-        </select>
-        <br />
-        Class:
-        <select name="class">
-            {% for class in classes %}
-                <option value="{{ class.id }}">{{ class.name }}</option>
-            {% endfor %}
-        </select>
-        <br />
-        <input type="submit" value="Create" />
-    </form>
+    <div class="module-roster-create">
+        <p class="history">There's a new adventurer on the lands of Esirith. Tell me, who is it...</p>
+        <form action="{{ path('character.roster.create') }}" method="post">
+            <div class="form-control-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" />
+            </div>
+
+            <div class="form-control-group">
+                <label for="race">Race</label>
+                <select name="race" id="race">
+                    {% for race in races %}
+                        <option value="{{ race.id }}">{{ race.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control-group">
+                <label for="class">Class</label>
+                <select name="class" id="class">
+                    {% for class in classes %}
+                        <option value="{{ class.id }}">{{ class.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control-action">
+                <input type="submit" value="Create" />
+            </div>
+        </form>
+    </div>
+
 {% endblock %}

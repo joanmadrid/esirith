@@ -1,5 +1,5 @@
 assetic:
-    use_controller: true
+    use_controller: false
     bundles:        [ UIBundle ]
     filters:
         cssrewrite: ~
