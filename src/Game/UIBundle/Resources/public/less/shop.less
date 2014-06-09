@@ -1,0 +1,42 @@
+.module-shop {
+    .clearfix();
+    >.history {
+        margin-bottom:20px;
+    }
+    strong {
+        text-align: center;
+        display:block;
+        font-size:20px;
+        background-color:@color-border;
+        color:#fff;
+        padding:10px;
+    }
+    .shop-buy {
+        float:left;
+        width:48%;
+    }
+    .shop-sell {
+        float:right;
+        width:48%;
+    }
+    ul {
+        border:1px solid @color-border;
+        li {
+            padding:5px;
+            .shop-item {
+                display:inline-block;
+                width:200px;
+            }
+            .shop-price {
+                display:inline-block;
+                width:70px;
+            }
+            a {
+                float:right;
+            }
+            &:hover {
+                background-color:@color-bg-dark;
+            }
+        }
+    }
+}

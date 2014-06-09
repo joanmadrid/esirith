@@ -1,32 +1,31 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <h1>Shop: {{ shop.name }}</h1>
-    <p>
-        Your gold: {{ char.gold }}
-    </p>
-    <p>Items for sell:
-        <ul>
-            {% for shopItem in shop.items %}
-            <li>
-                {{ renderItem(shopItem.item)|raw }}
-                - {{ calculateSellPrice(shop, shopItem.item) }}
-                - <a href="{{ path('shop.buy', {id:shopItem.id}) }}">Buy</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </p>
-    <p>
-        Your items:
-        <ul>
-            {% for characterItem in items %}
-                <li>
-                    {{ renderItem(characterItem.item)|raw }}
-                    - {{ calculateBuyPrice(shop, characterItem.item) }}
-                    - <a href="{{ path('shop.sell', {item:characterItem.id, shop:shop.id}) }}">Sell</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </p>
-    <img src="{{ asset('bundles/shop/images/blacksmith.png') }}" />
+    <div class="module-shop">
+        <p class="history">You are in the {{ shop.name }}. You take a look in your pocket, you have {{ char.gold }} gold, spend it wisely.</p>
+        <div class="shop-buy">
+            <strong>Buy</strong>
+            <ul>
+                {% for shopItem in shop.items %}
+                    <li>
+                        <span class="shop-item">{{ renderItem(shopItem.item)|raw }}</span>
+                        <span class="shop-price">{{ calculateSellPrice(shop, shopItem.item) }} gold</span>
+                        <a href="{{ path('shop.buy', {id:shopItem.id}) }}" class="btn">Buy</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="shop-sell">
+            <strong>Sell</strong>
+            <ul>
+                {% for characterItem in items %}
+                    <li>
+                        <span class="shop-item">{{ renderItem(characterItem.item)|raw }}</span>
+                        <span class="shop-price">{{ calculateBuyPrice(shop, characterItem.item) }} gold</span>
+                        <a href="{{ path('shop.sell', {item:characterItem.id, shop:shop.id}) }}" class="btn">Sell</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

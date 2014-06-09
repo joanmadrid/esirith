@@ -1,6 +1,14 @@
+@color-bg: #FAF3E3;
+@color-bg-dark: #E1DACA;
+@color-border: #775D39;
+@color-text: #775D39;
+@color-link: #947C3E;
+@color-link-hover: #C39C4D;
+@color-history: #C7C0B0;
+
 body {
     margin:0px;
-    color: #775D39;
+    color: @color-text;
     font-family: Verdana, Arial, sans-serif;
     font-size: 12px;
     background:url("../img/layout/Texture0218.jpg");
@@ -18,9 +26,9 @@ h4 {font-size:20px;}
 h5 {font-size:15px;}
 
 a{
-    color:#947C3E;
+    color:@color-link;
     &:hover {
-        color:#C39C4D;
+        color:@color-link-hover;
     }
 }
 
@@ -32,8 +40,8 @@ strong {
     font-family: 'Fondamento', cursive;
     font-size: 20px;
     padding: 20px;
-    border:8px solid #C7C0B0;
-    background-color: #E1DACA;
+    border:8px solid @color-history;
+    background-color: @color-bg-dark;
     i, img {
         vertical-align: sub;
     }
@@ -44,13 +52,13 @@ strong {
 .outer {
     width:1100px;
     margin:0 auto;
-    border: 2px solid #775D39;
+    border: 2px solid @color-border;
     position: relative;
-    background-color: #FAF3E3;
+    background-color: @color-bg;
 
     .header {
         height:134px;
-        border-bottom:2px solid #775D39;
+        border-bottom:2px solid @color-border;
         position: relative;
         .logo {
             display:block;
@@ -99,10 +107,10 @@ strong {
     }
 
     >.character-status {
-        border-bottom:2px solid #775D39;
+        border-bottom:2px solid @color-border;
         padding: 5px;
         padding-left:30px;
-        background-color:darken(#FAF3E3, 20%);
+        background-color:darken(@color-bg, 20%);
         ul {
             list-style:none;
             padding:0px;

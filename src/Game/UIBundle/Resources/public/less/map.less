@@ -1,9 +1,6 @@
 .module-map {
 
     .map-actions {
-        //border:1px solid #775D39;
-        //width:900px;
-        //margin:0px auto;
         margin-bottom:20px;
         .map-links {
             margin-top:20px;
@@ -11,8 +8,8 @@
             height: 491px;
             background: url('../img/modules/map-dungeon.png') no-repeat;
             ul {
-                background-color: #FAF3E3;
-                border:1px solid #775D39;
+                background-color: @color-bg;
+                border:1px solid @color-border;
                 padding:10px;
             }
         }
@@ -33,7 +30,7 @@
             position:absolute;
             width:30px;
             height:30px;
-            border:2px solid #775D39;
+            border:2px solid @color-border;
             .border-radius(6px);
             box-shadow: 0px 0px 10px 5px #fff;
             &:hover {
@@ -47,7 +44,7 @@
 .module-travel {
     .battle-log {
         margin-top:20px;
-        border:1px solid #775D39;
+        border:1px solid @color-border;
         .clearfix();
         img {
             float:left;
@@ -58,7 +55,7 @@
             padding:20px;
             height:519px;
             overflow-y:scroll;
-            background-color: #E1DACA;
+            background-color: @color-bg-dark;
         }
     }
     .battle-win {
@@ -67,7 +64,7 @@
     .battle-lose {
         margin:0px auto;
         margin-top:20px;
-        border:1px solid #775D39;
+        border:1px solid @color-border;
         width:640px;
     }
 }
