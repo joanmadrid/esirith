@@ -6,7 +6,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class PortraitManager
 {
-    protected $folders = array('human-male');
+    protected $folders = array('human-male', 'human-female');
 
     protected $kernelRootDir;
 
@@ -27,7 +27,7 @@ class PortraitManager
 
             /**  @var SplFileInfo $file */
             foreach ($finder as $file) {
-                $images[] = $file->getFilename();
+                $images[] = array('folder'=>$folder, 'file'=>$file->getFilename());
             }
         }
 
