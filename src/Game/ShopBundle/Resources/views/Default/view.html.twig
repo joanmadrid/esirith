@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="module-shop">
-        <p class="history">You are in the {{ shop.name }}. You take a look in your pocket, you have {{ char.gold }} gold, spend it wisely.</p>
+        <p class="history">You are in the {{ shop.name }}. You take a look in your pocket, you have {{ char.gold }} gold, spend it wisely. <a href="{{ path('map.view') }}" class="btn">Get out</a></p>
         <div class="shop-buy">
             <strong>Buy</strong>
             <ul>
