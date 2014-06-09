@@ -49,21 +49,23 @@
             <div class="header">
                 <a class="logo" href=""></a>
                 {% if app.user %}
-                <ul class="menu-user">
-                    <li>Logged as <strong>{{ app.user.username }}</strong></li>
-                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-                </ul>
-                <ul class="menu-game">
-                    {#<li><a class="menu-faq" href=""></a></li>#}
-                    {#<li><a class="menu-search" href=""></a></li>#}
-                    {#<li><a class="menu-pm" href=""></a></li>#}
-                    {#<li><a class="menu-register" href=""></a></li>#}
-                    {#<li><a class="menu-groups" href=""></a></li>#}
-                    <li><a class="menu-profile has-tooltip" href="{{ path('character.sheet') }}" title="Character Sheet"></a></li>
-                    {#<li><a class="menu-members has-tooltip" href="{{ path('character.roster.index') }}" title="Character Selection"></a></li>#}
-                    <li><a class="menu-login has-tooltip" href="{{ path('character.inventory.index') }}" title="Inventory"></a></li>
-                    <li><a class="menu-map has-tooltip" href="{{ path('map.view') }}" title="Map"></a></li>
-                </ul>
+                    <ul class="menu-user">
+                        <li>Logged as <strong>{{ app.user.username }}</strong></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    </ul>
+                    {% if app.session.get('character_id') %}
+                    <ul class="menu-game">
+                        {#<li><a class="menu-faq" href=""></a></li>#}
+                        {#<li><a class="menu-search" href=""></a></li>#}
+                        {#<li><a class="menu-pm" href=""></a></li>#}
+                        {#<li><a class="menu-register" href=""></a></li>#}
+                        {#<li><a class="menu-groups" href=""></a></li>#}
+                        <li><a class="menu-profile has-tooltip" href="{{ path('character.sheet') }}" title="Character Sheet"></a></li>
+                        {#<li><a class="menu-members has-tooltip" href="{{ path('character.roster.index') }}" title="Character Selection"></a></li>#}
+                        <li><a class="menu-login has-tooltip" href="{{ path('character.inventory.index') }}" title="Inventory"></a></li>
+                        <li><a class="menu-map has-tooltip" href="{{ path('map.view') }}" title="Map"></a></li>
+                    </ul>
+                    {% endif %}
                 {% endif %}
             </div>
             {% if app.user %}
