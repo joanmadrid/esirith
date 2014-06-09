@@ -3,6 +3,7 @@
 namespace Game\CharacterBundle\Controller;
 
 use Game\CharacterBundle\Manager\CharacterClassManager;
+use Game\CharacterBundle\Manager\PortraitManager;
 use Game\CharacterBundle\Manager\RosterManager;
 use Game\MapBundle\Manager\PoiManager;
 use Game\MonsterBundle\Manager\RaceManager;
@@ -47,20 +48,22 @@ class RosterController extends Controller
     public function createAction(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $name   = $request->get('name');
-            $race   = $this->getRaceManager()->findRace($request->get('race'));
-            $class  = $this->getCharacterClassManager()->findClass($request->get('class'));
-            $poi    = $this->getPoiManager()->getStartingPoi();
+            $name       = $request->get('name');
+            $race       = $this->getRaceManager()->findRace($request->get('race'));
+            $class      = $this->getCharacterClassManager()->findClass($request->get('class'));
+            $poi        = $this->getPoiManager()->getStartingPoi();
+            $portrait   = $request->get('portrait');
 
             $user = $this->getUserManager()->getCurrentUser();
-            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi);
+            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi, $portrait);
             $this->getRosterManager()->flush();
             return $this->selectAction($character);
         }
 
         return array(
             'races'     => $this->getRaceManager()->getSelectableRaces(),
-            'classes'   => $this->getCharacterClassManager()->getSelectableClasses()
+            'classes'   => $this->getCharacterClassManager()->getSelectableClasses(),
+            'portraits' => $this->getPortraitManager()->getAll()
         );
     }
 
@@ -102,5 +105,13 @@ class RosterController extends Controller
     private function getPoiManager()
     {
         return $this->get('map.poi_manager');
+    }
+
+    /**
+     * @return PortraitManager
+     */
+    private function getPortraitManager()
+    {
+        return $this->get('character.portrait_manager');
     }
 }

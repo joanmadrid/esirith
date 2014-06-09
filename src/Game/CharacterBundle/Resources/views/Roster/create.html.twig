@@ -27,10 +27,24 @@
                 </select>
             </div>
 
+            <div class="roster-portrait">
+                <input type="hidden" name="portrait" value="" />
+                {% for portrait in portraits %}
+                    <img src="{{ asset('portraits/human-male/'~portrait) }}" data-portrait="{{ portrait }}" class="portrait" />
+                {% endfor %}
+            </div>
+
             <div class="form-control-action">
-                <input type="submit" value="Create" />
+                <input type="submit" class="btn btn-large" value="Go adventuring!" />
             </div>
         </form>
     </div>
+{% endblock %}
 
+{% block javascripts %}
+    {% javascripts
+        '@CharacterBundle/Resources/public/js/roster-create.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

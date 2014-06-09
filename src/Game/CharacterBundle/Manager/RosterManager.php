@@ -24,15 +24,17 @@ class RosterManager extends CoreManager
      * @param CharacterClass $class
      * @param User $user
      * @param Poi $poi
+     * @param $portrait
      * @return Character
      */
-    public function createCharacter($name, $race, $class, User $user, $poi)
+    public function createCharacter($name, $race, $class, User $user, $poi, $portrait)
     {
         $character = new Character();
         $character->setName($name);
         $character->setRace($race);
         $character->setUser($user);
         $character->setClass($class);
+        $character->setPortrait($portrait);
 
         $character
             ->setHp($class->getHp())

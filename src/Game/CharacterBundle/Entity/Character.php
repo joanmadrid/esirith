@@ -88,6 +88,13 @@ class Character extends Attributes
     protected $dead = false;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="portrait", type="string", length=255, nullable=true)
+     */
+    private $portrait;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -290,6 +297,25 @@ class Character extends Attributes
     {
         return $this->dead;
     }
+
+    /**
+     * @param string $portrait
+     * @return $this
+     */
+    public function setPortrait($portrait)
+    {
+        $this->portrait = $portrait;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPortrait()
+    {
+        return $this->portrait;
+    }
+
 
     ////
 
