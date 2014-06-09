@@ -1,54 +1,56 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <div class="travel-info">
-        <h1>Travel</h1>
-        <p>{{ char.name }} is travelling to {{ poi.name }}...</p>
-        <p>
-            Checking if you encounter some problems...<br />
-            Rolling a d100 dice...{{ dice }}<br />
-            Restore points: <br />
-            Hp: +{{ restored }}
+    <div class="module-travel">
+        <p class="history">
+            {{ char.name }} was travelling to {{ poi.name }}. You hear a noise in your back, damn you are under attack!
+            <br />
+            You see
+            {% for battleMonster in battle.battleMonsters %}
+                {% set monster = battleMonster.monster %}
+                {% if loop.index != 1 %}, {% endif %}
+                {{ battleMonster.number }} {{ monster.name }} <img src="{{ asset('bundles/ui/img/monster/'~monster.image) }}" />
+            {% endfor %}. Prepare yourself to the battle!
         </p>
-    </div>
-    <div class="battle-info">
-        <h1>Battle</h1>
-        <p>
-            Enemies:
-            <ul>
-                {% for battleMonster in battle.battleMonsters %}
-                    {% set monster = battleMonster.monster %}
-                    <li><img src="{{ asset('bundles/ui/img/monster/'~monster.image) }}" /> {{ monster.name }} x {{ battleMonster.number }}</li>
+
+        <div class="battle-log">
+            <img src="{{ asset('bundles/ui/img/event/battle.png') }}" />
+            <p class="log">
+                {% for turn in result.log.turns %}
+                    {{ turn }}<br />
                 {% endfor %}
-            </ul>
-        </p>
-        <code>
-            {% for turn in result.log.turns %}
-                {{ turn }}<br />
-            {% endfor %}
-        </code>
+            </p>
+        </div>
+
+
         {% if result.status == 1 %}
-            <p>You won the battle. Gained {{ xp }} XP</p>
-            {% if loot.gold or loot.items|length > 0 %}
-            <strong>Loot</strong>
-            <ul>
-                {% if loot.gold > 0 %}
-                    <li>Gold: {{ loot.gold }}</li>
-                {% endif %}
-                {% if loot.items|length > 0 %}
-                    {% for item in loot.items %}
-                        <li>{{ renderItem(item)|raw }}</li>
-                    {% endfor %}
-                {% endif %}
-            </ul>
-            {% endif %}
-            <img src="{{ asset('bundles/ui/img/event/battle_result_won.jpg') }}" />
+            <div class="battle-win">
+                <p class="history">
+                    You won the battle and gain {{ xp }} XP.
+                    {% if loot.gold or loot.items|length > 0 %}
+                        {% if loot.gold > 0 %}
+                            Looking for some loot you found {{ loot.gold }} gold coins.
+                        {% endif %}
+                        {% if loot.items|length > 0 %}
+                            Also, you take
+                            {% for item in loot.items %}
+                                {% if loop.index != 1 %}, {% endif %}
+                                {{ renderItem(item)|raw }}
+                            {% endfor %}
+                            from the corpse. Maybe its useful or can be sold.
+                        {% endif %}
+                    {% endif %}
+                    <br />Now you can resume your travelling <a href="{{ path('map.view') }}" class="btn">Go to map</a>.
+                </p>
+            </div>
         {% else %}
-            <p>You lost the battle. You barely manage to escape from the battle. Gained {{ xp }} XP</p>
-            <img src="{{ asset('bundles/ui/img/event/battle_result_lost.jpg') }}" />
+            <div class="battle-lose">
+                <p class="history">
+                    You lost the battle. You barely manage to escape from the battle. Gained {{ xp }} XP.
+                <br />Now you can resume your travelling <a href="{{ path('map.view') }}" class="btn">Go to map</a>.
+                </p>
+                <img src="{{ asset('bundles/ui/img/event/battle_result_lost.jpg') }}" />
+            </div>
         {% endif %}
     </div>
-    <p>
-        <a href="{{ path('map.view') }}">View map</a>
-    </p>
 {% endblock %}
