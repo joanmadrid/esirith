@@ -27,10 +27,19 @@
                 </select>
             </div>
 
+            <div class="roster-filter">
+                Filter: <a href="" data-filter="">All</a>, <a href="" data-filter="human-male">Human male</a>, <a href="" data-filter="human-female">Human female</a>
+            </div>
             <div class="roster-portrait">
+
                 <input type="hidden" name="portrait" value="" />
                 {% for portrait in portraits %}
-                    <img src="{{ asset('portraits/human-male/'~portrait) }}" data-portrait="{{ portrait }}" class="portrait" />
+                    <img
+                        src="{{ asset('portraits/'~portrait.folder~'/'~portrait.file) }}"
+                        data-portrait-folder="{{ portrait.folder }}"
+                        data-portrait-file="{{ portrait.file }}"
+                        class="portrait"
+                    />
                 {% endfor %}
             </div>
 
