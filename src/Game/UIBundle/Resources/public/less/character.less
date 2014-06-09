@@ -1,3 +1,10 @@
+//globales
+.portrait {
+    width:110px;
+    height:170px;
+}
+
+
 .module-roster {
     border:1px solid @color-border;
     width:640px;
@@ -38,6 +45,31 @@
     margin:0px auto;
     form {
         padding:20px 0px;
+    }
+    .roster-portrait {
+        .border-radius(6px);
+        border:1px solid #CDC3B7;
+        margin-left:112px;
+        margin-bottom:20px;
+        width:500px;
+        padding:10px;
+        overflow-y:scroll;
+        height:430px;
+        background-color:@color-bg-dark;
+        img {
+            padding:4px;
+            &:hover {
+                background-color:#fff;
+                cursor:pointer;
+            }
+            &.active {
+                background-color:#fff;
+                .border-radius(6px);
+                box-shadow: 0px 0px 10px 5px #fff;
+                .opacity(0.5);
+
+            }
+        }
     }
 }
 

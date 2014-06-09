@@ -7,6 +7,7 @@ parameters:
     character.roster.class: Game\CharacterBundle\Manager\RosterManager
     character.characterclass.class: Game\CharacterBundle\Manager\CharacterClassManager
     character.characterclass.entity: Game\CharacterBundle\Entity\CharacterClass
+    character.portrait.class: Game\CharacterBundle\Manager\PortraitManager
     ## listeners ##
     character.character_restore_listener.class: Game\CharacterBundle\EventListener\CharacterRestoreListener
     character.character_shop_listener.class: Game\CharacterBundle\EventListener\CharacterShopListener
@@ -45,6 +46,10 @@ services:
         class: %character.characterclass.class%
         arguments: [%character.characterclass.entity%]
         parent: core.core_manager
+
+    character.portrait_manager:
+        class: %character.portrait.class%
+        arguments: [%kernel.root_dir%]
 
     ## listeners ##
 
