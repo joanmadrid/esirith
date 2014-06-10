@@ -111,6 +111,8 @@ class UserManager extends CoreManager
     }
 
     /**
+     * Select character and update the date
+     *
      * @param Character $char
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
@@ -118,6 +120,8 @@ class UserManager extends CoreManager
     {
         if ($char->getUser() == $this->getCurrentUser() && !$char->getDead()) {
             $this->getSession()->set(self::CHARACTER_ID, $char->getId());
+            $char->setLastConnection(new \DateTime());
+            $this->persist($char);
         } else {
             throw new NotFoundHttpException();
         }
