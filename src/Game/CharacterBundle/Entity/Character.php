@@ -95,6 +95,11 @@ class Character extends Attributes
     private $portrait;
 
     /**
+     * @ORM\Column(name="last_connection", type="datetime", nullable=true)
+     */
+    private $lastConnection;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -314,6 +319,24 @@ class Character extends Attributes
     public function getPortrait()
     {
         return $this->portrait;
+    }
+
+    /**
+     * @param mixed $lastConnection
+     * @return $this
+     */
+    public function setLastConnection($lastConnection)
+    {
+        $this->lastConnection = $lastConnection;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastConnection()
+    {
+        return $this->lastConnection;
     }
 
 

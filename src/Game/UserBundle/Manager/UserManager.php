@@ -4,6 +4,7 @@ namespace Game\UserBundle\Manager;
 
 use Game\UserBundle\Entity\Repository\UserRepository;
 use Game\CoreBundle\Manager\CoreManager;
+use Game\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -103,7 +104,7 @@ class UserManager extends CoreManager
 
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getCurrentUser()
     {
@@ -111,6 +112,8 @@ class UserManager extends CoreManager
     }
 
     /**
+     * Select character and update the date
+     *
      * @param Character $char
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
@@ -118,6 +121,8 @@ class UserManager extends CoreManager
     {
         if ($char->getUser() == $this->getCurrentUser() && !$char->getDead()) {
             $this->getSession()->set(self::CHARACTER_ID, $char->getId());
+            $char->setLastConnection(new \DateTime());
+            $this->persist($char);
         } else {
             throw new NotFoundHttpException();
         }

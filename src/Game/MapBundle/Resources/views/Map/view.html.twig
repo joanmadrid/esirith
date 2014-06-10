@@ -6,16 +6,30 @@
 
 <div class="module-map">
     <div class="map-actions">
-        <p class="history">
+        <div class="map-travel history">
             {{ char.name }} is in {{ currentPoi.name }}.
             {% if currentPoi.startpaths|length > 0 %}
             There is a path to:
+            <ul>
                 {% for paths in currentPoi.startpaths %}
-                    {% if loop.index != 1 %}, {% endif %}{{ paths.end.name }}
-                    <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" class="btn">Travel</a>
-                {% endfor %}. Be careful, the paths may be dangerous!
+                    {#{% if loop.index != 1 %}, {% endif %}{{ paths.end.name }}#}
+                    <li>{{ paths.end.name }} <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" class="btn">Travel</a></li>
+                {% endfor %}
+            </ul>
+            Be careful, travelling may be dangerous!
             {% endif %}
-        </p>
+        </div>
+
+        {% if others|length > 0 %}
+            <div class="map-others history">
+                Other adventurers nearby:
+                <ul>
+                {% for other in others %}
+                    <li>{{ other.name }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         {% if currentPoi.shops|length > 0 %}
             <div class="map-shop">

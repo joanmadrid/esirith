@@ -38,6 +38,7 @@ class RosterController extends Controller
     public function selectAction(Character $char)
     {
         $this->getUserManager()->selectCharacter($char);
+        $this->getUserManager()->flush();
         return $this->redirect($this->generateUrl('map.view'));
     }
 
