@@ -86,4 +86,25 @@ class CharacterRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @param $poi
+     * @param $user
+     * @return array
+     */
+    public function findCharactersInTheSamePoi($poi, $user)
+    {
+        $last = new \DateTime();
+        $last->sub(new \DateInterval('P1D'));
+
+        $qb = $this->createQueryBuilder('char');
+        $qb
+            ->select('char')
+            ->where('char.currentPoi = :poi')
+            ->andWhere('char.user != :user')
+            ->andWhere('char.lastConnection > :last')
+            ->setParameters(array('poi'=>$poi, 'user'=>$user, 'last'=>$last));
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

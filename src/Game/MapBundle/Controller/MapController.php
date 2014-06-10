@@ -2,6 +2,7 @@
 
 namespace Game\MapBundle\Controller;
 
+use Game\CharacterBundle\Manager\CharacterManager;
 use Game\MapBundle\Entity\Treasure;
 use Game\MapBundle\Manager\MapManager;
 use Game\MapBundle\Manager\TreasureManager;
@@ -47,10 +48,16 @@ class MapController extends Controller
 
         $treasure = $this->getTreasureManager()->findForTreasures($char);
 
+        $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
+            $char->getCurrentPoi(),
+            $this->getUserManager()->getCurrentUser()
+        );
+
         return array(
             'char' => $char,
             'map'  => $map,
-            'treasure' => $treasure
+            'treasure' => $treasure,
+            'others' => $others
         );
     }
 

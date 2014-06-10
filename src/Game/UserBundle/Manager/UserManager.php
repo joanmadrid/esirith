@@ -4,6 +4,7 @@ namespace Game\UserBundle\Manager;
 
 use Game\UserBundle\Entity\Repository\UserRepository;
 use Game\CoreBundle\Manager\CoreManager;
+use Game\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -103,7 +104,7 @@ class UserManager extends CoreManager
 
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getCurrentUser()
     {

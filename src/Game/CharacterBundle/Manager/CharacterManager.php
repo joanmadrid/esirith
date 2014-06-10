@@ -11,6 +11,7 @@ use Game\MapBundle\Entity\Poi;
 use Game\ItemBundle\Manager\WeaponManager;
 use Game\BattleBundle\Model\BattleAttack;
 use Game\CharacterBundle\Manager\CharacterItemManager;
+use Game\UserBundle\Entity\User;
 
 class CharacterManager extends CoreManager
 {
@@ -166,5 +167,15 @@ class CharacterManager extends CoreManager
     public function rollDeath()
     {
         return $this->rollManager->rollPercentEqualOrBelow(self::DEATH_CHANCE);
+    }
+
+    /**
+     * @param Poi $poi
+     * @param User $user
+     * @return array
+     */
+    public function getCharactersInTheSamePoi(Poi $poi, User $user)
+    {
+        return $this->getRepository()->findCharactersInTheSamePoi($poi, $user);
     }
 }
