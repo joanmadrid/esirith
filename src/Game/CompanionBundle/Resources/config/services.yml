@@ -1,0 +1,11 @@
+parameters:
+    companion.companion.class: Game\CompanionBundle\Manager\CompanionManager
+    companion.companion.entity: Game\CompanionBundle\Entity\Companion
+
+services:
+    companion.companion_manager:
+        class: %companion.companion.class%
+        arguments: [%companion.companion.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
