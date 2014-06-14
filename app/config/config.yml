@@ -81,3 +81,16 @@ hwi_oauth:
             type:                twitter
             client_id:           lXGWpekcDtljep0pMml4iayQw
             client_secret:       oNO7dnF4UNxoAogdvOUti2qNzlM4QKWe1UsgHPkzf1tFZOmM1p
+
+# liipImagine
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        portrait_mini:
+            quality: 75
+            filters:
+                thumbnail: { size: [22, 34], mode: outbound }

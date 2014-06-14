@@ -26,6 +26,7 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
             ->setStr(12)
             ->setDex(9)
             ->setLevel(1)
+            ->setPortrait('human-male/0000.jpg')
             ->setCurrentPoi($this->getReference('poi-start'))
             ->setGold(1000)
             ->setUser($this->getReference('user-0'))

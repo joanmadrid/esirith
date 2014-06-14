@@ -6,6 +6,9 @@
         <ul>
             {% for character in user.characters %}
                 <li>
+                    <span class="roster-portrait">
+                        <img class="portrait" src="{{ asset('portraits/'~character.portrait) | imagine_filter('portrait_mini') }}" />
+                    </span>
                     <span class="roster-name">{{ character.name }}</span>
                     <span class="roster-info">{{ character.race.name }} / {{ character.class.name }}</span>
                     {% if character.dead %}

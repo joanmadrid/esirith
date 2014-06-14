@@ -12,6 +12,7 @@
 composer.lock
 /web/css/*
 /web/portraits/
+/web/media/
 
 #a quitar
 .idea/

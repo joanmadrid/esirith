@@ -98,3 +98,7 @@ facebook_login:
 
 twitter_login:
     pattern: /login/check-twitter
+
+# LiipImagine #
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
