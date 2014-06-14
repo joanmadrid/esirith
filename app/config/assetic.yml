@@ -1,6 +1,6 @@
 assetic:
     use_controller: false
-    bundles:        [ UIBundle, CharacterBundle ]
+    bundles:        [ UIBundle, CharacterBundle, CompanionBundle ]
     filters:
         cssrewrite: ~
         lessphp:

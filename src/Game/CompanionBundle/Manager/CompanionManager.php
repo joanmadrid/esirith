@@ -96,7 +96,10 @@ class CompanionManager extends CoreManager
     public function generateRandomCompanion(Character $char)
     {
         $pending = $this->getPendingCompanion($char);
-        $this->remove($pending);
+
+        if ($pending) {
+            $this->remove($pending);
+        }
 
         $types = array(Companion::TYPE_WARRIOR, Companion::TYPE_WIZARD, Companion::TYPE_CLERIC, Companion::TYPE_THIEF);
         $abilities = array(Companion::ABILITY_ADVENTURER, Companion::ABILITY_FIGHTER, Companion::ABILITY_HONORABLE);
@@ -137,6 +140,19 @@ class CompanionManager extends CoreManager
         $validDate = new \DateTime();
         $validDate->sub(new \DateInterval('P'.self::REGENERATE_DAYS.'D'));
         return $char->getLastCompanionGeneration() < $validDate && $char->getGold() >= self::REGENERATE_GOLD;
+    }
+
+    /**
+     * @param Character $char
+     * @return \DateTime
+     */
+    public function getTimeLeftForRegenerateCompanion(Character $char)
+    {
+        $validDate = new \DateTime();
+        $validDate->sub(new \DateInterval('P'.self::REGENERATE_DAYS.'D'));
+        $last = $char->getLastCompanionGeneration();
+        $interval = $last->diff($validDate);
+        return $interval->format('%H:%I:%S');
     }
 
     /**

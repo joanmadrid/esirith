@@ -8,7 +8,7 @@
                     You can search for an adventurer to join your cause.
                     <a href="{{ path('companion.generate') }}" class="btn">Search</a> for {{ constant('Game\\CompanionBundle\\Manager\\CompanionManager::REGENERATE_GOLD') }} gold.
                 {% else %}
-                    It's too early to search for a new adventurer right now.
+                    It's too early to search for a new adventurer right now. Try again in {% if timeLeft %}<span class="countdown">{{ timeLeft }}</span>{% endif %}.
                 {% endif %}
             </p>
         </div>
@@ -37,4 +37,13 @@
         </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+    '@UIBundle/Resources/public/js/plugins/jquery.countdown.js'
+    '@CompanionBundle/Resources/public/js/index.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

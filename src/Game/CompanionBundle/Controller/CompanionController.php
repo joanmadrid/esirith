@@ -22,12 +22,18 @@ class CompanionController extends Controller
         $pendingCompanion   = $this->getCompanionManager()->getPendingCompanion($char);
         $canGenerate        = $this->getCompanionManager()->canRegenerateCompanion($char);
         $party              = $this->getCompanionManager()->getParty($char);
+        $timeLeft           = null;
+
+        if (!$canGenerate) {
+            $timeLeft = $this->getCompanionManager()->getTimeLeftForRegenerateCompanion($char);
+        }
 
         return array(
             'char'          => $char,
             'canGenerate'   => $canGenerate,
             'pending'       => $pendingCompanion,
-            'party'         => $party
+            'party'         => $party,
+            'timeLeft'      => $timeLeft
         );
     }
 
