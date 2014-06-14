@@ -81,7 +81,7 @@ class Companion
     private $ability;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\CharacterBundle\Entity\Character")
+     * @ORM\ManyToOne(targetEntity="Game\CharacterBundle\Entity\Character", inversedBy="companions")
      * @ORM\JoinColumn(name="character_id", referencedColumnName="id")
      */
     private $character;
