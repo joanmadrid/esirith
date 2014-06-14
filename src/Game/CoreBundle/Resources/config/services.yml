@@ -7,3 +7,6 @@ services:
 
     core.roll_manager:
         class: Game\CoreBundle\Manager\RollManager
+
+    core.namegenerator_manager:
+        class: Game\CoreBundle\Manager\NameGeneratorManager

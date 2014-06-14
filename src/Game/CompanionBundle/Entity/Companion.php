@@ -3,6 +3,7 @@
 namespace Game\CompanionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Game\CharacterBundle\Entity\Character;
 
 /**
  * Companion
@@ -12,6 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Companion
 {
+    const TYPE_WARRIOR = 1; // imprv chance to attack on combat
+    const TYPE_WIZARD = 2; // chance to buff
+    const TYPE_CLERIC = 3; // chance to heal on battle
+    const TYPE_THIEF = 4; // imprv chance to loot
+
+    const ABILITY_ADVENTURER = 1; // quicker quests
+    const ABILITY_HONORABLE = 2; // save you when going to die
+    const ABILITY_FIGHTER = 3; // imprv damage on combat
+
+    const STATUS_PENDING = 0;
+    const STATUS_IN_PARTY = 1;
+    const STATUS_DEAD = 2;
+
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+
     /**
      * @var integer
      *
@@ -62,6 +79,33 @@ class Companion
      * @ORM\Column(name="ability", type="integer")
      */
     private $ability;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\CharacterBundle\Entity\Character")
+     * @ORM\JoinColumn(name="character_id", referencedColumnName="id")
+     */
+    private $character;
+
+    /**
+     * @ORM\Column(name="gender", type="integer")
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(name="portrait", type="string", length=255)
+     */
+    private $portrait;
+
+    /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
 
     /**
@@ -210,5 +254,82 @@ class Companion
     public function getAbility()
     {
         return $this->ability;
+    }
+
+    /**
+     * Set character
+     *
+     * @param Character $character
+     * @return Companion
+     */
+    public function setCharacter(Character $character = null)
+    {
+        $this->character = $character;
+    
+        return $this;
+    }
+
+    /**
+     * Get character
+     *
+     * @return Character
+     */
+    public function getCharacter()
+    {
+        return $this->character;
+    }
+
+    /**
+     * @param mixed $gender
+     * @return $this
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $portrait
+     * @return $this
+     */
+    public function setPortrait($portrait)
+    {
+        $this->portrait = $portrait;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPortrait()
+    {
+        return $this->portrait;
+    }
+
+    /**
+     * @param \DateTime $created
+     * @return $this
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

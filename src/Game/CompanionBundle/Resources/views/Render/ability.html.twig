@@ -1,0 +1,13 @@
+{% if ability == constant('Game\\CompanionBundle\\Entity\\Companion::ABILITY_ADVENTURER') %}
+    <a class="has-tooltip help-tooltip" title="Adventurer: Quicker quests">
+        <img src="{{ asset('bundles/ui/img/companion/ability/adventurer.png') }}" />
+    </a>
+{% elseif ability == constant('Game\\CompanionBundle\\Entity\\Companion::ABILITY_HONORABLE') %}
+    <a class="has-tooltip help-tooltip" title="Honorable: Will sacrifice for you when the time comes">
+        <img src="{{ asset('bundles/ui/img/companion/ability/honorable.png') }}" />
+    </a>
+{% elseif ability == constant('Game\\CompanionBundle\\Entity\\Companion::ABILITY_FIGHTER') %}
+    <a class="has-tooltip help-tooltip" title="Fighter: Has improved damage on combat">
+        <img src="{{ asset('bundles/ui/img/companion/ability/fighter.png') }}" />
+    </a>
+{% endif %}

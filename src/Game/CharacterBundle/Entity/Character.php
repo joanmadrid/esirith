@@ -100,6 +100,16 @@ class Character extends Attributes
     private $lastConnection;
 
     /**
+     * @ORM\OneToMany(targetEntity="Game\CompanionBundle\Entity\Companion", mappedBy="character")
+     */
+    private $companions;
+
+    /**
+     * @ORM\Column(name="last_companion_generation", type="datetime", nullable=true)
+     */
+    private $lastCompanionGeneration;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -339,6 +349,39 @@ class Character extends Attributes
         return $this->lastConnection;
     }
 
+    /**
+     * @param mixed $companions
+     */
+    public function setCompanions($companions)
+    {
+        $this->companions = $companions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanions()
+    {
+        return $this->companions;
+    }
+
+    /**
+     * @param \DateTime $lastCompanionGeneration
+     * @return $this
+     */
+    public function setLastCompanionGeneration($lastCompanionGeneration)
+    {
+        $this->lastCompanionGeneration = $lastCompanionGeneration;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastCompanionGeneration()
+    {
+        return $this->lastCompanionGeneration;
+    }
 
     ////
 

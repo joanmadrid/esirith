@@ -1,0 +1,66 @@
+.companion-sheet {
+    .clearfix();
+    padding:2px;
+    display:inline-block;
+    img {
+        float:left;
+    }
+    ul {
+        float:left;
+        li {
+            &:first-child {
+                font-weight: bold;
+            }
+        }
+    }
+
+    &.companion-sheet-mini {
+        font-size:22px;
+        >img {
+            width:22px;
+            height:34x;
+        }
+        ul {
+            li {
+                float:left;
+                margin:5px;
+            }
+        }
+    }
+}
+
+///
+
+.module-companion {
+    .clearfix();
+    .companion-hire, .companion-party {
+        >strong {
+            text-align: center;
+            display:block;
+            font-size:20px;
+            background-color:@color-border;
+            color:#fff;
+            padding:10px;
+        }
+        width:48%;
+        margin-right:50px;
+        &:last-child {
+            margin-right:0px;
+        }
+        float:left;
+        margin-top:20px;
+        >ul {
+            border:1px solid @color-border;
+            >li {
+                padding:5px;
+                a.btn {
+                    float:right;
+                    margin-top:8px;
+                }
+                &:hover {
+                    background-color:@color-bg-dark;
+                }
+            }
+        }
+    }
+}

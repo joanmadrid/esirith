@@ -3,6 +3,7 @@
 namespace Game\CompanionBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Game\CompanionBundle\Entity\Companion;
 
 /**
  * CompanionRepository
@@ -12,4 +13,51 @@ use Doctrine\ORM\EntityRepository;
  */
 class CompanionRepository extends EntityRepository
 {
+    /**
+     * @param $char
+     * @return mixed
+     */
+    public function getPendingCompanion($char)
+    {
+        $qb = $this->createQueryBuilder('comp');
+        $qb
+            ->select('comp')
+            ->where('comp.character = :char')
+            ->andWhere('comp.status = :status')
+            ->setParameters(array(':char'=>$char, 'status'=>Companion::STATUS_PENDING));
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @param $char
+     * @return array
+     */
+    public function getInPartyCompanions($char)
+    {
+        $qb = $this->createQueryBuilder('comp');
+        $qb
+            ->select('comp')
+            ->where('comp.character = :char')
+            ->andWhere('comp.status = :status')
+            ->setParameters(array(':char'=>$char, 'status'=>Companion::STATUS_IN_PARTY));
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @param $char
+     * @return mixed
+     */
+    public function getPartySize($char)
+    {
+        $qb = $this->createQueryBuilder('comp');
+        $qb
+            ->select('COUNT(comp)')
+            ->where('comp.character = :char')
+            ->andWhere('comp.status = :status')
+            ->setParameters(array(':char'=>$char, 'status'=>Companion::STATUS_IN_PARTY));
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

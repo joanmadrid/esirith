@@ -9,3 +9,5 @@ services:
         parent: core.core_manager
         calls:
             - [ setRollManager, [ @core.roll_manager ] ]
+            - [ setPortraitManager, [ @character.portrait_manager ] ]
+            - [ setNameGeneratorManager, [ @core.namegenerator_manager ] ]
