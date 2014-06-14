@@ -1,0 +1,9 @@
+<div class="companion-sheet companion-sheet-mini">
+    <img src="{{ asset('portraits/'~companion.portrait) }}" />
+    <ul>
+        <li>{{ companion.name }}</li>
+        <li>{% include 'CompanionBundle:Render:type.html.twig' with {'type':companion.type} %}</li>
+        <li>{% include 'CompanionBundle:Render:ability.html.twig' with {'ability':companion.ability} %}</li>
+        <li>{% include 'CompanionBundle:Render:gender.html.twig' with {'gender':companion.gender} %}</li>
+    </ul>
+</div>

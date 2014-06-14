@@ -1,0 +1,17 @@
+{% if type == constant('Game\\CompanionBundle\\Entity\\Companion::TYPE_WARRIOR') %}
+    <a class="has-tooltip help-tooltip" title="Warrior: Improved chance to help you in battle">
+        <img src="{{ asset('bundles/ui/img/companion/type/warrior.png') }}" />
+    </a>
+{% elseif type == constant('Game\\CompanionBundle\\Entity\\Companion::TYPE_WIZARD') %}
+    <a class="has-tooltip help-tooltip" title="Wizard: Chance throw some spells in battle">
+        <img src="{{ asset('bundles/ui/img/companion/type/wizard.png') }}" />
+    </a>
+{% elseif type == constant('Game\\CompanionBundle\\Entity\\Companion::TYPE_CLERIC') %}
+    <a class="has-tooltip help-tooltip" title="Cleric: Chance to heal you in battle">
+        <img src="{{ asset('bundles/ui/img/companion/type/cleric.png') }}" />
+    </a>
+{% elseif type == constant('Game\\CompanionBundle\\Entity\\Companion::TYPE_THIEF') %}
+    <a class="has-tooltip help-tooltip" title="Thief: Improved chance to loot after combat">
+        <img src="{{ asset('bundles/ui/img/companion/type/thief.png') }}" />
+    </a>
+{% endif %}

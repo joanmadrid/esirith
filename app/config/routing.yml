@@ -48,6 +48,12 @@ game_user_twitter:
     prefix:   /user/twitter
     type:     annotation
 
+game_companion:
+    resource:   "@CompanionBundle/Controller/CompanionController.php"
+    prefix:     /companion
+    type:       annotation
+
+
 
 ## FOSUser ##
 

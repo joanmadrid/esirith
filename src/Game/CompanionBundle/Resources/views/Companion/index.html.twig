@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-companion">
+        <div class="companion-generate">
+            <p class="history">
+                {% if canGenerate %}
+                    You can search for an adventurer to join your cause.
+                    <a href="{{ path('companion.generate') }}" class="btn">Search</a> for {{ constant('Game\\CompanionBundle\\Manager\\CompanionManager::REGENERATE_GOLD') }} gold.
+                {% else %}
+                    It's too early to search for a new adventurer right now.
+                {% endif %}
+            </p>
+        </div>
+        {% if party %}
+            <div class="companion-hire">
+                <strong>Your party</strong>
+                <ul>
+                    {% for companion in party %}
+                    <li>
+                        {% include 'CompanionBundle:Render:companion-mini.html.twig' with {'companion':companion} %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if pending %}
+        <div class="companion-hire">
+            <strong>Hire</strong>
+            <ul>
+                <li>
+                    {% include 'CompanionBundle:Render:companion-mini.html.twig' with {'companion':pending} %}
+                    <a href="{{ path('companion.hire', {'id':pending.id}) }}" class="btn">Hire ({{ constant('Game\\CompanionBundle\\Manager\\CompanionManager::HIRE_GOLD') }} gold)</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block body %}
     <div class="module-shop">
         <p class="history">You are in the {{ shop.name }}. You take a look in your pocket, you have {{ char.gold }} gold, spend it wisely. <a href="{{ path('map.view') }}" class="btn">Get out</a></p>
-        <div class="shop-buy">
+        <div class="companion-hire">
             <strong>Buy</strong>
             <ul>
                 {% for shopItem in shop.items %}
@@ -15,7 +15,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="shop-sell">
+        <div class="companion-party">
             <strong>Sell</strong>
             <ul>
                 {% for characterItem in items %}
