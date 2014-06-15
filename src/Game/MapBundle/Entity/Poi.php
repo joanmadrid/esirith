@@ -99,11 +99,6 @@ class Poi
     protected $treasures;
 
     /**
-     * @ORM\OneToMany(targetEntity="Game\QuestBundle\Entity\Quest", mappedBy="poi")
-     */
-    protected $quests;
-
-    /**
      * Get id
      *
      * @return integer 
@@ -502,38 +497,5 @@ class Poi
     public function removeTreasure(\Game\MapBundle\Entity\Treasure $treasures)
     {
         $this->treasures->removeElement($treasures);
-    }
-
-    /**
-     * Add quests
-     *
-     * @param \Game\QuestBundle\Entity\Quest $quests
-     * @return Poi
-     */
-    public function addQuest(\Game\QuestBundle\Entity\Quest $quests)
-    {
-        $this->quests[] = $quests;
-    
-        return $this;
-    }
-
-    /**
-     * Remove quests
-     *
-     * @param \Game\QuestBundle\Entity\Quest $quests
-     */
-    public function removeQuest(\Game\QuestBundle\Entity\Quest $quests)
-    {
-        $this->quests->removeElement($quests);
-    }
-
-    /**
-     * Get quests
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQuests()
-    {
-        return $this->quests;
     }
 }

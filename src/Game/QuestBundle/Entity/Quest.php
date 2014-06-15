@@ -57,12 +57,6 @@ class Quest
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi")
-     * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
-     */
-    private $poi;
-
-    /**
      * @ORM\OneToMany(targetEntity="QuestInstance", mappedBy="quest")
      */
     private $questInstances;
@@ -198,29 +192,6 @@ class Quest
     public function __construct()
     {
         $this->questInstances = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Set poi
-     *
-     * @param \Game\MapBundle\Entity\Poi $poi
-     * @return Quest
-     */
-    public function setPoi(\Game\MapBundle\Entity\Poi $poi = null)
-    {
-        $this->poi = $poi;
-    
-        return $this;
-    }
-
-    /**
-     * Get poi
-     *
-     * @return \Game\MapBundle\Entity\Poi 
-     */
-    public function getPoi()
-    {
-        return $this->poi;
     }
 
     /**
