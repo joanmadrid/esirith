@@ -44,4 +44,4 @@ class CharacterController extends Controller
     {
         return $this->get('user.user_manager');
     }
-} 
+}

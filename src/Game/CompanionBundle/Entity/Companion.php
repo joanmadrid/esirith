@@ -101,6 +101,11 @@ class Companion
      */
     private $created;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Game\QuestBundle\Entity\QuestInstance", mappedBy="companion")
+     */
+    private $questInstances;
+
 
     public function __construct()
     {
@@ -331,5 +336,38 @@ class Companion
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Add questInstances
+     *
+     * @param \Game\QuestBundle\Entity\QuestInstance $questInstances
+     * @return Companion
+     */
+    public function addQuestInstance(\Game\QuestBundle\Entity\QuestInstance $questInstances)
+    {
+        $this->questInstances[] = $questInstances;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questInstances
+     *
+     * @param \Game\QuestBundle\Entity\QuestInstance $questInstances
+     */
+    public function removeQuestInstance(\Game\QuestBundle\Entity\QuestInstance $questInstances)
+    {
+        $this->questInstances->removeElement($questInstances);
+    }
+
+    /**
+     * Get questInstances
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestInstances()
+    {
+        return $this->questInstances;
     }
 }

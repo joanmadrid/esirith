@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Game\CompanionBundle\CompanionBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Game\QuestBundle\QuestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

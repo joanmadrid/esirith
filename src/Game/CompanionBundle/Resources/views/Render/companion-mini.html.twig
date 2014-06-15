@@ -1,5 +1,5 @@
 <div class="companion-sheet companion-sheet-mini">
-    <img src="{{ asset('portraits/'~companion.portrait) | imagine_filter('portrait_mini') }}" />
+    <img src="{{ asset('portraits/'~companion.portrait) | imagine_filter('portrait_mini') }}" class="portrait" />
     <ul>
         <li>{{ companion.name }}</li>
         <li>{% include 'CompanionBundle:Render:type.html.twig' with {'type':companion.type} %}</li>

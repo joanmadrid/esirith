@@ -99,6 +99,11 @@ class Poi
     protected $treasures;
 
     /**
+     * @ORM\OneToMany(targetEntity="Game\QuestBundle\Entity\Quest", mappedBy="poi")
+     */
+    protected $quests;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -441,5 +446,94 @@ class Poi
     public function getTreasures()
     {
         return $this->treasures;
+    }
+
+    /**
+     * Add endLinks
+     *
+     * @param \Game\MapBundle\Entity\LinkedPoi $endLinks
+     * @return Poi
+     */
+    public function addEndLink(\Game\MapBundle\Entity\LinkedPoi $endLinks)
+    {
+        $this->endLinks[] = $endLinks;
+    
+        return $this;
+    }
+
+    /**
+     * Remove endLinks
+     *
+     * @param \Game\MapBundle\Entity\LinkedPoi $endLinks
+     */
+    public function removeEndLink(\Game\MapBundle\Entity\LinkedPoi $endLinks)
+    {
+        $this->endLinks->removeElement($endLinks);
+    }
+
+    /**
+     * Get endLinks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEndLinks()
+    {
+        return $this->endLinks;
+    }
+
+    /**
+     * Add treasures
+     *
+     * @param \Game\MapBundle\Entity\Treasure $treasures
+     * @return Poi
+     */
+    public function addTreasure(\Game\MapBundle\Entity\Treasure $treasures)
+    {
+        $this->treasures[] = $treasures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove treasures
+     *
+     * @param \Game\MapBundle\Entity\Treasure $treasures
+     */
+    public function removeTreasure(\Game\MapBundle\Entity\Treasure $treasures)
+    {
+        $this->treasures->removeElement($treasures);
+    }
+
+    /**
+     * Add quests
+     *
+     * @param \Game\QuestBundle\Entity\Quest $quests
+     * @return Poi
+     */
+    public function addQuest(\Game\QuestBundle\Entity\Quest $quests)
+    {
+        $this->quests[] = $quests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove quests
+     *
+     * @param \Game\QuestBundle\Entity\Quest $quests
+     */
+    public function removeQuest(\Game\QuestBundle\Entity\Quest $quests)
+    {
+        $this->quests->removeElement($quests);
+    }
+
+    /**
+     * Get quests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuests()
+    {
+        return $this->quests;
     }
 }
