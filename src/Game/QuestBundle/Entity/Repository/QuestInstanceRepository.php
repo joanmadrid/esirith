@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuestInstanceRepository extends EntityRepository
 {
+    /**
+     * @param $char
+     * @param $quest
+     * @param $status
+     * @return mixed
+     */
+    public function getQuestInstanceForStatus($char, $quest, $status)
+    {
+        $qb = $this->createQueryBuilder('qi');
+
+        $qb
+            ->join('qi.companion', 'comp')
+            ->where('comp.character = :char')
+            ->andWhere('qi.quest = :quest')
+            ->andWhere('qi.status = :status')
+            ->setParameters(array('char' => $char, 'quest' => $quest, 'status'=>$status));
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -3,6 +3,7 @@
 namespace Game\QuestBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Game\QuestBundle\Entity\QuestInstance;
 
 /**
  * QuestRepository
@@ -12,4 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuestRepository extends EntityRepository
 {
+    /**
+     * @param $lvl
+     * @return array
+     */
+    public function findQuests($lvl)
+    {
+        $qb = $this->createQueryBuilder('quest');
+
+        $qb
+            ->select('quest')
+            //->join('quest.questInstances', 'qin')
+            //->join('qin.companion', 'comp')
+            ->where('quest.level <= :lvl')
+            ->setParameters(array('lvl' => $lvl,));
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

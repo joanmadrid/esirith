@@ -1,0 +1,24 @@
+.module-quest {
+    .quest-block {
+        border:2px solid @color-border;
+        margin-bottom:20px;
+        &:hover {
+            background-color:@color-bg-dark;
+        }
+        .clearfix();
+        >img {
+            float:left;
+        }
+        ul {
+            float:left;
+            padding:10px;
+            li {
+                font-size: 20px;
+                &.quest-name { font-weight: bold; }
+                &.quest-desc { font-family: @font-history; }
+                &.quest-lvl {}
+                &.quest-reward {}
+            }
+        }
+    }
+}

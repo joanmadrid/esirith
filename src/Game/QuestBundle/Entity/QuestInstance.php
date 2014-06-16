@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class QuestInstance
 {
+    const STATUS_PENDING = 0;
+    const STATUS_DONE = 1;
+
     /**
      * @var integer
      *
@@ -22,16 +25,26 @@ class QuestInstance
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Quest")
+     * @ORM\ManyToOne(targetEntity="Quest", inversedBy="questInstances")
      * @ORM\JoinColumn(name="quest_id", referencedColumnName="id")
      */
     private $quest;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\CompanionBundle\Entity\Companion")
+     * @ORM\ManyToOne(targetEntity="Game\CompanionBundle\Entity\Companion", inversedBy="questInstances")
      * @ORM\JoinColumn(name="companion_id", referencedColumnName="id")
      */
     private $companion;
+
+    /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $end;
+
+    /**
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status = 0;
 
 
     /**
@@ -88,5 +101,41 @@ class QuestInstance
     public function getCompanion()
     {
         return $this->companion;
+    }
+
+    /**
+     * @param \DateTime $end
+     * @return $this
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * @param mixed $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

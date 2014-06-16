@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-quest">
+        {% for quest in quests %}
+        <div class="quest-block">
+            <img src="{{ asset('bundles/quest/img/quest/'~quest.image) | imagine_filter('quest_medium') }}" />
+            <ul>
+                <li class="quest-name">{{ quest.name }}</li>
+                <li class="quest-desc">{{ quest.description }}</li>
+                <li class="quest-lvl">Level: {{ quest.level }}</li>
+                <li class="quest-reward">Reward: {{ quest.gold }} gold</li>
+            </ul>
+            <div class="quest-actions">
+                {% if companions|length > 0 %}
+                <select class="quest-companion-select">
+                    <option value="0"></option>
+                    {% for companion in companions %}
+                        <option value="{{ companion.id }}">{{ companion.name }}</option>
+                    {% endfor %}
+                </select>
+                <a href="#" class="btn quest-send-companion" data-quest="{{ quest.id }}">Send companion</a>
+                {% else %}
+                There are no companions available for quests.
+                {% endif %}
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {% javascripts
+    '@QuestBundle/Resources/public/js/index.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

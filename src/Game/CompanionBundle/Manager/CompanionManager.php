@@ -170,4 +170,13 @@ class CompanionManager extends CoreManager
             return false;
         }
     }
+
+    /**
+     * @param Character $char
+     * @return array
+     */
+    public function getAvailableCompanionsForQuest(Character $char)
+    {
+        return $this->getRepository()->getAvailableCompanionsForQuest($char);
+    }
 }

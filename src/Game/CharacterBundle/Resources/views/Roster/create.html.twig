@@ -35,10 +35,9 @@
                 <input type="hidden" name="portrait" value="" />
                 {% for portrait in portraits %}
                     <img
-                        src="{{ asset('portraits/'~portrait.folder~'/'~portrait.file) }}"
+                        src="{{ asset('portraits/'~portrait.folder~'/'~portrait.file) | imagine_filter('portrait_medium') }}"
                         data-portrait-folder="{{ portrait.folder }}"
                         data-portrait-file="{{ portrait.file }}"
-                        class="portrait"
                     />
                 {% endfor %}
             </div>

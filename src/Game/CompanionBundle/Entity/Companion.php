@@ -370,4 +370,16 @@ class Companion
     {
         return $this->questInstances;
     }
+
+    //////
+
+    /**
+     * @param $amount
+     * @return $this
+     */
+    public function addXP($amount)
+    {
+        $this->setXp($this->getXp() + $amount);
+        return $this;
+    }
 }
