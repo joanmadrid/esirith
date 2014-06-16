@@ -94,3 +94,11 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [22, 34], mode: outbound }
+        portrait_medium:
+            quality: 75
+            filters:
+                thumbnail: { size: [110, 170],  mode: outbound }
+        quest_medium:
+            quality: 75
+            filters:
+                thumbnail: { size: [320, 160], mode: outbound }

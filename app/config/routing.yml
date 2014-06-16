@@ -53,7 +53,10 @@ game_companion:
     prefix:     /companion
     type:       annotation
 
-
+game_quest:
+    resource:   "@QuestBundle/Controller/QuestController.php"
+    prefix:     /quest
+    type:       annotation
 
 ## FOSUser ##
 
@@ -102,3 +105,7 @@ twitter_login:
 # LiipImagine #
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+# FOSJSROUTING
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

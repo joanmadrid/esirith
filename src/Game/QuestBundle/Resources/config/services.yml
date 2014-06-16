@@ -1,0 +1,19 @@
+parameters:
+    quest.quest.class: Game\QuestBundle\Manager\QuestManager
+    quest.quest.entity: Game\QuestBundle\Entity\Quest
+    quest.questinstance.class: Game\QuestBundle\Manager\QuestInstanceManager
+    quest.questinstance.entity: Game\QuestBundle\Entity\QuestInstance
+
+
+services:
+    quest.quest_manager:
+        class: %quest.quest.class%
+        arguments: [%quest.quest.entity%]
+        parent: core.core_manager
+
+    quest.questinstance_manager:
+        class: %quest.questinstance.class%
+        arguments: [%quest.questinstance.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]

@@ -38,6 +38,9 @@
             {% endstylesheets %}
         {% endif %}
 
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
         {% javascripts
         '@jquery'
         '@jquery_ui' %}
@@ -58,7 +61,7 @@
                         {#<li><a class="menu-faq" href=""></a></li>#}
                         {#<li><a class="menu-search" href=""></a></li>#}
                         {#<li><a class="menu-pm" href=""></a></li>#}
-                        {#<li><a class="menu-register" href=""></a></li>#}
+                        <li><a class="menu-register has-tooltip" href="{{ path('quest.index') }}" title="Quests"></a></li>
                         <li><a class="menu-members has-tooltip" href="{{ path('companion.index') }}" title="Companions"></a></li>
                         <li><a class="menu-profile has-tooltip" href="{{ path('character.sheet') }}" title="Character Sheet"></a></li>
                         {#<li><a class="menu-groups has-tooltip" href="{{ path('character.roster.index') }}" title="Character Selection"></a></li>#}

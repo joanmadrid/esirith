@@ -60,4 +60,22 @@ class CompanionRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * @param $char
+     * @return array
+     */
+    public function getAvailableCompanionsForQuest($char)
+    {
+        $qb = $this->createQueryBuilder('comp');
+        $qb
+            ->select('comp')
+            ->leftJoin('comp.questInstances', 'qi')
+            ->where('comp.character = :char')
+            ->andWhere('comp.status = :status')
+            ->andWhere('qi.id IS NULL')
+            ->setParameters(array(':char'=>$char, 'status'=>Companion::STATUS_IN_PARTY));
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
