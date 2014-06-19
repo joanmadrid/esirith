@@ -37,7 +37,7 @@ class QuestInstance
     private $companion;
 
     /**
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="end", type="datetime")
      */
     private $end;
 

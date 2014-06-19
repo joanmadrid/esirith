@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Quest
 {
-    const HOURS_TO_COMPLETE = 24;
+    const HOURS_TO_COMPLETE = 2;
     const XP = 10;
 
     /**
