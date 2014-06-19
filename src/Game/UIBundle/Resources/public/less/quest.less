@@ -2,12 +2,14 @@
     .quest-block {
         border:2px solid @color-border;
         margin-bottom:20px;
+        position: relative;
         &:hover {
             background-color:@color-bg-dark;
         }
         .clearfix();
         >img {
             float:left;
+            border-right:2px solid @color-border;
         }
         ul {
             float:left;
@@ -19,6 +21,13 @@
                 &.quest-lvl {}
                 &.quest-reward {}
             }
+        }
+        .quest-actions {
+            font-size:20px;
+            width:300px;
+            position:absolute;
+            top:50px;
+            right:10px;
         }
     }
 }

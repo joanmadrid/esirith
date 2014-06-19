@@ -69,7 +69,7 @@ class CompanionRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('comp');
         $qb
-            ->select('comp')
+            ->select('comp, qi')
             ->leftJoin('comp.questInstances', 'qi')
             ->where('comp.character = :char')
             ->andWhere('comp.status = :status')

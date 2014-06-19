@@ -132,4 +132,20 @@ class QuestInstanceManager extends CoreManager
             return null;
         }
     }
+
+    /**
+     * @param QuestInstance $questInstance
+     * @return string|null
+     */
+    public function getTimeLeftForReward(QuestInstance $questInstance)
+    {
+        $now = new \DateTime();
+        $end = $questInstance->getEnd();
+        if ($now > $end) {
+            return null;
+        } else {
+            $interval = $now->diff($end);
+            return $interval->format('%H:%I:%S');
+        }
+    }
 }
