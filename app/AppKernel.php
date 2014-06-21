@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Game\QuestBundle\QuestBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Game\GameBundle\GameBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

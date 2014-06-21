@@ -1,0 +1,13 @@
+{% if hpStatus == constant('Game\\GameBundle\\Manager\\BossManager::HP_STATUS_INTACT') %}
+    Intact
+{% elseif hpStatus == constant('Game\\GameBundle\\Manager\\BossManager::HP_STATUS_LIGHTLY_WOUNDED') %}
+    Lightly wounded
+{% elseif hpStatus == constant('Game\\GameBundle\\Manager\\BossManager::HP_STATUS_WOUNDED') %}
+    Wounded
+{% elseif hpStatus == constant('Game\\GameBundle\\Manager\\BossManager::HP_STATUS_SERIOUSLY_WOUNDED') %}
+    Seriously wounded
+{% elseif hpStatus == constant('Game\\GameBundle\\Manager\\BossManager::HP_STATUS_NEARLY_DEAD') %}
+    Nearly dead
+{% else %}
+    Unknown
+{% endif %}

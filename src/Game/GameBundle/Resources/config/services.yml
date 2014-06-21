@@ -1,0 +1,28 @@
+parameters:
+    game.game.class: Game\GameBundle\Manager\GameManager
+    game.game.entity: Game\GameBundle\Entity\Game
+    game.boss.class: Game\GameBundle\Manager\BossManager
+    game.boss.entity: Game\GameBundle\Entity\Boss
+
+services:
+    game.game_manager:
+        class: %game.game.class%
+        arguments: [%game.game.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+
+    game.boss_manager:
+        class: %game.boss.class%
+        arguments: [%game.boss.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+
+    game.twig.boss_extension:
+        class: Game\GameBundle\Twig\BossExtension
+        tags:
+            - { name: twig.extension }
+        calls:
+            - [ setBossManager, [ @game.boss_manager ] ]
+            - [ setGameManager, [ @game.game_manager ] ]

@@ -40,7 +40,7 @@ strong {
 }
 
 .history {
-    font-family: 'Fondamento', cursive;
+    font-family: @font-history;
     font-size: 20px;
     padding: 20px;
     border:8px solid @color-history;
@@ -130,6 +130,7 @@ strong {
         padding: 5px;
         padding-left:30px;
         background-color:darken(@color-bg, 20%);
+        position: relative;
         ul {
             list-style:none;
             padding:0px;
@@ -138,6 +139,17 @@ strong {
             li {
                 display:inline-block;
                 margin-right:20px;
+            }
+        }
+        .status-boss {
+            font-size:17px;
+            font-family: @font-history;
+            position:absolute;
+            top:5px;
+            right:10px;
+            width:285px;
+            img {
+                vertical-align: bottom;
             }
         }
     }

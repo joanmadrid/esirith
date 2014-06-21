@@ -4,6 +4,7 @@ namespace Game\UserBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Game\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,11 +36,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $saved = array();
         foreach ($users as $user) {
             $userManager = $this->container->get('fos_user.user_manager');
+            /** @var User $aux */
             $aux = $userManager->createUser();
             $aux->setUsername($user[0]);
             $aux->setEmail($user[1]);
             $aux->setPlainPassword($user[2]);
             $aux->setEnabled(true);
+            $aux->setGame($this->getReference('game-test'));
             $userManager->updateUser($aux);
             $manager->persist($aux);
             $saved[] = $aux;
@@ -47,7 +50,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->flush();
 
-        foreach ($saved as $key=>$item) {
+        foreach ($saved as $key => $item) {
             $this->addReference('user-'.$key, $saved[$key]);
         }
     }
@@ -57,6 +60,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function getOrder()
     {
-        return 0;
+        return 1;
     }
 }

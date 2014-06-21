@@ -4,6 +4,7 @@ namespace Game\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Game\GameBundle\Entity\Game;
 
 /**
  * User
@@ -46,6 +47,12 @@ class User extends BaseUser
      * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
      */
     protected $twitter_access_token;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\GameBundle\Entity\Game", inversedBy="users")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    protected $game;
 
     public function __construct()
     {
@@ -165,6 +172,24 @@ class User extends BaseUser
     public function getTwitterId()
     {
         return $this->twitter_id;
+    }
+
+    /**
+     * @param mixed Game
+     * @return $this
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+        return $this;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 
 

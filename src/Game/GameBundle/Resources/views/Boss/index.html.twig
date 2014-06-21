@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-boss">
+        <img src="{{ asset('bundles/game/images/'~game.boss.image) }}" />
+        <div class="boss-info">
+            <p class="history">
+                {{ game.boss.name }} is trying to destroy Esirith. Every night an attack will be performed.
+            </p>
+            <ul>
+                <li><strong>Status:</strong> {{ renderHealthStatus(game.boss.currentHP, game.boss.maxHP) }}</li>
+                <li><strong>Next attack in</strong> <span class="countdown">{{ nextAttack }}</span></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

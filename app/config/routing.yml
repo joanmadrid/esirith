@@ -58,6 +58,11 @@ game_quest:
     prefix:     /quest
     type:       annotation
 
+game_boss:
+    resource:   "@GameBundle/Controller/BossController.php"
+    prefix:     /boss
+    type:       annotation
+
 ## FOSUser ##
 
 fos_user_security:
