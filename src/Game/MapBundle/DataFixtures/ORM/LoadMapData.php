@@ -34,7 +34,7 @@ class LoadMapData extends AbstractFixture implements OrderedFixtureInterface
         $data[0] = array('Wyvernstone', 145, 620, $map, true);
         $data[1] = array("Shadewood's crossroad", 278, 554, $map, false);
         $data[2] = array('Addelost', 304, 507, $map, false);
-        $data[3] = array('Tibby', 312, 619, $map, false);
+        $data[3] = array('Tibby', 312, 619, $map, false, false);
         $data[4] = array('Southward Keep', 366, 663, $map, false);
         $data[5] = array('Elmswell', 460, 588, $map, false);
         $data[6] = array('Shadewood', 344, 562, $map, false);
@@ -146,6 +146,6 @@ class LoadMapData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 1;
+        return 0;
     }
 }

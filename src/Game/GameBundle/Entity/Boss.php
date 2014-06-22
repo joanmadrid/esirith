@@ -56,6 +56,12 @@ class Boss
      */
     private $game;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="bosses")
+     * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
+     */
+    protected $currentPoi;
+
 
     /**
      * Get id
@@ -180,5 +186,28 @@ class Boss
     public function getMaxHP()
     {
         return $this->maxHP;
+    }
+
+    /**
+     * Set currentPoi
+     *
+     * @param \Game\MapBundle\Entity\Poi $currentPoi
+     * @return Boss
+     */
+    public function setCurrentPoi(\Game\MapBundle\Entity\Poi $currentPoi = null)
+    {
+        $this->currentPoi = $currentPoi;
+    
+        return $this;
+    }
+
+    /**
+     * Get currentPoi
+     *
+     * @return \Game\MapBundle\Entity\Poi 
+     */
+    public function getCurrentPoi()
+    {
+        return $this->currentPoi;
     }
 }

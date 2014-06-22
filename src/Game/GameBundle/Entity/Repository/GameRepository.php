@@ -3,6 +3,7 @@
 namespace Game\GameBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Game\GameBundle\Entity\Game;
 
 /**
  * GameRepository
@@ -12,4 +13,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
+
+    /**
+     * @return array
+     */
+    public function getInProgressWithBoss()
+    {
+        $qb = $this->createQueryBuilder('game');
+
+        $qb
+            ->select('game, boss')
+            ->join('game.boss', 'boss')
+            ->where('game.status = :status')
+            ->setParameters(array('status' => Game::STATUS_IN_PROGRESS));
+
+        return $qb->getQuery()->getResult();
+    }
 }

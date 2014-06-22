@@ -40,4 +40,24 @@ class GameManager extends CoreManager
 
         return $diff = intval($now->diff($start)->format("%a"))+1;
     }
+
+    /**
+     * @param Game $game
+     * @return bool
+     */
+    public function checkIfGameEnded(Game $game)
+    {
+        //gamedo: si han matado al boss han ganado
+
+        //gamedo: si no quedan pois sin infectar, han perdido
+        return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getInProgressWithBoss()
+    {
+        return $this->getRepository()->getInProgressWithBoss();
+    }
 }

@@ -4,7 +4,9 @@ namespace Game\GameBundle\Manager;
 
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\RollManager;
+use Game\GameBundle\Entity\Boss;
 use Game\GameBundle\Entity\Repository\BossRepository;
+use Game\MapBundle\Entity\Poi;
 
 class BossManager extends CoreManager
 {
@@ -65,5 +67,42 @@ class BossManager extends CoreManager
         } else {
             return self::HP_STATUS_NEARLY_DEAD;
         }
+    }
+
+    /**
+     * @param Boss $boss
+     */
+    public function propagateInfection(Boss $boss)
+    {
+        //start from a point
+        if (!$boss->getCurrentPoi()) {
+            $startingPoi = $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected();
+            $boss->setCurrentPoi($startingPoi);
+            $this->persist($boss);
+        } else {
+            /** @var Poi $nextPoi */
+            $nextPoi = $this->getPoiToInfect($boss);
+            $nextPoi->setInfected(true);
+            $this->persist($nextPoi);
+        }
+    }
+
+    /**
+     * gamedo: buscar un sitio para propagar, de uno que ya este infectado
+     * @param Boss $boss
+     * @return Poi
+     */
+    private function getPoiToInfect(Boss $boss)
+    {
+        return $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected();
+    }
+
+    /**
+     * gamedo: atacar a todos los POIS infectados (los PJ que estén ahí)
+     * @param Boss $boss
+     */
+    private function attackInfectedPois(Boss $boss)
+    {
+
     }
 }

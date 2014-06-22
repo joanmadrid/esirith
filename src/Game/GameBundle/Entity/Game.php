@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
  * Game
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Game\GameBundle\Entity\GameRepository\Repository")
+ * @ORM\Entity(repositoryClass="Game\GameBundle\Entity\Repository\GameRepository")
  */
 class Game
 {
+    const STATUS_IN_PROGRESS = 0;
+    const STATUS_ENDED = 1;
+
     /**
      * @var integer
      *
@@ -51,6 +54,11 @@ class Game
      * @ORM\OneToMany(targetEntity="Game\UserBundle\Entity\User", mappedBy="game")
      */
     private $users;
+
+    /**
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status = 0;
 
 
     /**
@@ -193,5 +201,23 @@ class Game
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * @param mixed $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

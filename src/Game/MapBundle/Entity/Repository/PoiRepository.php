@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class PoiRepository extends EntityRepository
 {
+    /**
+     * gamedo: Doctrine no tiene para RANDOM, optimizar esta query
+     * @return mixed
+     */
+    public function getRandomNotInfected()
+    {
+        $qb = $this->createQueryBuilder('poi');
+
+        $qb
+            ->where('poi.infected = :infected')
+            ->setParameters(array('infected' => false));
+
+        $results = $qb->getQuery()->getResult();
+        shuffle($results);
+        return $results[0];
+    }
 }
