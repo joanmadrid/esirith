@@ -18,6 +18,9 @@
             Be careful, travelling may be dangerous!
             {% endif %}
         </div>
+
+        {% include "MapBundle:Render:others.html.twig" with {'others':others} %}
+        
         <img src="{{ asset('bundles/ui/img/event/undead_army.png') }}" />
     </div>
 

@@ -20,16 +20,7 @@
             {% endif %}
         </div>
 
-        {% if others|length > 0 %}
-            <div class="map-others history">
-                Other adventurers nearby:
-                <ul>
-                {% for other in others %}
-                    <li>{{ other.name }}</li>
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+        {% include "MapBundle:Render:others.html.twig" with {'others':others} %}
 
         {% if currentPoi.shops|length > 0 %}
             <div class="map-shop">
