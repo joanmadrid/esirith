@@ -45,21 +45,22 @@ class MapController extends Controller
         $currPoi = $char->getCurrentPoi();
         $map = $currPoi->getMap();
 
+        $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
+            $char->getCurrentPoi(),
+            $this->getUserManager()->getCurrentUser()
+        );
+
         if ($currPoi->getInfected()) {
             return $this->render(
                 'MapBundle:Map:view-infected.html.twig',
                 array(
                     'char' => $char,
                     'map'  => $map,
+                    'others' => $others
                 )
             );
         } else {
             $treasure = $this->getTreasureManager()->findForTreasures($char);
-
-            $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
-                $char->getCurrentPoi(),
-                $this->getUserManager()->getCurrentUser()
-            );
 
             return $this->render(
                 'MapBundle:Map:view.html.twig',
