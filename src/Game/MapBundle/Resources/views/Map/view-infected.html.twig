@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+{% set currentPoi = char.currentpoi %}
+
+<div class="module-map">
+    <div class="map-actions">
+        <div class="history">
+            {{ char.name }} is in {{ currentPoi.name }}. This place is infested by an undead army.
+            {% if currentPoi.startpaths|length > 0 %}
+            There is a path to:
+            <ul>
+                {% for paths in currentPoi.startpaths %}
+                    <li>{{ paths.end.name }} <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" class="btn">Travel</a></li>
+                {% endfor %}
+            </ul>
+            Be careful, travelling may be dangerous!
+            {% endif %}
+        </div>
+        <img src="{{ asset('bundles/ui/img/event/undead_army.png') }}" />
+    </div>
+
+    {% include "MapBundle:Render:map.html.twig" with {'map': map, 'currentPoi': currentPoi} %}
+</div>
+{% endblock %}

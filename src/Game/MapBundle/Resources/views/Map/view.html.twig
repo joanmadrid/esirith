@@ -77,12 +77,6 @@
         {% endif %}
     </div>
 
-    <div class="map-wrapper">
-        <a href="#" title="{{ currentPoi.name }}" class="map-poi current-poi" style="top:{{ currentPoi.y-15 }}px; left:{{ currentPoi.x-15 }}px;"></a>
-        {% for paths in char.currentpoi.startpaths %}
-            <a href="{{ path('map.travel.to', {'id':paths.end.id}) }}" title="{{ paths.end.name }}" class="map-poi" style="top:{{ paths.end.y-10 }}px; left:{{ paths.end.x-10 }}px;"></a>
-        {% endfor %}
-        <img src="{{asset('bundles/map/images/'~map.filename) }}" />
-    </div>
+    {% include "MapBundle:Render:map.html.twig" with {'map': map, 'currentPoi': currentPoi} %}
 </div>
 {% endblock %}
