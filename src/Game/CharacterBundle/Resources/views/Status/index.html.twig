@@ -9,14 +9,19 @@
         {% endif %}
         <li class="has-tooltip" title="Gold"><i class="char-gold"></i> {{ character.gold }}</li>
         <li class="has-tooltip" title="Health points"><i class="char-hp"></i> {{ character.currentHP }}/{{ character.hp }}</li>
-        <li class="has-tooltip" title="Mana points"><i class="char-mana"></i> {{ character.currentMana }}/{{ character.mana }}</li>
+        {#<li class="has-tooltip" title="Mana points"><i class="char-mana"></i> {{ character.currentMana }}/{{ character.mana }}</li>#}
         <li class="has-tooltip" title="Damage"><i class="char-damage"></i> {{ character.damage }}</li>
         <li class="has-tooltip" title="Defense"><i class="char-defense"></i> {{ character.defense }}</li>
         <li class="has-tooltip" title="Strength"><i class="char-str"></i> {{ character.str }}</li>
         <li class="has-tooltip" title="Dextery"><i class="char-dex"></i> {{ character.dex }}</li>
-        <li class="has-tooltip" title="Intelligence"><i class="char-int"></i> {{ character.int }}</li>
-        <li class="has-tooltip" title="Spirit"><i class="char-spi"></i> {{ character.spi }}</li>
+        {#<li class="has-tooltip" title="Intelligence"><i class="char-int"></i> {{ character.int }}</li>#}
+        {#<li class="has-tooltip" title="Spirit"><i class="char-spi"></i> {{ character.spi }}</li>#}
     </ul>
+    <div class="status-boss">
+        Day {{ renderGameDays(app.user) }} -
+        <a href="{{ path('game.boss.index') }}"><img src="{{ asset('bundles/game/images/boss_s1_icon.png') }}" /></a>
+        Next attack in <span class="countdown">{{ nextAttack }}</span>
+    </div>
 {% else %}
     <a href="{{ path('character.roster.index') }}">Select o create a character to start playing!</a>
 {% endif %}

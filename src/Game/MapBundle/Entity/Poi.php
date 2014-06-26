@@ -99,6 +99,16 @@ class Poi
     protected $treasures;
 
     /**
+     * @ORM\Column(name="infected", type="boolean")
+     */
+    protected $infected = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\GameBundle\Entity\Boss", mappedBy="currentPoi")
+     */
+    protected $bosses;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -497,5 +507,56 @@ class Poi
     public function removeTreasure(\Game\MapBundle\Entity\Treasure $treasures)
     {
         $this->treasures->removeElement($treasures);
+    }
+
+    /**
+     * @param mixed $infected
+     * @return $this
+     */
+    public function setInfected($infected)
+    {
+        $this->infected = $infected;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInfected()
+    {
+        return $this->infected;
+    }
+
+    /**
+     * Add bosses
+     *
+     * @param \Game\GameBundle\Entity\Boss $bosses
+     * @return Poi
+     */
+    public function addBosse(\Game\GameBundle\Entity\Boss $bosses)
+    {
+        $this->bosses[] = $bosses;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bosses
+     *
+     * @param \Game\GameBundle\Entity\Boss $bosses
+     */
+    public function removeBosse(\Game\GameBundle\Entity\Boss $bosses)
+    {
+        $this->bosses->removeElement($bosses);
+    }
+
+    /**
+     * Get bosses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBosses()
+    {
+        return $this->bosses;
     }
 }

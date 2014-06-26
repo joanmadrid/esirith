@@ -36,29 +36,41 @@ class MapController extends Controller
 
     /**
      * @Route("/view", name="map.view")
-     * @Template()
      */
     public function viewAction()
     {
         //personaje activo
         /** @var Character $char */
         $char = $this->getUserManager()->getCharacterWithMap();
+        $currPoi = $char->getCurrentPoi();
+        $map = $currPoi->getMap();
 
-        $map = $char->getCurrentPoi()->getMap();
+        if ($currPoi->getInfected()) {
+            return $this->render(
+                'MapBundle:Map:view-infected.html.twig',
+                array(
+                    'char' => $char,
+                    'map'  => $map,
+                )
+            );
+        } else {
+            $treasure = $this->getTreasureManager()->findForTreasures($char);
 
-        $treasure = $this->getTreasureManager()->findForTreasures($char);
+            $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
+                $char->getCurrentPoi(),
+                $this->getUserManager()->getCurrentUser()
+            );
 
-        $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
-            $char->getCurrentPoi(),
-            $this->getUserManager()->getCurrentUser()
-        );
-
-        return array(
-            'char' => $char,
-            'map'  => $map,
-            'treasure' => $treasure,
-            'others' => $others
-        );
+            return $this->render(
+                'MapBundle:Map:view.html.twig',
+                array(
+                    'char' => $char,
+                    'map'  => $map,
+                    'treasure' => $treasure,
+                    'others' => $others
+                )
+            );
+        }
     }
 
     /**

@@ -31,7 +31,7 @@ class UserManager extends CoreManager
     protected $characterManager;
 
     /**
-     * @return ItemRepository
+     * @return UserRepository
      */
     protected function getRepository()
     {
@@ -39,7 +39,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
+     * @param SecurityContext $securityContext
      */
     public function setSecurityContext($securityContext)
     {
@@ -47,7 +47,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @return \Symfony\Component\Security\Core\SecurityContext
+     * @return SecurityContext
      */
     public function getSecurityContext()
     {
@@ -63,7 +63,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @return \FOS\UserBundle\Doctrine\UserManager
+     * @return UserManager
      */
     public function getFosUserManager()
     {
@@ -71,7 +71,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session
+     * @param Session $session
      */
     public function setSession($session)
     {
@@ -79,7 +79,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Session\Session
+     * @return Session
      */
     public function getSession()
     {
@@ -87,7 +87,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @param \Game\CharacterBundle\Manager\CharacterManager $characterManager
+     * @param CharacterManager $characterManager
      */
     public function setCharacterManager($characterManager)
     {
@@ -95,7 +95,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @return \Game\CharacterBundle\Manager\CharacterManager
+     * @return CharacterManager
      */
     public function getCharacterManager()
     {
@@ -115,7 +115,7 @@ class UserManager extends CoreManager
      * Select character and update the date
      *
      * @param Character $char
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function selectCharacter(Character $char)
     {

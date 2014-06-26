@@ -2,6 +2,7 @@
 
 namespace Game\CharacterBundle\Controller;
 
+use Game\GameBundle\Manager\BossManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -26,7 +27,8 @@ class StatusController extends Controller
         }
 
         return array(
-            'character' => $char
+            'character' => $char,
+            'nextAttack' => $this->getBossManager()->getNextAttackTimeLeft()
         );
     }
 
@@ -44,5 +46,13 @@ class StatusController extends Controller
     protected function getCharacterManager()
     {
         return $this->get('character.character_manager');
+    }
+
+    /**
+     * @return BossManager
+     */
+    private function getBossManager()
+    {
+        return $this->get('game.boss_manager');
     }
 }
