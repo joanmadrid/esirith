@@ -51,16 +51,28 @@ class Game
     private $boss;
 
     /**
-     * @ORM\OneToMany(targetEntity="Game\UserBundle\Entity\User", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\Character", mappedBy="game")
      */
-    private $users;
+    private $characters;
 
     /**
      * @ORM\Column(name="status", type="integer")
      */
     private $status = 0;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Game\MapBundle\Entity\Map", mappedBy="game")
+     */
+    private $maps;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->characters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->maps = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -141,6 +153,29 @@ class Game
     }
 
     /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Game
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * Set boss
      *
      * @param \Game\GameBundle\Entity\Boss $boss
@@ -162,62 +197,70 @@ class Game
     {
         return $this->boss;
     }
+
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add users
+     * Add characters
      *
-     * @param \Game\UserBundle\Entity\User $users
+     * @param \Game\CharacterBundle\Entity\Character $characters
      * @return Game
      */
-    public function addUser(\Game\UserBundle\Entity\User $users)
+    public function addCharacter(\Game\CharacterBundle\Entity\Character $characters)
     {
-        $this->users[] = $users;
+        $this->characters[] = $characters;
     
         return $this;
     }
 
     /**
-     * Remove users
+     * Remove characters
      *
-     * @param \Game\UserBundle\Entity\User $users
+     * @param \Game\CharacterBundle\Entity\Character $characters
      */
-    public function removeUser(\Game\UserBundle\Entity\User $users)
+    public function removeCharacter(\Game\CharacterBundle\Entity\Character $characters)
     {
-        $this->users->removeElement($users);
+        $this->characters->removeElement($characters);
     }
 
     /**
-     * Get users
+     * Get characters
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUsers()
+    public function getCharacters()
     {
-        return $this->users;
+        return $this->characters;
     }
 
     /**
-     * @param mixed $status
-     * @return $this
+     * Add maps
+     *
+     * @param \Game\MapBundle\Entity\Map $maps
+     * @return Game
      */
-    public function setStatus($status)
+    public function addMap(\Game\MapBundle\Entity\Map $maps)
     {
-        $this->status = $status;
+        $this->maps[] = $maps;
+    
         return $this;
     }
 
     /**
-     * @return mixed
+     * Remove maps
+     *
+     * @param \Game\MapBundle\Entity\Map $maps
      */
-    public function getStatus()
+    public function removeMap(\Game\MapBundle\Entity\Map $maps)
     {
-        return $this->status;
+        $this->maps->removeElement($maps);
+    }
+
+    /**
+     * Get maps
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaps()
+    {
+        return $this->maps;
     }
 }

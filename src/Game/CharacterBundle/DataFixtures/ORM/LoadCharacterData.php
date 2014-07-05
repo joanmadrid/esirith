@@ -32,6 +32,7 @@ class LoadCharacterData extends AbstractFixture implements OrderedFixtureInterfa
             ->setUser($this->getReference('user-0'))
             ->setRace($this->getReference('race-human'))
             ->setClass($this->getReference('class-warrior'))
+            ->setGame($this->getReference('game-test'))
         ;
 
         $manager->persist($char);
