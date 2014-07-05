@@ -18,7 +18,7 @@
         {#<li class="has-tooltip" title="Spirit"><i class="char-spi"></i> {{ character.spi }}</li>#}
     </ul>
     <div class="status-boss">
-        Day {{ renderGameDays(app.user) }} -
+        Day {{ renderGameDays(character) }} -
         <a href="{{ path('game.boss.index') }}"><img src="{{ asset('bundles/game/images/boss_s1_icon.png') }}" /></a>
         Next attack in <span class="countdown">{{ nextAttack }}</span>
     </div>

@@ -60,4 +60,14 @@ class GameManager extends CoreManager
     {
         return $this->getRepository()->getInProgressWithBoss();
     }
+
+    /**
+     * omitdo: si esta lleno, crear otro, etc..
+     * @return Game
+     */
+    public function findOpenGameToJoin()
+    {
+        $games = $this->getRepository()->getInProgressWithBoss();
+        return $games[0];
+    }
 }

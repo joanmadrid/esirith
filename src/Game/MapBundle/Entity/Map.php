@@ -41,6 +41,12 @@ class Map
      */
     private $pois;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\GameBundle\Entity\Game", inversedBy="maps")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    private $game;
+
 
     /**
      * Get id
@@ -136,5 +142,28 @@ class Map
     public function getPois()
     {
         return $this->pois;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \Game\GameBundle\Entity\Game $game
+     * @return Map
+     */
+    public function setGame(\Game\GameBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+    
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \Game\GameBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 }

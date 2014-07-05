@@ -5,6 +5,7 @@ namespace Game\CharacterBundle\Controller;
 use Game\CharacterBundle\Manager\CharacterClassManager;
 use Game\CharacterBundle\Manager\PortraitManager;
 use Game\CharacterBundle\Manager\RosterManager;
+use Game\GameBundle\Manager\GameManager;
 use Game\MapBundle\Manager\PoiManager;
 use Game\MonsterBundle\Manager\RaceManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -54,9 +55,10 @@ class RosterController extends Controller
             $class      = $this->getCharacterClassManager()->findClass($request->get('class'));
             $poi        = $this->getPoiManager()->getStartingPoi();
             $portrait   = $request->get('portrait');
+            $game = $this->getGameManager()->findOpenGameToJoin();
 
             $user = $this->getUserManager()->getCurrentUser();
-            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi, $portrait);
+            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi, $portrait, $game);
             $this->getRosterManager()->flush();
             return $this->selectAction($character);
         }
@@ -114,5 +116,13 @@ class RosterController extends Controller
     private function getPortraitManager()
     {
         return $this->get('character.portrait_manager');
+    }
+
+    /**
+     * @return GameManager
+     */
+    private function getGameManager()
+    {
+        return $this->get('game.game_manager');
     }
 }

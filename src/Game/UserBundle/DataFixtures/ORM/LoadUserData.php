@@ -42,7 +42,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $aux->setEmail($user[1]);
             $aux->setPlainPassword($user[2]);
             $aux->setEnabled(true);
-            $aux->setGame($this->getReference('game-test'));
             $userManager->updateUser($aux);
             $manager->persist($aux);
             $saved[] = $aux;

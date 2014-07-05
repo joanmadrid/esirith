@@ -48,12 +48,6 @@ class User extends BaseUser
      */
     protected $twitter_access_token;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Game\GameBundle\Entity\Game", inversedBy="users")
-     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
-     */
-    protected $game;
-
     public function __construct()
     {
         parent::__construct();
@@ -173,25 +167,4 @@ class User extends BaseUser
     {
         return $this->twitter_id;
     }
-
-    /**
-     * @param mixed Game
-     * @return $this
-     */
-    public function setGame($game)
-    {
-        $this->game = $game;
-        return $this;
-    }
-
-    /**
-     * @return Game
-     */
-    public function getGame()
-    {
-        return $this->game;
-    }
-
-
 }
-

@@ -2,6 +2,7 @@
 
 namespace Game\GameBundle\Twig;
 
+use Game\CharacterBundle\Entity\Character;
 use Game\GameBundle\Manager\BossManager;
 use Game\GameBundle\Manager\GameManager;
 use Game\UserBundle\Entity\User;
@@ -55,12 +56,12 @@ class BossExtension extends \Twig_Extension
     }
 
     /**
-     * @param User $user
+     * @param Character $char
      * @return string
      */
-    public function renderGameDays(User $user)
+    public function renderGameDays(Character $char)
     {
-        $game = $user->getGame();
+        $game = $char->getGame();
         return $this->gameManager->getGameDays($game);
     }
 

@@ -18,15 +18,19 @@ class LoadMapData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $game = $this->getReference('game-test');
+
         //mapas
         $map = new Map();
         $map->setName('World map');
         $map->setFilename('map.png');
+        $map->setGame($game);
         $manager->persist($map);
 
         $dungeon = new Map();
         $dungeon->setName('Ruined tower dungeon');
         $dungeon->setFilename('dungeon1.jpg');
+        $dungeon->setGame($game);
         $manager->persist($dungeon);
 
         //pois
@@ -146,6 +150,6 @@ class LoadMapData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 0;
+        return 1;
     }
 }

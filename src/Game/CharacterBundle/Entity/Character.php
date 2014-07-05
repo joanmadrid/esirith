@@ -5,6 +5,7 @@ namespace Game\CharacterBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Game\CharacterBundle\Model\CharacterRestore;
+use Game\GameBundle\Entity\Game;
 use Game\MapBundle\Entity\Poi;
 use Game\UserBundle\Entity\User;
 use Game\CharacterBundle\Entity\CharacterItem;
@@ -108,6 +109,12 @@ class Character extends Attributes
      * @ORM\Column(name="last_companion_generation", type="datetime", nullable=true)
      */
     private $lastCompanionGeneration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game\GameBundle\Entity\Game", inversedBy="characters")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    protected $game;
 
     /**
      * Constructor
@@ -265,10 +272,12 @@ class Character extends Attributes
 
     /**
      * @param CharacterClass $class
+     * @return $this
      */
     public function setClass($class)
     {
         $this->class = $class;
+        return $this;
     }
 
     /**
@@ -381,6 +390,24 @@ class Character extends Attributes
     public function getLastCompanionGeneration()
     {
         return $this->lastCompanionGeneration;
+    }
+
+    /**
+     * @param Game $game
+     * @return $this
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+        return $this;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 
     ////
