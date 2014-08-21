@@ -10,9 +10,11 @@
 /bin/
 /composer.phar
 composer.lock
-/web/css/*
+/web/css/
 /web/portraits/
 /web/media/
+/web/js/
+/web/assetic/
 
 #a quitar
 .idea/

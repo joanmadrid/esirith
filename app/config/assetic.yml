@@ -9,14 +9,14 @@ assetic:
     assets:
         jquery:
             inputs:
-                - %kernel.root_dir%/../vendor/components/jquery/jquery.min.js
+                - %kernel.root_dir%/../components/jquery/jquery.min.js
             output: js/jquery.js
         jquery_ui:
             inputs:
-                - %kernel.root_dir%/../vendor/components/jqueryui/ui/minified/jquery-ui.min.js
-                - %kernel.root_dir%/../vendor/components/jqueryui/ui/minified/jquery.ui.tooltip.min.js
+                - %kernel.root_dir%/../components/jquery-ui/jquery-ui.min.js
+                - %kernel.root_dir%/../components/jquery-ui/ui/tooltip.js
             output: js/jquery.ui.js
         jquery_ui_theme:
             inputs:
-                - %kernel.root_dir%/../vendor/components/jqueryui/themes/humanity/jquery-ui.min.css
+                - %kernel.root_dir%/../components/jquery-ui/themes/humanity/jquery-ui.min.css
             ouput: css/jquery.ui.theme.css

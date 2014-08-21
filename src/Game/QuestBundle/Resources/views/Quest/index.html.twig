@@ -4,7 +4,7 @@
     <div class="module-quest">
         {% for quest in quests %}
         <div class="quest-block">
-            <img src="{{ asset('bundles/quest/img/quest/'~quest.image) | imagine_filter('quest_medium') }}" />
+            <img src="{{ asset('/bundles/quest/img/quest/'~quest.image) | imagine_filter('quest_medium') }}" />
             <ul>
                 <li class="quest-name">{{ quest.name }}</li>
                 <li class="quest-desc">{{ quest.description }}</li>

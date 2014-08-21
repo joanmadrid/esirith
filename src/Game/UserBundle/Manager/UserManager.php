@@ -137,7 +137,7 @@ class UserManager extends CoreManager
     }
 
     /**
-     * @return int
+     * @return Character
      */
     public function getCharacter()
     {

@@ -17,8 +17,9 @@ class BossController extends Controller
      */
     public function indexAction()
     {
-        $user = $this->getUserManager()->getCurrentUser();
-        $game = $user->getGame();
+        //$user = $this->getUserManager()->getCurrentUser();
+        $character = $this->getUserManager()->getCharacter();
+        $game = $character->getGame();
         $nextAttack = $this->getBossManager()->getNextAttackTimeLeft();
         return array(
             'game' => $game,
