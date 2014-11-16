@@ -28,6 +28,33 @@ class BossController extends Controller
     }
 
     /**
+     * @Route("/infection/fight", name="game.boss.fightinfection")
+     * @Template()
+     */
+    public function fightInfectionAction()
+    {
+        $character = $this->getUserManager()->getCharacter();
+        $poi = $character->getCurrentPoi();
+        $success = $this->getBossManager()->fightInfection($character, $poi);
+
+        if ($success) {
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'You have destroyed the enemy infestation clearing the path. You won '
+                .BossManager::INFECTION_FIGHT_WIN_XP.' XP'
+            );
+        } else {
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                'You couldn\'t fight the infestation back, losing '.BossManager::INFECTION_FIGHT_LOSE_HP.' HP'
+            );
+        }
+        $this->getBossManager()->flush();
+
+        return $this->redirect($this->generateUrl('map.view'));
+    }
+
+    /**
      * @return UserManager
      */
     private function getUserManager()

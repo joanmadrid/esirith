@@ -15,7 +15,7 @@ class PropagateInfectionCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('boss:propagate-infection')
+            ->setName('game:boss:propagate-infection')
             ->setDescription('Expands the propagation and infects/attacks pois')
         ;
     }

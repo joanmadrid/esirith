@@ -429,6 +429,16 @@ class Character extends Attributes
 
     /**
      * @param $amount
+     * @return int
+     */
+    public function decreaseHP($amount)
+    {
+        $this->setCurrentHp($this->getCurrentHp()-$amount);
+        return $this->getCurrentHp();
+    }
+
+    /**
+     * @param $amount
      * @return $this
      */
     public function addXP($amount)

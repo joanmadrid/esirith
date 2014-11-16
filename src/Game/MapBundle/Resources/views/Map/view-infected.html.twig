@@ -20,8 +20,14 @@
         </div>
 
         {% include "MapBundle:Render:others.html.twig" with {'others':others} %}
-        
-        <img src="{{ asset('bundles/ui/img/event/undead_army.png') }}" />
+
+        <div class="map-infected">
+            <img src="{{ asset('bundles/ui/img/event/undead_army.png') }}" />
+            <p class="history">
+             You can try to <a href="{{ path('game.boss.fightinfection') }}" class="btn">Fight the infestation</a> back!
+            </p>
+
+        </div>
     </div>
 
     {% include "MapBundle:Render:map.html.twig" with {'map': map, 'currentPoi': currentPoi} %}
