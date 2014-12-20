@@ -26,6 +26,9 @@ class RosterController extends Controller
     public function indexAction()
     {
         $user = $this->getUserManager()->getCurrentUser();
+
+        $this->getUserManager()->unselectCharacter();
+
         return array(
             'user' => $user
         );

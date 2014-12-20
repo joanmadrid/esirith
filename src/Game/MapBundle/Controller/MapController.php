@@ -45,6 +45,11 @@ class MapController extends Controller
         $currPoi = $char->getCurrentPoi();
         $map = $currPoi->getMap();
 
+        // default dead check
+        if ($char->checkIsDead()) {
+            return $this->redirect($this->generateUrl('character.death'));
+        }
+
         $others = $this->getCharacterManager()->getCharactersInTheSamePoi(
             $char->getCurrentPoi(),
             $this->getUserManager()->getCurrentUser()

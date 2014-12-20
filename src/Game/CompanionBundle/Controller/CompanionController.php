@@ -24,6 +24,11 @@ class CompanionController extends Controller
         $party              = $this->getCompanionManager()->getParty($char);
         $timeLeft           = null;
 
+        // default dead check
+        if ($char->checkIsDead()) {
+            return $this->redirect($this->generateUrl('character.death'));
+        }
+
         if (!$canGenerate) {
             $timeLeft = $this->getCompanionManager()->getTimeLeftForRegenerateCompanion($char);
         }

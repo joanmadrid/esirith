@@ -125,6 +125,7 @@ class BossManager extends CoreManager
             $this->persist($poi);
         } else {
             $char->decreaseHP(self::INFECTION_FIGHT_LOSE_HP);
+            $char->checkIsDead();
         }
         $this->persist($char);
 

@@ -410,7 +410,7 @@ class Character extends Attributes
         return $this->game;
     }
 
-    ////
+    //// CUSTOM ////
 
     /**
      * @param $points
@@ -465,6 +465,19 @@ class Character extends Attributes
     {
         if ($this->getGold() >= $amount) {
             $this->setGold($this->getGold()-$amount);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkIsDead()
+    {
+        if ($this->getCurrentHp() <= 0) {
+            $this->setDead(true);
             return true;
         } else {
             return false;

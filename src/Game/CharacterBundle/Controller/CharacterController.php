@@ -19,19 +19,31 @@ class CharacterController extends Controller
     public function sheetAction()
     {
         $char = $this->getUserManager()->getCharacter();
+
+        // default dead check
+        if ($char->checkIsDead()) {
+            return $this->redirect($this->generateUrl('character.death'));
+        }
+
         return array(
             'character' => $char
         );
     }
 
     /**
-     * @Route("/death/{id}", name="character.death")
-     * @ParamConverter("char", class="CharacterBundle:Character")
+     * @Route("/death", name="character.death")
      * @Template()
      */
-    public function deathAction(Character $char)
+    public function deathAction()
     {
-        if (!$char->getDead()) {
+        $char = $this->getUserManager()->getCharacter();
+
+        //por alguna razon no esta marcado, aprovechamos para guardar
+        if (!$char->getDead() && $char->checkIsDead()) {
+            $char->setDead(true);
+            $this->getUserManager()->persist($char);
+            $this->getUserManager()->flush();
+        } elseif (!$char->getDead()) {
             throw new AccessDeniedException('This char is not dead');
         }
         return array('char'=>$char);

@@ -23,6 +23,11 @@ class InventoryController extends Controller
         //personaje activo
         $char = $char = $this->getUserManager()->getCharacter();
 
+        // default dead check
+        if ($char->checkIsDead()) {
+            return $this->redirect($this->generateUrl('character.death'));
+        }
+
         //items
         $items = $this->getDoctrine()->getRepository('CharacterBundle:CharacterItem')->findItemsByCharacter($char);
 

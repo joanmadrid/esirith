@@ -26,6 +26,11 @@ class QuestController extends Controller
         $char = $this->getUserManager()->getCharacter();
         $quests = $this->getQuestManager()->getQuests($char);
 
+        // default dead check
+        if ($char->checkIsDead()) {
+            return $this->redirect($this->generateUrl('character.death'));
+        }
+
         return array(
             'char' => $char,
             'quests' => $quests

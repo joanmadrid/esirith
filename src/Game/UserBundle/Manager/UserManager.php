@@ -144,6 +144,9 @@ class UserManager extends CoreManager
         return $this->getCharacterManager()->findById($this->getCharacterId());
     }
 
+    /**
+     * @return Character
+     */
     public function getCharacterWithMap()
     {
         return $this->getCharacterManager()->findCharacterWithMap($this->getCharacterId());

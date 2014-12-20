@@ -3,7 +3,8 @@
 {% block body %}
     <div class="module-death">
         <p class="history">
-            {{ char.name }} is dead. Was defeated in battle.
+            {{ char.name }} is dead. Was defeated in battle. <br />
+            <a href="{{ path('character.roster.index') }}">Go to character selection</a>.
         </p>
         <img src="{{ asset('bundles/ui/img/event/death.jpg') }}" />
     </div>
