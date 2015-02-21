@@ -5,6 +5,8 @@ parameters:
     item.armor.entity: Game\ItemBundle\Entity\Armor
     item.potion.class: Game\ItemBundle\Manager\PotionManager
     item.potion.entity: Game\ItemBundle\Entity\Potion
+    item.item.class: Game\ItemBundle\Manager\ItemManager
+    item.item.entity: Game\ItemBundle\Entity\Item
 
 services:
     item.weapon_manager:
@@ -32,3 +34,8 @@ services:
         class: Game\ItemBundle\Twig\ItemExtension
         tags:
             - { name: twig.extension }
+
+    item.item_manager:
+        class: %item.item.class%
+        arguments: [%item.item.entity%]
+        parent: core.core_manager

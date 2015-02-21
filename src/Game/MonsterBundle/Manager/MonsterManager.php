@@ -6,6 +6,7 @@ use Game\BattleBundle\Model\BattleAttack;
 use Game\BattleBundle\Model\BattlePlayer;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\RollManager;
+use Game\MonsterBundle\Entity\Monster;
 use Game\MonsterBundle\Entity\Repository\MonsterRepository;
 
 class MonsterManager extends CoreManager
@@ -66,5 +67,14 @@ class MonsterManager extends CoreManager
         $battleAttack->setHits($hits);
         $battleAttack->setMiss($miss);
         return $battleAttack;
+    }
+
+    /**
+     * @param $name
+     * @return Monster
+     */
+    public function getMonsterByInternalName($name)
+    {
+        return $this->getRepository()->getByInternalName($name);
     }
 }

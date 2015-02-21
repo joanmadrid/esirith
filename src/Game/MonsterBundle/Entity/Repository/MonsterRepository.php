@@ -20,4 +20,18 @@ class MonsterRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @param $name
+     * @return Monster
+     */
+    public function getByInternalName($name)
+    {
+        $qb = $this->createQueryBuilder('monster');
+        $qb
+            ->select('monster')
+            ->where('monster.internalName = :name')
+            ->setParameter(':name', $name);
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

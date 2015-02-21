@@ -5,6 +5,7 @@ parameters:
     game.boss.entity: Game\GameBundle\Entity\Boss
     game.raid.class: Game\GameBundle\Manager\RaidManager
     game.raid.entity: Game\GameBundle\Entity\Raid
+    game.gamecreator.class: Game\GameBundle\Manager\GameCreatorManager
 
 services:
     game.game_manager:
@@ -36,3 +37,12 @@ services:
             - [ setBossManager, [ @game.boss_manager ] ]
             - [ setGameManager, [ @game.game_manager ] ]
             - [ setRaidManager, [ @game.raid_manager ] ]
+
+    game.gamecreator_manager:
+        class: %game.gamecreator.class%
+        arguments: [%game.game.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+            - [ setMonsterManager, [ @monster.monster_manager ] ]
+            - [ setItemManager, [ @item.item_manager ] ]
