@@ -6,6 +6,7 @@ use Game\CharacterBundle\Entity\Character;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\GameBundle\Entity\Boss;
+use Game\GameBundle\Entity\Raid;
 use Game\GameBundle\Entity\Repository\BossRepository;
 use Game\MapBundle\Entity\Poi;
 
@@ -20,6 +21,11 @@ class BossManager extends CoreManager
     const INFECTION_FIGHT_CHANCE = 50;
     const INFECTION_FIGHT_WIN_XP = 5;
     const INFECTION_FIGHT_LOSE_HP = 5;
+
+    const RAID_FIGHT_CHANCE = 50;
+    const RAID_FIGHT_WIN_XP = 10;
+    const RAID_FIGHT_LOSE_HP = 10;
+    const RAID_FIGHT_BOSS_LOSE_HP = 200;
 
     /** @var RollManager */
     protected $rollManager;
@@ -106,9 +112,45 @@ class BossManager extends CoreManager
      * gamedo: atacar a todos los POIS infectados (los PJ que estén ahí)
      * @param Boss $boss
      */
-    private function attackInfectedPois(Boss $boss)
+    public function attackInfectedPois(Boss $boss)
     {
 
+    }
+
+    /**
+     * gamedo: hacer la logica, ahora es random
+     * gamedo: que pasa si el boss muere?
+     * gamedo: que pasa si mueren todos los PJ?
+     * @param Boss $boss
+     * @param $raids
+     * @return bool
+     */
+    public function resolveRaid(Boss $boss, $raids)
+    {
+        $success = $this->rollManager->rollPercentEqualOrBelow(self::RAID_FIGHT_CHANCE);
+
+        //character - raid logic
+        foreach ($raids as $raid) {
+            /** @var $raid Raid */
+            $char = $raid->getCharacter();
+            if ($success) {
+                $raid->setStatus(Raid::STATUS_WON);
+                $char->addXP(self::RAID_FIGHT_WIN_XP);
+            } else {
+                $raid->setStatus(Raid::STATUS_LOST);
+                $char->decreaseHP(self::RAID_FIGHT_LOSE_HP);
+            }
+            $this->persist($raid);
+            $this->persist($char);
+        }
+
+        //boss logic
+        if ($success) {
+            $boss->decreaseHP(self::RAID_FIGHT_BOSS_LOSE_HP);
+            $this->persist($boss);
+        }
+
+        return $success;
     }
 
     /**
@@ -130,5 +172,14 @@ class BossManager extends CoreManager
         $this->persist($char);
 
         return $success;
+    }
+
+    /**
+     * @param Poi $poi
+     * @return Boss
+     */
+    public function getBossFromPoi(Poi $poi)
+    {
+        return $this->getRepository()->getBossFromPoi($poi);
     }
 }

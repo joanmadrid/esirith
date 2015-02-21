@@ -63,6 +63,11 @@ game_boss:
     prefix:     /boss
     type:       annotation
 
+game_raid:
+    resource:   "@GameBundle/Controller/RaidController.php"
+    prefix:     /raid
+    type:       annotation
+
 ## FOSUser ##
 
 fos_user_security:

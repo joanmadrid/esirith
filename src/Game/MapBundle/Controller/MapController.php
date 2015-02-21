@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Controller;
 
 use Game\CharacterBundle\Manager\CharacterManager;
+use Game\GameBundle\Manager\BossManager;
 use Game\MapBundle\Entity\Treasure;
 use Game\MapBundle\Manager\MapManager;
 use Game\MapBundle\Manager\TreasureManager;
@@ -67,13 +68,16 @@ class MapController extends Controller
         } else {
             $treasure = $this->getTreasureManager()->findForTreasures($char);
 
+            $boss = $this->getBossManager()->getBossFromPoi($currPoi);
+
             return $this->render(
                 'MapBundle:Map:view.html.twig',
                 array(
                     'char' => $char,
                     'map'  => $map,
                     'treasure' => $treasure,
-                    'others' => $others
+                    'others' => $others,
+                    'boss' => $boss
                 )
             );
         }
@@ -183,5 +187,13 @@ class MapController extends Controller
     private function getTreasureManager()
     {
         return $this->get('map.treasure_manager');
+    }
+
+    /**
+     * @return BossManager
+     */
+    private function getBossManager()
+    {
+        return $this->get('game.boss_manager');
     }
 }

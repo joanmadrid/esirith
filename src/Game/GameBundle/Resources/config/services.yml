@@ -3,6 +3,8 @@ parameters:
     game.game.entity: Game\GameBundle\Entity\Game
     game.boss.class: Game\GameBundle\Manager\BossManager
     game.boss.entity: Game\GameBundle\Entity\Boss
+    game.raid.class: Game\GameBundle\Manager\RaidManager
+    game.raid.entity: Game\GameBundle\Entity\Raid
 
 services:
     game.game_manager:
@@ -19,6 +21,13 @@ services:
         calls:
             - [ setRollManager, [ @core.roll_manager ] ]
 
+    game.raid_manager:
+        class: %game.raid.class%
+        arguments: [%game.raid.entity%]
+        parent: core.core_manager
+        calls:
+            - [ setRollManager, [ @core.roll_manager ] ]
+
     game.twig.boss_extension:
         class: Game\GameBundle\Twig\BossExtension
         tags:
@@ -26,3 +35,4 @@ services:
         calls:
             - [ setBossManager, [ @game.boss_manager ] ]
             - [ setGameManager, [ @game.game_manager ] ]
+            - [ setRaidManager, [ @game.raid_manager ] ]

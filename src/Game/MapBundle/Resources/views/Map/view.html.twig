@@ -6,6 +6,23 @@
 
 <div class="module-map">
     <div class="map-actions">
+
+        {% if boss %}
+        <div class="map-boss history">
+            <p>The evil <strong>{{ boss.name }}</strong> is here! <br />
+                You can flee before beign detected or gather your party and try to defeat the evil.</p>
+            <ul>
+                <li><strong>Status:</strong> {{ renderHealthStatus(boss.currentHP, boss.maxHP) }}</li>
+                {% set raid = getCharacterRaidAgainstBoss(char, boss) %}
+                {% if not raid %}
+                <li><a href="{{ path('game.raid.join') }}">Join the raid and stop the next attack!</a></li>
+                {% endif %}
+                {% set raiders = getActiveRaids(boss) %}
+                <li>Adventurers signed up for this attack ({{ raiders[0] }}): {{ raiders[1]|join(', ') }} </li>
+            </ul>
+        </div>
+        {% endif %}
+
         <div class="map-travel history">
             {{ char.name }} is in {{ currentPoi.name }}.
             {% if currentPoi.startpaths|length > 0 %}

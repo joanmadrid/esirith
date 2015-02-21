@@ -104,9 +104,9 @@ class Poi
     protected $infected = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="Game\GameBundle\Entity\Boss", mappedBy="currentPoi")
+     * @ORM\OneToOne(targetEntity="Game\GameBundle\Entity\Boss", mappedBy="currentPoi")
      */
-    protected $bosses;
+    protected $boss;
 
     /**
      * Get id
@@ -528,35 +528,25 @@ class Poi
     }
 
     /**
-     * Add bosses
+     * Set boss
      *
-     * @param \Game\GameBundle\Entity\Boss $bosses
+     * @param \Game\GameBundle\Entity\Boss $boss
      * @return Poi
      */
-    public function addBosse(\Game\GameBundle\Entity\Boss $bosses)
+    public function setBoss(\Game\GameBundle\Entity\Boss $boss = null)
     {
-        $this->bosses[] = $bosses;
+        $this->boss = $boss;
     
         return $this;
     }
 
     /**
-     * Remove bosses
+     * Get boss
      *
-     * @param \Game\GameBundle\Entity\Boss $bosses
+     * @return \Game\GameBundle\Entity\Boss 
      */
-    public function removeBosse(\Game\GameBundle\Entity\Boss $bosses)
+    public function getBoss()
     {
-        $this->bosses->removeElement($bosses);
-    }
-
-    /**
-     * Get bosses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBosses()
-    {
-        return $this->bosses;
+        return $this->boss;
     }
 }

@@ -57,10 +57,15 @@ class Boss
     private $game;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="bosses")
+     * @ORM\OneToOne(targetEntity="Game\MapBundle\Entity\Poi", inversedBy="boss")
      * @ORM\JoinColumn(name="poi_id", referencedColumnName="id")
      */
     protected $currentPoi;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Raid", mappedBy="boss")
+     */
+    private $raids;
 
 
     /**
@@ -189,6 +194,47 @@ class Boss
     }
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->raids = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add raids
+     *
+     * @param \Game\GameBundle\Entity\Raid $raids
+     * @return Boss
+     */
+    public function addRaid(\Game\GameBundle\Entity\Raid $raids)
+    {
+        $this->raids[] = $raids;
+    
+        return $this;
+    }
+
+    /**
+     * Remove raids
+     *
+     * @param \Game\GameBundle\Entity\Raid $raids
+     */
+    public function removeRaid(\Game\GameBundle\Entity\Raid $raids)
+    {
+        $this->raids->removeElement($raids);
+    }
+
+    /**
+     * Get raids
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRaids()
+    {
+        return $this->raids;
+    }
+
+    /**
      * Set currentPoi
      *
      * @param \Game\MapBundle\Entity\Poi $currentPoi
@@ -209,5 +255,15 @@ class Boss
     public function getCurrentPoi()
     {
         return $this->currentPoi;
+    }
+
+    /**
+     * @param $amount
+     * @return string
+     */
+    public function decreaseHP($amount)
+    {
+        $this->setCurrentHp($this->getCurrentHp() - $amount);
+        return $this->getCurrentHp();
     }
 }

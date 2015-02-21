@@ -3,8 +3,10 @@
 namespace Game\GameBundle\Twig;
 
 use Game\CharacterBundle\Entity\Character;
+use Game\GameBundle\Entity\Boss;
 use Game\GameBundle\Manager\BossManager;
 use Game\GameBundle\Manager\GameManager;
+use Game\GameBundle\Manager\RaidManager;
 use Game\UserBundle\Entity\User;
 
 class BossExtension extends \Twig_Extension
@@ -16,6 +18,9 @@ class BossExtension extends \Twig_Extension
 
     /** @var GameManager */
     private $gameManager;
+
+    /** @var RaidManager */
+    private $raidManager;
 
     /**
      * @param BossManager $bossManager
@@ -34,6 +39,15 @@ class BossExtension extends \Twig_Extension
     }
 
     /**
+     * @param RaidManager $raidManager
+     */
+    public function setRaidManager($raidManager)
+    {
+        $this->raidManager = $raidManager;
+    }
+
+
+    /**
      * @return array
      */
     public function getFunctions()
@@ -41,6 +55,8 @@ class BossExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('renderHealthStatus', array($this, 'renderHealthStatus')),
             new \Twig_SimpleFunction('renderGameDays', array($this, 'renderGameDays')),
+            new \Twig_SimpleFunction('getActiveRaids', array($this, 'getActiveRaids')),
+            new \Twig_SimpleFunction('getCharacterRaidAgainstBoss', array($this, 'getCharacterRaidAgainstBoss')),
         );
     }
 
@@ -63,6 +79,34 @@ class BossExtension extends \Twig_Extension
     {
         $game = $char->getGame();
         return $this->gameManager->getGameDays($game);
+    }
+
+    /**
+     * @param Boss $boss
+     * @return array
+     */
+    public function getActiveRaids(Boss $boss)
+    {
+        $raids = $this->raidManager->getActiveRaids($boss);
+        $count = 0;
+        $chars = array();
+
+        foreach ($raids as $raid) {
+            $chars[] = $raid->getCharacter()->getName();
+            $count++;
+        }
+
+        return array($count, $chars);
+    }
+
+    /**
+     * @param Character $char
+     * @param Boss $boss
+     * @return bool
+     */
+    public function getCharacterRaidAgainstBoss(Character $char, Boss $boss)
+    {
+        return $this->raidManager->getCharacterRaidAgainstBoss($char, $boss);
     }
 
     /**

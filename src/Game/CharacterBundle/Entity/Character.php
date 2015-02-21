@@ -117,6 +117,12 @@ class Character extends Attributes
     protected $game;
 
     /**
+     * @ORM\OneToMany(targetEntity="Game\GameBundle\Entity\Raid", mappedBy="character")
+     */
+    private $raids;
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -408,6 +414,14 @@ class Character extends Attributes
     public function getGame()
     {
         return $this->game;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRaids()
+    {
+        return $this->raids;
     }
 
     //// CUSTOM ////
