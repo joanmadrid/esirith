@@ -33,6 +33,10 @@ class AppKernel extends Kernel
             new Game\QuestBundle\QuestBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Game\GameBundle\GameBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new Game\CommentBundle\CommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
