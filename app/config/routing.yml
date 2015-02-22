@@ -68,6 +68,11 @@ game_raid:
     prefix:     /raid
     type:       annotation
 
+game_comment:
+    resource:   "@CommentBundle/Controller/DefaultController.php"
+    prefix:     /comment
+    type:       annotation
+
 ## FOSUser ##
 
 fos_user_security:
@@ -119,3 +124,10 @@ _liip_imagine:
 # FOSJSROUTING
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+# FosComment
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }

@@ -6,6 +6,7 @@ imports:
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
+    translator:     ~
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -58,6 +59,30 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Game\UserBundle\Entity\User
+
+# FosComment
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Game\CommentBundle\Entity\Comment
+            thread: Game\CommentBundle\Entity\Thread
+    acl_roles:
+        comment:
+            create: ROLE_USER
+            view: ROLE_USER
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+        thread:
+            create: ROLE_USER
+            view: ROLE_USER
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+        vote:
+            create: ROLE_USER
+            view: ROLE_USER
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
 
 # HWIO
 hwi_oauth:

@@ -1,0 +1,7 @@
+parameters:
+#    comment.example.class: Game\CommentBundle\Example
+
+services:
+#    comment.example:
+#        class: %comment.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
