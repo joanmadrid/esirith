@@ -58,10 +58,18 @@ class RosterController extends Controller
             $class      = $this->getCharacterClassManager()->findClass($request->get('class'));
             $poi        = $this->getPoiManager()->getStartingPoi();
             $portrait   = $request->get('portrait');
-            $game = $this->getGameManager()->findOpenGameToJoin();
-
+            //$game = $this->getGameManager()->findOpenGameToJoin();
+            $game = $this->getGameManager()->findOneById($request->get('game'));
             $user = $this->getUserManager()->getCurrentUser();
-            $character = $this->getRosterManager()->createCharacter($name, $race, $class, $user, $poi, $portrait, $game);
+            $character = $this->getRosterManager()->createCharacter(
+                $name,
+                $race,
+                $class,
+                $user,
+                $poi,
+                $portrait,
+                $game
+            );
             $this->getRosterManager()->flush();
             return $this->selectAction($character);
         }
@@ -69,7 +77,8 @@ class RosterController extends Controller
         return array(
             'races'     => $this->getRaceManager()->getSelectableRaces(),
             'classes'   => $this->getCharacterClassManager()->getSelectableClasses(),
-            'portraits' => $this->getPortraitManager()->getAll()
+            'portraits' => $this->getPortraitManager()->getAll(),
+            'games'     => $this->getGameManager()->getAvailableGamesWithPlayers()
         );
     }
 

@@ -16,6 +16,11 @@ class CreateGameCommand extends ContainerAwareCommand
         $this
             ->setName('game:create')
             ->setDescription('Creates a new game')
+            ->addArgument(
+                'name',
+                InputArgument::REQUIRED,
+                'Game name'
+            )
         ;
     }
 
@@ -23,6 +28,7 @@ class CreateGameCommand extends ContainerAwareCommand
     {
         /** @var GameCreatorManager $gameCreatorManager */
         $gameCreatorManager = $this->getContainer()->get('game.gamecreator_manager');
-        $gameCreatorManager->createGame();
+        $name = $input->getArgument('name');
+        $gameCreatorManager->createGame($name);
     }
 }

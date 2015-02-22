@@ -4,6 +4,16 @@
     <div class="module-roster-create">
         <p class="history">There's a new adventurer on the lands of Esirith. Tell me, who is it...</p>
         <form action="{{ path('character.roster.create') }}" method="post">
+
+            <div class="form-control-group">
+                <label for="game">Game</label>
+                <select name="game" id="game">
+                    {% for game in games %}
+                        <option value="{{ game.id }}">{{ game.name }} - {{ game.characters | length }} players</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             <div class="form-control-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" />

@@ -64,10 +64,14 @@ class GameCreatorManager extends CoreManager
         $this->monsterManager = $monsterManager;
     }
 
-    public function createGame()
+    public function createGame($name)
     {
+        if (empty($name)) {
+            $name = 'Game '.date('Ymd_His');
+        }
+
         $game = new Game();
-        $game->setName('Game '.date('Ymd_His'));
+        $game->setName($name);
         $game->setStatus(Game::STATUS_IN_PROGRESS);
         $game->setStart(new \DateTime());
         $this->persist($game);

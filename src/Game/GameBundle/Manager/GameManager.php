@@ -70,4 +70,14 @@ class GameManager extends CoreManager
         $games = $this->getRepository()->getInProgressWithBoss();
         return $games[0];
     }
+
+    public function getAvailableGamesWithPlayers()
+    {
+        return $this->getRepository()->getAvailableGamesWithPlayers();
+    }
+
+    public function findOneById($id)
+    {
+        return $this->getRepository()->findOneById($id);
+    }
 }

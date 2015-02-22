@@ -29,4 +29,19 @@ class GameRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function getAvailableGamesWithPlayers()
+    {
+        $qb = $this->createQueryBuilder('game');
+
+        $qb
+            ->select('game, char')
+            ->leftJoin('game.characters', 'char')
+            ->where('game.status = :status')
+            ->setParameters(array('status' => Game::STATUS_IN_PROGRESS));
+        return $qb->getQuery()->getArrayResult();
+    }
 }
