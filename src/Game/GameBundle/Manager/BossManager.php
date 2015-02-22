@@ -87,7 +87,7 @@ class BossManager extends CoreManager
     {
         //start from a point
         if (!$boss->getCurrentPoi()) {
-            $startingPoi = $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected();
+            $startingPoi = $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected($boss->getGame());
             $boss->setCurrentPoi($startingPoi);
             $this->persist($boss);
         } else {
@@ -105,7 +105,7 @@ class BossManager extends CoreManager
      */
     private function getPoiToInfect(Boss $boss)
     {
-        return $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected();
+        return $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected($boss->getGame());
     }
 
     /**

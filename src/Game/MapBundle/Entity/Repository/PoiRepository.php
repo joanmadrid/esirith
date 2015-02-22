@@ -14,15 +14,19 @@ class PoiRepository extends EntityRepository
 {
     /**
      * gamedo: Doctrine no tiene para RANDOM, optimizar esta query
+     * @param $game
      * @return mixed
      */
-    public function getRandomNotInfected()
+    public function getRandomNotInfected($game)
     {
         $qb = $this->createQueryBuilder('poi');
 
         $qb
+            ->join('poi.map', 'map')
+            ->join('map.game', 'game')
             ->where('poi.infected = :infected')
-            ->setParameters(array('infected' => false));
+            ->andWhere('game = :game')
+            ->setParameters(array('infected' => false, 'game' => $game));
 
         $results = $qb->getQuery()->getResult();
         shuffle($results);
