@@ -8,6 +8,7 @@ use Game\CharacterBundle\Manager\RosterManager;
 use Game\GameBundle\Manager\GameManager;
 use Game\MapBundle\Manager\PoiManager;
 use Game\MonsterBundle\Manager\RaceManager;
+use Game\NotificationBundle\Manager\NotificationManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -71,6 +72,16 @@ class RosterController extends Controller
                 $game
             );
             $this->getRosterManager()->flush();
+
+            //notification
+            $this->getNotificationManager()->sendToCharacter(
+                $game,
+                $user,
+                'Welcome adventurer!',
+                'Make sure you read the tutorial and bla bla bla.'
+            );
+            $this->getNotificationManager()->flush();
+
             return $this->selectAction($character);
         }
 
@@ -136,5 +147,13 @@ class RosterController extends Controller
     private function getGameManager()
     {
         return $this->get('game.game_manager');
+    }
+
+    /**
+     * @return NotificationManager
+     */
+    private function getNotificationManager()
+    {
+        return $this->get('notification.notification_manager');
     }
 }

@@ -5,6 +5,7 @@ namespace Game\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Game\GameBundle\Entity\Game;
+use Game\NotificationBundle\Entity\Notification;
 
 /**
  * User
@@ -27,6 +28,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Game\CharacterBundle\Entity\Character", mappedBy="user")
      */
     protected $characters;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\NotificationBundle\Entity\Notification", mappedBy="user")
+     */
+    protected $notifications;
 
     /**
      * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
@@ -167,4 +173,21 @@ class User extends BaseUser
     {
         return $this->twitter_id;
     }
+
+    /**
+     * @param Notification $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
+    /**
+     * @return Notification
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
 }
+

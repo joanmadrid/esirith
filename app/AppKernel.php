@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new FOS\CommentBundle\FOSCommentBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Game\CommentBundle\CommentBundle(),
+            new Game\NotificationBundle\NotificationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -73,6 +73,11 @@ game_comment:
     prefix:     /comment
     type:       annotation
 
+game_notification:
+    resource:   "@NotificationBundle/Controller/NotificationController.php"
+    prefix:     /notification
+    type:       annotation
+
 ## FOSUser ##
 
 fos_user_security:

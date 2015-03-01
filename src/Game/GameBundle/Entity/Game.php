@@ -64,6 +64,12 @@ class Game
      * @ORM\OneToMany(targetEntity="Game\MapBundle\Entity\Map", mappedBy="game")
      */
     private $maps;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Game\NotificationBundle\Entity\Notification", mappedBy="game")
+     */
+    private $notifications;
+
     /**
      * Constructor
      */
@@ -262,5 +268,21 @@ class Game
     public function getMaps()
     {
         return $this->maps;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }
