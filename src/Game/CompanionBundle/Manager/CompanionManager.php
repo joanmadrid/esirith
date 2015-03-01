@@ -4,8 +4,10 @@ namespace Game\CompanionBundle\Manager;
 
 use Game\CharacterBundle\Entity\Character;
 use Game\CharacterBundle\Manager\PortraitManager;
+use Game\CompanionBundle\Controller\CompanionController;
 use Game\CompanionBundle\Entity\Companion;
 use Game\CompanionBundle\Entity\Repository\CompanionRepository;
+use Game\CompanionBundle\Model\CompanionBuffs;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\NameGeneratorManager;
 use Game\CoreBundle\Manager\RollManager;
@@ -178,5 +180,22 @@ class CompanionManager extends CoreManager
     public function getAvailableCompanionsForQuest(Character $char)
     {
         return $this->getRepository()->getAvailableCompanionsForQuest($char);
+    }
+
+    /**
+     * @param Character $char
+     * @return CompanionBuffs
+     */
+    public function getActiveBuffs(Character $char)
+    {
+        $companions = $this->getAvailableCompanionsForQuest($char);
+        $companionBuffs = new CompanionBuffs();
+        if (count($companions) > 0) {
+            foreach ($companions as $companion) {
+                $companionBuffs->addType($companion['type']);
+                $companionBuffs->addAbility($companion['ability']);
+            }
+        }
+        return $companionBuffs;
     }
 }
