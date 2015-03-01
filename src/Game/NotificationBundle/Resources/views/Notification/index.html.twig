@@ -1,1 +1,11 @@
-Hello {{ name }}!
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-notification">
+        <ul>
+            <li><a href="{{ path('notification.user') }}">User notifications</a></li>
+            <li><a href="{{ path('notification.character') }}">Character notifications</a></li>
+            <li><a href="{{ path('notification.game') }}">Game notifications</a></li>
+        </ul>
+    </div>
+{% endblock %}

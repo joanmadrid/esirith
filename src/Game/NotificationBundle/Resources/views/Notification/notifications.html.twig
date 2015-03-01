@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-notification">
+        {% if notifications|length > 0 %}
+        <ul>
+            {% for notification in notifications %}
+             <li><em>{{ notification.sent|date('d-m-Y - H:i:s') }}</em> | <strong>{{ notification.title }}</strong>: {{ notification.body }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        You don't have character notifications
+        {% endif %}
+    </div>
+{% endblock %}

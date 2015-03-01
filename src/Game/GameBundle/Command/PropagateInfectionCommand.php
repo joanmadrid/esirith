@@ -6,6 +6,7 @@ use Game\GameBundle\Entity\Game;
 use Game\GameBundle\Manager\BossManager;
 use Game\GameBundle\Manager\GameManager;
 use Game\GameBundle\Manager\RaidManager;
+use Game\NotificationBundle\Manager\NotificationManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,6 +31,8 @@ class PropagateInfectionCommand extends ContainerAwareCommand
         $gameManager = $this->getContainer()->get('game.game_manager');
         /** @var RaidManager $raidManager */
         $raidManager = $this->getContainer()->get('game.raid_manager');
+        /** @var NotificationManager $notificationManager */
+        $notificationManager = $this->getContainer()->get('notification.notification_manager');
 
         $games = $gameManager->getInProgressWithBoss();
         foreach ($games as $game) {
@@ -41,13 +44,34 @@ class PropagateInfectionCommand extends ContainerAwareCommand
                 $output->writeln('Resolving raid');
                 $result = $bossManager->resolveRaid($boss, $raids);
                 $output->writeln('raid result: '.($result?'won':'lost'));
+
+                //notification
+                $notificationManager->sendToGame(
+                    $game,
+                    'A group of brave adventurers attacked the evil den',
+                    (
+                        $result
+                        ?
+                        'And they managed to keep ['.$boss->getName().'] and stop the evil expansion'
+                        :
+                        'But they got defeated by ['.$boss->getName().']'
+                    )
+                );
             } else {
                 $bossManager->propagateInfection($boss);
                 $output->writeln('Propagating');
                 $bossManager->attackInfectedPois($boss);
                 $output->writeln('Attacking infected pois');
+
+                //notification
+                $notificationManager->sendToGame(
+                    $game,
+                    'The evil is awakened',
+                    'The evil ['.$boss->getName().'] woke up and attacked Esirith'
+                );
             }
         }
+        $notificationManager->flush();
         $bossManager->flush();
     }
 }

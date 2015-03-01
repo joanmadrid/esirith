@@ -43,7 +43,7 @@ class Notification
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opened", type="datetime")
+     * @ORM\Column(name="opened", type="datetime", nullable=true)
      */
     private $opened;
 
@@ -56,13 +56,13 @@ class Notification
 
     /**
      * @ORM\ManyToOne(targetEntity="Game\UserBundle\Entity\User", inversedBy="notifications")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     protected $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Game\GameBundle\Entity\Game", inversedBy="notifications")
-     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=true)
      */
     protected $game;
 

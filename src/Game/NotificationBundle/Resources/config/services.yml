@@ -1,7 +1,9 @@
 parameters:
-#    notification.example.class: Game\NotificationBundle\Example
+    notification.notification.class: Game\NotificationBundle\Manager\NotificationManager
+    notification.notification.entity: Game\NotificationBundle\Entity\Notification
 
 services:
-#    notification.example:
-#        class: %notification.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    notification.notification_manager:
+        class: %notification.notification.class%
+        arguments: [%notification.notification.entity%]
+        parent: core.core_manager
