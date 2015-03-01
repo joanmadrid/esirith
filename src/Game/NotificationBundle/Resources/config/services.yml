@@ -1,0 +1,7 @@
+parameters:
+#    notification.example.class: Game\NotificationBundle\Example
+
+services:
+#    notification.example:
+#        class: %notification.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
