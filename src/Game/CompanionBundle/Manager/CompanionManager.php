@@ -139,6 +139,10 @@ class CompanionManager extends CoreManager
      */
     public function canRegenerateCompanion(Character $char)
     {
+        if ($char->getLastCompanionGeneration() === null) {
+            return true;
+        }
+
         $validDate = new \DateTime();
         $validDate->sub(new \DateInterval('P'.self::REGENERATE_DAYS.'D'));
         return $char->getLastCompanionGeneration() < $validDate && $char->getGold() >= self::REGENERATE_GOLD;
