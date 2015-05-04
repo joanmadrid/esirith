@@ -4,6 +4,7 @@ namespace Game\QuestBundle\Manager;
 
 use Game\CharacterBundle\Entity\Character;
 use Game\CompanionBundle\Entity\Companion;
+use Game\CompanionBundle\Model\CompanionBuffs;
 use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\QuestBundle\Entity\Quest;
@@ -64,6 +65,7 @@ class QuestInstanceManager extends CoreManager
     /**
      * @param Companion $companion
      * @param Quest $quest
+     * @internal param \Game\CompanionBundle\Model\CompanionBuffs $compBuffs
      * @return QuestInstance|null
      */
     public function goToQuest(Companion $companion, Quest $quest)
@@ -72,7 +74,12 @@ class QuestInstanceManager extends CoreManager
         if ($this->canGoToQuest($char, $quest)) {
 
             $endTime = new \DateTime();
-            $endTime->modify('+'.Quest::HOURS_TO_COMPLETE.' hours');
+
+            if ($companion->getAbility() == Companion::ABILITY_ADVENTURER) {
+                $endTime->modify('+'.Quest::HOURS_TO_COMPLETE_ADVENTURER.' hours');
+            } else {
+                $endTime->modify('+'.Quest::HOURS_TO_COMPLETE.' hours');
+            }
 
             $questInstance = new QuestInstance();
             $questInstance->setCompanion($companion);
