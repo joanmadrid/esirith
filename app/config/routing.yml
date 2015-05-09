@@ -68,6 +68,12 @@ game_raid:
     prefix:     /raid
     type:       annotation
 
+
+game_status:
+    resource:   "@GameBundle/Controller/StatusController.php"
+    prefix:     /status
+    type:       annotation
+
 game_comment:
     resource:   "@CommentBundle/Controller/DefaultController.php"
     prefix:     /comment

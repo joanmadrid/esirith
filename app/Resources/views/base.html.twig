@@ -63,6 +63,7 @@
                         <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                     </ul>
                     {% if app.session.get('character_id') %}
+                    {{ render(controller('GameBundle:Status:index')) }}
                     <ul class="menu-game">
                         {#<li><a class="menu-faq" href=""></a></li>#}
                         {#<li><a class="menu-search" href=""></a></li>#}
