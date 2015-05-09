@@ -71,13 +71,29 @@ class GameManager extends CoreManager
         return $games[0];
     }
 
+    /**
+     * @return array
+     */
     public function getAvailableGamesWithPlayers()
     {
         return $this->getRepository()->getAvailableGamesWithPlayers();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function findOneById($id)
     {
         return $this->getRepository()->findOneById($id);
+    }
+
+    /**
+     * @param $charId
+     * @return array
+     */
+    public function getFromCharacter($charId)
+    {
+        return $this->getRepository()->getFromCharacter($charId);
     }
 }

@@ -3,6 +3,7 @@
 namespace Game\GameBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Game\GameBundle\Entity\Game;
 
 /**
@@ -43,5 +44,21 @@ class GameRepository extends EntityRepository
             ->where('game.status = :status')
             ->setParameters(array('status' => Game::STATUS_IN_PROGRESS));
         return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @param $charId
+     * @return array
+     */
+    public function getFromCharacter($charId)
+    {
+        $qb = $this->createQueryBuilder('game');
+
+        $qb
+            ->select('game.id, game.name')
+            ->leftJoin('game.characters', 'char')
+            ->where('char.id = :charid')
+            ->setParameters(array('charid' => $charId));
+        return $qb->getQuery()->getSingleResult(Query::HYDRATE_ARRAY);
     }
 }

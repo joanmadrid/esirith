@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-server-status">
+        <p>Adventurers on this world:</p>
+        <ul>
+            {% for character in game.characters %}
+            <li>{% if char.id == character.id %}*{% endif %}{{ character.name }}{% if character.dead %} (dead){% endif %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
