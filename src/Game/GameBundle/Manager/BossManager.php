@@ -82,19 +82,32 @@ class BossManager extends CoreManager
 
     /**
      * @param Boss $boss
+     * @return bool
      */
     public function propagateInfection(Boss $boss)
     {
         //start from a point
         if (!$boss->getCurrentPoi()) {
             $startingPoi = $this->em->getRepository('MapBundle:Poi')->getRandomNotInfected($boss->getGame());
-            $boss->setCurrentPoi($startingPoi);
-            $this->persist($boss);
+            if ($startingPoi) {
+                $boss->setCurrentPoi($startingPoi);
+                $this->persist($boss);
+                return true;
+            } else {
+                return false;
+            }
+
         } else {
             /** @var Poi $nextPoi */
             $nextPoi = $this->getPoiToInfect($boss);
-            $nextPoi->setInfected(true);
-            $this->persist($nextPoi);
+
+            if ($nextPoi) {
+                $nextPoi->setInfected(true);
+                $this->persist($nextPoi);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

@@ -13,7 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Game
 {
     const STATUS_IN_PROGRESS = 0;
-    const STATUS_ENDED = 1;
+    const STATUS_ENDED_WON = 1; //players win
+    const STATUS_ENDED_LOST = 2; //players lose
+
+    const LOST_REASON_PROPAGATE = 0;
 
     /**
      * @var integer
@@ -59,6 +62,11 @@ class Game
      * @ORM\Column(name="status", type="integer")
      */
     private $status = 0;
+
+    /**
+     * @ORM\Column(name="reason", type="integer", nullable=true)
+     */
+    private $reason;
 
     /**
      * @ORM\OneToMany(targetEntity="Game\MapBundle\Entity\Map", mappedBy="game")
@@ -284,5 +292,21 @@ class Game
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReason()
+    {
+        return $this->reason;
+    }
+
+    /**
+     * @param mixed $reason
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
     }
 }

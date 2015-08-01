@@ -6,6 +6,7 @@ use Game\CoreBundle\Manager\CoreManager;
 use Game\CoreBundle\Manager\RollManager;
 use Game\GameBundle\Entity\Game;
 use Game\GameBundle\Entity\Repository\GameRepository;
+use Proxies\__CG__\Game\CharacterBundle\Entity\Character;
 
 class GameManager extends CoreManager
 {
@@ -95,5 +96,20 @@ class GameManager extends CoreManager
     public function getFromCharacter($charId)
     {
         return $this->getRepository()->getFromCharacter($charId);
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function endGame(Game $game, $reason)
+    {
+        $game->setStatus(Game::STATUS_ENDED_LOST);
+        $game->setReason($reason);
+        $this->persist($game);
+
+//        foreach ($game->getCharacters() as $char) {
+//            /** @var $char Character */
+//            $char->setDead(true);
+//        }
     }
 }

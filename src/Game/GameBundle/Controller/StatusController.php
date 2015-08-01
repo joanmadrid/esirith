@@ -41,6 +41,20 @@ class StatusController extends Controller
     }
 
     /**
+     * @Route("/lost", name="game.status.lost")
+     * @Template()
+     */
+    public function lostAction()
+    {
+        $char = $this->getUserManager()->getCharacter();
+        $game = $char->getGame();
+        return array(
+            'game' => $game,
+            'char' => $char,
+        );
+    }
+
+    /**
      * @return CharacterManager
      */
     protected function getCharacterManager()

@@ -3,6 +3,7 @@
 namespace Game\MapBundle\Controller;
 
 use Game\CharacterBundle\Manager\CharacterManager;
+use Game\GameBundle\Entity\Game;
 use Game\GameBundle\Manager\BossManager;
 use Game\MapBundle\Entity\Treasure;
 use Game\MapBundle\Manager\MapManager;
@@ -49,6 +50,11 @@ class MapController extends Controller
         // default dead check
         if ($char->checkIsDead()) {
             return $this->redirect($this->generateUrl('character.death'));
+        }
+
+        // game lost
+        if ($char->getGame()->getStatus() == Game::STATUS_ENDED_LOST) {
+            return $this->redirect($this->generateUrl('game.status.lost'));
         }
 
         $others = $this->getCharacterManager()->getCharactersInTheSamePoi(

@@ -14,6 +14,8 @@
                     <span class="roster-game">{{ character.game.name }}</span>
                     {% if character.dead %}
                         <span class="roster-dead">Dead</span>
+                    {% elseif character.game.status == constant('Game\\GameBundle\\Entity\\Game::STATUS_ENDED_LOST')  %}
+                        <span class="roster-dead">Game Lost</span>
                     {% else %}
                         <a href="{{ path('character.roster.select', {id:character.id}) }}" class="btn">Select</a>
                     {% endif %}

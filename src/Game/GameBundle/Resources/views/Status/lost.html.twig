@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="module-death">
+        <p class="history">
+            <em>(Game lost)</em><br />
+            Esirith is doomed. <br />
+            <strong>{{ game.boss.name }}</strong> conquered the entire world.<br />
+
+            <a href="{{ path('character.roster.index') }}">Go to character selection</a>.
+        </p>
+        <img style="width:100%;" src="{{ asset('bundles/game/images/undead_army.jpg') }}" />
+    </div>
+{% endblock %}

@@ -58,20 +58,32 @@ class PropagateInfectionCommand extends ContainerAwareCommand
                     )
                 );
             } else {
-                $bossManager->propagateInfection($boss);
-                $output->writeln('Propagating');
-                $bossManager->attackInfectedPois($boss);
-                $output->writeln('Attacking infected pois');
+                $prop = $bossManager->propagateInfection($boss);
+                if ($prop) {
+                    $output->writeln('Propagating');
+                    $bossManager->attackInfectedPois($boss);
+                    $output->writeln('Attacking infected pois');
 
-                //notification
-                $notificationManager->sendToGame(
-                    $game,
-                    'The evil is awakened',
-                    'The evil ['.$boss->getName().'] woke up and attacked Esirith'
-                );
+                    //notification
+                    $notificationManager->sendToGame(
+                        $game,
+                        'The evil is awakened',
+                        'The evil ['.$boss->getName().'] woke up and attacked Esirith'
+                    );
+                } else {
+                    //notification
+                    $notificationManager->sendToGame(
+                        $game,
+                        'Game end',
+                        'The evil ['.$boss->getName().'] spread the evil on the entire Esirith lands'
+                    );
+                    $gameManager->endGame($game, Game::LOST_REASON_PROPAGATE);
+                    $output->writeln('Game lost: couldn\'t propagate');
+                }
             }
         }
         $notificationManager->flush();
         $bossManager->flush();
+        $gameManager->flush();
     }
 }

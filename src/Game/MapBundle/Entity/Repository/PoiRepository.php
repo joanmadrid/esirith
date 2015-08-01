@@ -29,7 +29,11 @@ class PoiRepository extends EntityRepository
             ->setParameters(array('infected' => false, 'game' => $game));
 
         $results = $qb->getQuery()->getResult();
-        shuffle($results);
-        return $results[0];
+        if ($results) {
+            shuffle($results);
+            return $results[0];
+        } else {
+            return null;
+        }
     }
 }
