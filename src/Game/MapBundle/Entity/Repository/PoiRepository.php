@@ -36,4 +36,24 @@ class PoiRepository extends EntityRepository
             return null;
         }
     }
+
+    public function findStartingPoi($game)
+    {
+        $qb = $this->createQueryBuilder('poi');
+
+        $qb
+            ->join('poi.map', 'map')
+            ->join('map.game', 'game')
+            ->where('game = :game')
+            ->andWhere('poi.startPoint = 1')
+            ->setParameters(array('game' => $game));
+
+        $results = $qb->getQuery()->getResult();
+        if ($results) {
+            shuffle($results);
+            return $results[0];
+        } else {
+            return null;
+        }
+    }
 }

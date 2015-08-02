@@ -52,7 +52,7 @@ class MapController extends Controller
             return $this->redirect($this->generateUrl('character.death'));
         }
 
-        // game lost
+        // game lost check
         if ($char->getGame()->getStatus() == Game::STATUS_ENDED_LOST) {
             return $this->redirect($this->generateUrl('game.status.lost'));
         }

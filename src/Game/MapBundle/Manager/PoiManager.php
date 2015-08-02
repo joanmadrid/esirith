@@ -3,12 +3,14 @@
 namespace Game\MapBundle\Manager;
 
 use Game\CoreBundle\Manager\CoreManager;
+use Game\GameBundle\Entity\Game;
 use Game\MapBundle\Entity\Poi;
+use Game\MapBundle\Entity\Repository\PoiRepository;
 
 class PoiManager extends CoreManager
 {
     /**
-     * @return CharacterRepository
+     * @return PoiRepository
      */
     protected function getRepository()
     {
@@ -16,10 +18,11 @@ class PoiManager extends CoreManager
     }
 
     /**
-     * @return Poi
+     * @param Game $game
+     * @return mixed
      */
-    public function getStartingPoi()
+    public function getStartingPoi(Game $game)
     {
-        return $this->getRepository()->findOneBy(array('startPoint'=>true));
+        return $this->getRepository()->findStartingPoi($game);
     }
-} 
+}
