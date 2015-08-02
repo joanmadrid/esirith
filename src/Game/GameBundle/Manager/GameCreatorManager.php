@@ -64,6 +64,10 @@ class GameCreatorManager extends CoreManager
         $this->monsterManager = $monsterManager;
     }
 
+    /**
+     * @param $name
+     * @return Game
+     */
     public function createGame($name)
     {
         if (empty($name)) {
@@ -84,6 +88,7 @@ class GameCreatorManager extends CoreManager
         $this->createShops($game);
 
         $this->flush();
+        return $game;
     }
 
     /**

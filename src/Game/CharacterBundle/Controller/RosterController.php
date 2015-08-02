@@ -5,6 +5,8 @@ namespace Game\CharacterBundle\Controller;
 use Game\CharacterBundle\Manager\CharacterClassManager;
 use Game\CharacterBundle\Manager\PortraitManager;
 use Game\CharacterBundle\Manager\RosterManager;
+use Game\CoreBundle\Manager\NameGeneratorManager;
+use Game\GameBundle\Manager\GameCreatorManager;
 use Game\GameBundle\Manager\GameManager;
 use Game\MapBundle\Manager\PoiManager;
 use Game\MonsterBundle\Manager\RaceManager;
@@ -85,11 +87,17 @@ class RosterController extends Controller
             return $this->selectAction($character);
         }
 
+        $games = $this->getGameManager()->getAvailableGamesWithPlayers();
+        if (count($games) == 0) {
+            $newGame = $this->getGameCreatorManager()->createGame($this->getNameGeneratorManager()->generateGameName());
+            $games[] = $newGame;
+        }
+
         return array(
             'races'     => $this->getRaceManager()->getSelectableRaces(),
             'classes'   => $this->getCharacterClassManager()->getSelectableClasses(),
             'portraits' => $this->getPortraitManager()->getAll(),
-            'games'     => $this->getGameManager()->getAvailableGamesWithPlayers()
+            'games'     => $games
         );
     }
 
@@ -155,5 +163,21 @@ class RosterController extends Controller
     private function getNotificationManager()
     {
         return $this->get('notification.notification_manager');
+    }
+
+    /**
+     * @return GameCreatorManager
+     */
+    private function getGameCreatorManager()
+    {
+        return $this->get('game.gamecreator_manager');
+    }
+
+    /**
+     * @return NameGeneratorManager
+     */
+    private function getNameGeneratorManager()
+    {
+        return $this->get('core.namegenerator_manager');
     }
 }

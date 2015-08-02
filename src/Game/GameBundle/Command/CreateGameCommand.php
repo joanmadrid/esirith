@@ -2,6 +2,7 @@
 
 namespace Game\GameBundle\Command;
 
+use Game\CoreBundle\Manager\NameGeneratorManager;
 use Game\GameBundle\Manager\GameCreatorManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,7 +19,7 @@ class CreateGameCommand extends ContainerAwareCommand
             ->setDescription('Creates a new game')
             ->addArgument(
                 'name',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'Game name'
             )
         ;
@@ -29,6 +30,12 @@ class CreateGameCommand extends ContainerAwareCommand
         /** @var GameCreatorManager $gameCreatorManager */
         $gameCreatorManager = $this->getContainer()->get('game.gamecreator_manager');
         $name = $input->getArgument('name');
+        if (empty($name)) {
+            /** @var NameGeneratorManager $nameGeneratorManager */
+            $nameGeneratorManager = $this->getContainer()->get('core.namegenerator_manager');
+            $name = $nameGeneratorManager->generateGameName();
+        }
+        $output->writeln('Generating new game: ['.$name.']');
         $gameCreatorManager->createGame($name);
     }
 }
