@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Game\UserBundle\UserBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Game\CompanionBundle\CompanionBundle(),
+            //new Liip\ImagineBundle\LiipImagineBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Game\QuestBundle\QuestBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),

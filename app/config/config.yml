@@ -59,6 +59,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Game\UserBundle\Entity\User
+    from_email:
+        address:        noreply@example.com
+        sender_name:    Demo App
 
 # FosComment
 fos_comment:
@@ -112,7 +115,9 @@ liip_imagine:
     resolvers:
        default:
           web_path: ~
-
+    controller:
+        filter_action:         liip_imagine.controller:filterAction
+        filter_runtime_action: liip_imagine.controller:filterRuntimeAction
     filter_sets:
         cache: ~
         portrait_mini:
